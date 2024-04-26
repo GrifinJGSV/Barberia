@@ -295,7 +295,7 @@ public class EditarManicura extends javax.swing.JFrame {
         jPanel1.add(cbxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 230, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ListaodologoBarberia.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 100, 120));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 100, 120));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel11.setText("Esmaltado:");
