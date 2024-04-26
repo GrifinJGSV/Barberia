@@ -11,17 +11,21 @@ import java.util.Calendar;
 import Controlador.MobiliarioYEquipo;
 import static Vistas.MostrarMobiliarioyEquipo.ListadoEstado;
 import static Vistas.MostrarMobiliarioyEquipo.totalPages;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 import java.util.regex.Pattern;
+import javax.swing.InputMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author Bucardo
  */
 public class CrearMobiliarioyEquipo extends javax.swing.JFrame {
-
+private int paginaActual = 1;
     /**
      * Creates new form CrearMobiliarioyEquipo
      */
@@ -31,7 +35,22 @@ public class CrearMobiliarioyEquipo extends javax.swing.JFrame {
         setResizable(false);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, 0); 
-        fecha.setMaxSelectableDate(new Date());
+        fecha.setMaxSelectableDate(new Date()); // ojo aqui
+        fecha.setMinSelectableDate(new Date());
+        
+          
+        InputMap map1 = txtnombre.getInputMap(JTextField.WHEN_FOCUSED);
+        map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        
+        InputMap map2 = txtcantidad.getInputMap(JTextField.WHEN_FOCUSED);
+        map2.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        
+        InputMap map3 = TXAdescripcion.getInputMap(JTextField.WHEN_FOCUSED);
+        map3.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+   
     }
 
     /**
@@ -229,7 +248,7 @@ public class CrearMobiliarioyEquipo extends javax.swing.JFrame {
             evt.consume();
          }
             int tam = txtnombre.getText().length();
-        if(tam>=30){
+        if(tam>=25){ //ojo aqui
             evt.consume();
         }  else if((int)evt.getKeyChar()>32 && (int)evt.getKeyChar()<=47
                 ||(int)evt.getKeyChar()>=58 && (int)evt.getKeyChar()<=64
@@ -267,7 +286,7 @@ if (Character.isLetter(validar) || (!Character.isDigit(validar) && validar != '0
     evt.consume();
 }
 
-if (txtcantidad.getText().length() >= 100 || 
+if (txtcantidad.getText().length() >= 3 || 
     (txtcantidad.getText().length() == 0 && validar == '0')) {
     evt.consume();
     getToolkit().beep();
@@ -278,39 +297,63 @@ if (txtcantidad.getText().length() >= 100 ||
         // TODO add your handling code here:
          // TODO add your handling code here:
          
-            String estado = jCBestado.getSelectedItem().toString(); // que no este vacio, que solo seleccione 1
-        if(estado.equals("Seleccione un estado")){
-         JOptionPane.showMessageDialog(this, "No ha seleccionado ningun estado", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
-            return; // Salir del método si el campo está vacío
-        }
-            String nombre = txtnombre.getText().trim(); // Eliminar espacios en blanco al inicio y al final
+         String nombre = txtnombre.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (nombre.isEmpty()) {
           
             JOptionPane.showMessageDialog(this, "El nombre del mobiliario no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
+            
         }
-      
-       
-        String cantidad = txtcantidad.getText().trim(); // Eliminar espacios en blanco al inicio y al final
+        if(txtnombre.getText().length() < 8){
+        JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre de mobiliario valido con mas de 8 caracteres ");
+        txtnombre.requestFocus();
+        return;
+    }
+        
+          String cantidad = txtcantidad.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (cantidad.isEmpty()) {
             JOptionPane.showMessageDialog(this, "La cantidad del mobiliario no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
            
             return; // Salir del método si el campo está vacío
         }
         
-          String descripcion =  TXAdescripcion.getText().trim(); // Eliminar espacios en blanco al inicio y al final
-        if (descripcion.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "La descripción del mobiliario no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
-           
+        if(txtcantidad.getText().length()<1){
+          JOptionPane.showMessageDialog(null, "Ingrese cantidades de mobiliario mayores de 1 cifra   ");
+           txtcantidad.requestFocus();
+              return;
+        } 
+        
+        if(txtcantidad.getText().length()>5){
+          JOptionPane.showMessageDialog(null, "Ingrese cantidades de mobiliario menores de 5 cifras   ");
+        txtcantidad.requestFocus();
+        return;
+        } 
+        
+          String estado = jCBestado.getSelectedItem().toString(); // que no este vacio, que solo seleccione 1
+        if(estado.equals("Seleccione un estado")){
+         JOptionPane.showMessageDialog(this, "No ha seleccionado ningun estado", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
-         String fechas =((JTextField)fecha.getDateEditor().getUiComponent()).getText();
+           
+          String fechas =((JTextField)fecha.getDateEditor().getUiComponent()).getText();
          Date fechaSeleccionada = fecha.getDate();
         if(fechas.isEmpty()){
             JOptionPane.showMessageDialog(null, "La fecha esta vacia","Error al guardar",
                     JOptionPane.WARNING_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
+          String descripcion =  TXAdescripcion.getText().trim(); // Eliminar espacios en blanco al inicio y al final
+        if (descripcion.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "La descripción del mobiliario no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+           
+            return; // Salir del método si el campo está vacío
+        }
+        
+        if(TXAdescripcion.getText().length()<10){
+           JOptionPane.showMessageDialog(null, "Ingrese mas de 10 caracteres para la descripción");
+        TXAdescripcion.requestFocus();
+        return;
+      }
         
           //crear una instancia de querysDepartamento
          QuerysMobiliarioyEquipo querys = new QuerysMobiliarioyEquipo();
@@ -323,7 +366,10 @@ if (txtcantidad.getText().length() >= 100 ||
          if (MobiliarioYEquipo.Guardar(querys)){
              JOptionPane.showMessageDialog(null, "Nuevo mobiliario se ha ingresado exitosamente","Guardado con éxito",
                      JOptionPane.INFORMATION_MESSAGE);
-                 //MobiliarioYEquipo.MostrarMobiliarioyEquipo("", paginaActual, totalPages, ListadoEstado.getModel().getSelectedItem().toString());
+           //  MobiliarioYEquipo.MostrarMobiliarioyEquipo("", 1, totalPages, estado);
+         Controlador.MobiliarioYEquipo.MostrarMobiliarioyEquipo("", paginaActual, totalPages, ListadoEstado.getModel().getSelectedItem().toString());
+           //   Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
+      //   MobiliarioYEquipo.MostrarMobiliarioyEquipo("", paginaActual, totalPages, ListadoEstado.getModel().getSelectedItem().toString());
         dispose();
          }else {
                 JOptionPane.showMessageDialog(null, "Algo falló, consulte con el administrador de sistema", "Error al guardar", 
