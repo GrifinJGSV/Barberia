@@ -7,6 +7,9 @@ package Vistas;
 import Conexion.Conexion;
 import ConsultasSQL.QuerysClientes;
 import Controlador.Clientes;
+import com.toedter.calendar.JTextFieldDateEditor;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +20,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.InputMap;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -60,6 +67,27 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         } catch (ParseException ex) {
             Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+                
+        
+                //código para bloquear el pegado en Nombre del producto.
+        InputMap map1 = txtNombre.getInputMap(JTextField.WHEN_FOCUSED);
+        map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        //código para bloquear el pegado en la marca.
+        InputMap map2 = txtApellido.getInputMap(JTextField.WHEN_FOCUSED);
+        map2.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        //código para bloquear el pegado en el tamaño
+        InputMap map3 = txtTelefono.getInputMap(JTextField.WHEN_FOCUSED);
+        map3.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        //código para bloquear el pegado en la descripcion
+        InputMap map4 = txtDireccion.getInputMap( JTextArea.WHEN_FOCUSED);
+        map4.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
+        
+        
+         ((JTextFieldDateEditor)jdFechaNa.getDateEditor()).setEditable(false);
     }
     
 
@@ -297,7 +325,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
                     evt.consume(); // Ignorar el evento de tecla
                      getToolkit().beep();
                 }
-        if(txtNombre.getText().length() >=45){
+        if(txtNombre.getText().length() >=30){
             evt.consume();
              getToolkit().beep();
         }
@@ -386,7 +414,22 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         }
         
        
-        
+          if (nombre.length() < 3) {
+        JOptionPane.showMessageDialog(null, "El nombre del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el nombre es demasiado corto
+    }
+         if (apellido.length() < 5) {
+        JOptionPane.showMessageDialog(null, "El apellido del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el nombre es demasiado corto
+    }
+           if (telefono.length() < 8) {
+        JOptionPane.showMessageDialog(null, "El telefono debe tener al menos 8 numeros", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el nombre es demasiado corto
+    }
+            if (direccion.length() < 20) {
+        JOptionPane.showMessageDialog(null, "La direccion debe tener al menos 20 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el nombre es demasiado corto
+    }
         
          
             
@@ -420,7 +463,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
                     evt.consume(); // Ignorar el evento de tecla
                      getToolkit().beep();
                 }
-        if(txtApellido.getText().length() >=45){
+        if(txtApellido.getText().length() >=30){
             evt.consume();
              getToolkit().beep();
         }
