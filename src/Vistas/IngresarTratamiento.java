@@ -50,7 +50,7 @@ public class IngresarTratamiento extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        //Codigo para bloquear el pegado en el campo txtNombre de tratamiento
+        //Codigo para bloquear el pegado en el campo txtNombre
         InputMap map1 = txtNombre.getInputMap(JTextField.WHEN_FOCUSED);
         map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
         
