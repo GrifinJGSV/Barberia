@@ -6,6 +6,7 @@ package Vistas;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
@@ -256,6 +257,26 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+         EditarProductoCuidado mostradatos = new EditarProductoCuidado();
+          int fila = tblMostrarProductos.getSelectedRow();  
+        
+        if (fila>=0){
+            
+        mostradatos.Id.setText(tblMostrarProductos.getValueAt(fila, 0).toString());   // aqui se agrego esto
+        mostradatos.txtNombreP.setText(tblMostrarProductos.getValueAt(fila, 1).toString());
+         mostradatos.txtmarca.setText(tblMostrarProductos.getValueAt(fila, 2).toString());
+         mostradatos.txtTamano.setText(tblMostrarProductos.getValueAt(fila, 3).toString());
+         mostradatos.cbxCategoria.setSelectedItem(tblMostrarProductos.getValueAt(fila, 4).toString());
+        mostradatos.txaDescripcion.setText(tblMostrarProductos.getValueAt(fila, 5).toString());
+      
+       //ediFormProv.tfI.setText(tblMostrarProveedores.getValueAt(fila, 0).toString());
+       mostradatos.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No ha selecionado ningun producto  para editar", "Error al seleccionar el producto", JOptionPane.INFORMATION_MESSAGE);
+            
+           
+        }
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtbusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbusquedaKeyReleased
