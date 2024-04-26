@@ -320,7 +320,6 @@ JOptionPane.showMessageDialog(this, "La descripción del producto no puede estar
             // Llamar al método Guardar de la clase Productos para guardar los datos
             if (ProductosCuidado.Guardar(querys)) {
                 JOptionPane.showMessageDialog(this, "Nuevo producto de cuidado ingresado");
-                
                 dispose();
                 Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
         
