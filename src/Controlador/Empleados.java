@@ -69,6 +69,12 @@ public class Empleados {
    
     public static void MostrarEmpleados(String buscar, int paginaActual, int totalPages,String estado){
         DefaultTableModel model = (DefaultTableModel)MostrarEmpleados.tblMostrarEmpleados.getModel();
+        
+        MostrarEmpleados.tblMostrarEmpleados.getColumnModel().getColumn(10).setMaxWidth(0);
+           MostrarEmpleados.tblMostrarEmpleados.getColumnModel().getColumn(10).setMinWidth(0);
+            MostrarEmpleados.tblMostrarEmpleados.getTableHeader().getColumnModel().getColumn(10).setMaxWidth(0);
+            MostrarEmpleados.tblMostrarEmpleados.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0);
+             
          String textoEstado = "";
             if(estado.equals("Todos")){
                 textoEstado = "";

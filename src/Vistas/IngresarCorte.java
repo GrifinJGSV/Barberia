@@ -227,7 +227,7 @@ public class IngresarCorte extends javax.swing.JFrame {
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 410, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ListaodologoBarberia (1).png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 100, 120));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 100, 120));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
