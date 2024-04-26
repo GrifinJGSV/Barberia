@@ -50,7 +50,7 @@ public class ServicoTratamiento extends javax.swing.JFrame {
                     // Verificar si hay una fila seleccionada
                     if (filaSeleccionada != -1) {
                         // Obtener el valor de la columna 1 (precio)
-                        Object precio = tblTratamiento.getValueAt(filaSeleccionada, 3);
+                        Object precio = tblTratamiento.getValueAt(filaSeleccionada, 2);
 
                         // Establecer el valor en el campo de texto
                         txtPrecio.setText(precio.toString());
@@ -309,9 +309,10 @@ public class ServicoTratamiento extends javax.swing.JFrame {
             if (tratamientoencontrado) {
                 JOptionPane.showMessageDialog(null, "El tratamiento ya existe en la tabla", "Duplicado", JOptionPane.WARNING_MESSAGE);
             } else {
-                // Agregar el corte como una nueva fila en la tabla de servicio
-               // String filaElemento[] = {num, nombreCorte, precio, id};
-             //   modeloServicio.addRow(filaElemento);
+                
+
+               String filaElemento[] = {num, nombre, precio, id, tipoTratamiento};
+              modeloServicio.addRow(filaElemento);
             }
 
             // Limpiar el campo de precio y mostrar un mensaje
