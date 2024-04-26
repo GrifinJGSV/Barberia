@@ -114,6 +114,11 @@ public class EditarEmpleados extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        fmt_identidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fmt_identidadActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jLabel4.setText("Teléfono:");
@@ -799,6 +804,10 @@ public class EditarEmpleados extends javax.swing.JFrame {
         }
     }           // TODO add your handling code here:
     }//GEN-LAST:event_txt_NomEmeKeyPressed
+
+    private void fmt_identidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fmt_identidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fmt_identidadActionPerformed
 
     /**
      * @param args the command line arguments
