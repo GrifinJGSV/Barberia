@@ -217,7 +217,7 @@ public class EditarProvedores extends javax.swing.JFrame {
                                     .addComponent(fmt_telefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btn_guardar)
-                                .addGap(100, 100, 100)
+                                .addGap(92, 92, 92)
                                 .addComponent(btn_cancelar)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(txtID)
