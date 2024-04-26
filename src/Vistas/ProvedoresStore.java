@@ -213,7 +213,7 @@ public class ProvedoresStore extends javax.swing.JFrame {
                                     .addComponent(fmt_telefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btn_guardar)
-                                .addGap(100, 100, 100)
+                                .addGap(91, 91, 91)
                                 .addComponent(btn_cancelar)))))
                 .addContainerGap(141, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
