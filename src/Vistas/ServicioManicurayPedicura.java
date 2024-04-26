@@ -298,7 +298,6 @@ public class ServicioManicurayPedicura extends javax.swing.JFrame {
         // Limpiar el campo de precio y mostrar un mensaje
         txtPrecio.setText("");
         JOptionPane.showMessageDialog(null, "Se agregó la manicura y pedicura!");
-        btnManicura.setEnabled(false);
         CrearVentaServicio.calculos();
         //dispose();
 
