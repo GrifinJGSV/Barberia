@@ -167,7 +167,7 @@ public class ProductoParaCompra extends javax.swing.JFrame {
                 bntAgregarProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(bntAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, -1, 31));
+        getContentPane().add(bntAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, 31));
 
         cancelar.setBackground(new java.awt.Color(253, 253, 253));
         cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancelarr.png"))); // NOI18N

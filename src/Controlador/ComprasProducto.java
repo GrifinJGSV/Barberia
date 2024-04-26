@@ -61,7 +61,7 @@ public class ComprasProducto {
                 "LIMIT " + filasxPagina + " OFFSET " + (paginaActual - 1) * filasxPagina;
 
                 } else {
-                sql = "SELECT CP.id, CP.numeroFactura, CP.cai, P.empresa, CP.tipoDeCompra, CP.fecha, CP.total FROM comprasproductos AS CP JOIN provedores AS P ON CP.proveedor = P.id WHERE CP.fecha LIKE '%" + buscar + "%' or "+"P.empresa LIKE '%" + buscar + "%' or "+"CP.numeroFactura LIKE'%" + buscar + "%'";
+                sql = "SELECT CP.id, CP.numeroFactura, CP.cai, P.empresa, CP.tipoDeCompra, CP.fecha, CP.total FROM comprasproductos AS CP JOIN provedores AS P ON CP.proveedor = P.id WHERE CP.fecha LIKE '%" + buscar + "%' or "+"P.empresa LIKE '%" + buscar + "%' or "+"CP.numeroFactura LIKE'%" + buscar + "%' or "+"CP.tipoDeCompra LIKE'%" + buscar + "%' or "+"CP.cai LIKE'%" + buscar + "%'";
                 }
  
         

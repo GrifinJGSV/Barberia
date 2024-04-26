@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import Clases.Proveedor;
 import static Vistas.MostrarCompras.totalPages;
+import com.toedter.calendar.JTextFieldDateEditor;
 import javax.swing.JTextField;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -100,6 +101,8 @@ public class IngresarCompra extends javax.swing.JFrame {
         model.addTableModelListener(e -> {
             calcularTotalFactura();
         });
+        
+        ((JTextFieldDateEditor)Fecha.getDateEditor()).setEditable(false);
 
     }  
 
@@ -144,7 +147,7 @@ public class IngresarCompra extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        Proveedores = new javax.swing.JComboBox();
+        Proveedores = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -203,7 +206,6 @@ public class IngresarCompra extends javax.swing.JFrame {
 
         jLabel4.setText("Proveedor:");
 
-        Proveedores.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
         Proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProveedoresActionPerformed(evt);
@@ -663,7 +665,7 @@ public class IngresarCompra extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CAI;
     private com.toedter.calendar.JDateChooser Fecha;
-    private javax.swing.JComboBox Proveedores;
+    private javax.swing.JComboBox<Proveedor> Proveedores;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminarP;
     private javax.swing.JButton btnGuardar;
