@@ -376,7 +376,7 @@ public class CrearVentaServicio extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Venta ingresada exitosamente");
                 //Ventas.MostrarVentas("", 1, Clientes.NumeroPages(""),null,null);
                 dispose();
-                VentasServicios.MostrarVentaServicios("", 1, Clientes.NumeroPages(""),null,null);
+                VentasServicios.MostrarVentaServicios("", 1, VentasServicios.NumeroPages("",null,null),null,null);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay detalles para la venta", "Error al guardar",
                         JOptionPane.OK_OPTION);
