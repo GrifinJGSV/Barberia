@@ -160,8 +160,10 @@ public class VentasServicios {
             ps.setDouble(5, qp.getTotal());
             ps.setDouble(6, qp.getImpuestos());
             ps.executeUpdate();
-            
+
             ResultSet generatedKeys = ps.getGeneratedKeys();
+            
+                        System.out.println(model.getDataVector().toString());
             if (generatedKeys.next()) {
                 int idGenerado = generatedKeys.getInt(1);
                 
@@ -203,8 +205,8 @@ public class VentasServicios {
             sql = "SELECT count(*) from ventas_servicios"
                     + "	INNER JOIN clientes ON clientes.id = ventas_servicios.fk_cliente WHERE "
                     + "(numeroFactura like concat('%','" + buscar + "','%') "
-                    + "and cai like concat('%','" + buscar + "','%') "
-                    + "and concat(clientes.nombre,' ',clientes.apellido) like concat('%','" + buscar + "','%')) "
+                    + "or cai like concat('%','" + buscar + "','%') "
+                    + "or concat(clientes.nombre,' ',clientes.apellido) like concat('%','" + buscar + "','%')) "
                     + " and ventas_servicios.fecha BETWEEN if(" + textoInicial + " IS NULL,'1980-01-01','" + textoInicial + "') and if(" + textoFinal + " IS NULL,'2900-01-01','" + textoFinal + "') ";
 
         }
