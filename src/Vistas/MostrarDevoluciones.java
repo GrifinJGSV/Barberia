@@ -288,6 +288,7 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
                } catch (Exception e) {
                     textoInicial = null;
                }
+          totalPages = Devoluciones.NumeroPages(textoBusqueda, textoInicial, textoFinal);
         if (paginaActual > 1) {
             paginaActual--;
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
@@ -309,6 +310,7 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
                } catch (Exception e) {
                     textoInicial = null;
                }
+              totalPages = Devoluciones.NumeroPages(textoBusqueda, textoInicial, textoFinal);
         if (paginaActual < totalPages) {
             paginaActual++;
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);

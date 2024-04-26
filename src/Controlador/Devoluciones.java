@@ -33,48 +33,29 @@ public class Devoluciones {
         public static int NumeroPages(String buscar, String textoInicial, String textoFinal) {
         String sql = "";
 
-        if (textoInicial == null) {
-            textoInicial = "1980-01-01";
-        }
-        if (textoFinal == null) {
-            textoFinal = "2900-01-01";
-        }
+   
 
         if (buscar.isEmpty()) {
-            sql = "SELECT count(*) FROM devoluciones as d "
-                    + "INNER JOIN barberia.catalogo_productos as p ON d.producto_devolver = p.id "
-                    + "INNER JOIN barberia.ventas as v ON d.id_ventas = v.id "
-                    + "INNER JOIN barberia.clientes as c ON v.fk_cliente = c.id "
-                    + "WHERE DATE(d.fecha) BETWEEN COALESCE(?, '1980-01-01') AND COALESCE(?, '2900-01-01')";
-        } else {
-            sql = "SELECT count(*) FROM devoluciones as d "
-                    + "INNER JOIN barberia.catalogo_productos as p ON d.producto_devolver = p.id "
-                    + "INNER JOIN barberia.ventas as v ON d.id_ventas = v.id "
-                    + "INNER JOIN barberia.clientes as c ON v.fk_cliente = c.id "
-                    + "WHERE (v.numeroFactura LIKE ? "
-                    + "OR d.descripcion LIKE ? "
-                    + "OR d.monto_a_devolver LIKE ?) "
-                    + "AND DATE(d.fecha) BETWEEN COALESCE(?, '1980-01-01') AND COALESCE(?, '2900-01-01')";
-        }
+                    sql = "SELECT count(*) as total FROM barberia.devoluciones AS d INNER JOIN barberia.ventas AS v ON d.id_ventas = v.id INNER JOIN barberia.clientes AS c ON v.fk_cliente = c.id INNER JOIN barberia.catalogo_productos AS p ON d.producto_devolver = p.id WHERE "  
+                           + "d.fecha BETWEEN if(" + textoInicial + " IS NULL,'1980-01-01','" + textoInicial + "') and if(" + textoFinal + " IS NULL,'2900-01-01','" + textoFinal + "') "
+                           ;
+                } else {
+                   sql = "SELECT count(*) as total FROM barberia.devoluciones AS d INNER JOIN barberia.ventas AS v ON d.id_ventas = v.id INNER JOIN barberia.clientes AS c ON v.fk_cliente = c.id INNER JOIN barberia.catalogo_productos AS p ON d.producto_devolver = p.id "
+                            + "WHERE (v.numeroFactura LIKE '%" + buscar + "%' "
+                            + "OR d.descripcion LIKE '%" + buscar + "%' "
+                            + "OR d.monto_a_devolver LIKE '%" + buscar + "%') "
+                            + "AND d.fecha BETWEEN if(" + textoInicial + " IS NULL,'1980-01-01','" + textoInicial + "') and if(" + textoFinal + " IS NULL,'2900-01-01','" + textoFinal + "') "
+                            ;
+                
+                }
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
 
-            if (!buscar.isEmpty()) {
-                ps.setString(1, "%" + buscar + "%");
-                ps.setString(2, "%" + buscar + "%");
-                ps.setString(3, "%" + buscar + "%");
-                ps.setString(4, textoInicial);
-                ps.setString(5, textoFinal);
-            } else {
-                ps.setString(1, textoInicial);
-                ps.setString(2, textoFinal);
-            }
-
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                int totalPages = (int) Math.ceil((double) rs.getInt(1) / filasxPagina);
+                int totalPages = (int) Math.ceil((double) rs.getInt("total") / filasxPagina);
                 return totalPages;
             } else {
                 return 1;
@@ -91,13 +72,7 @@ public class Devoluciones {
            while(model.getRowCount() > 0 ){
             model.removeRow(0);
             }
-           // Verificar que textoInicial y textoFinal no sean null
-            if (textoInicial == null) {
-                textoInicial = "1980-01-01";  
-            }
-            if (textoFinal == null) {
-                textoFinal = "2900-01-01";   
-            }
+
             
             System.out.println(textoInicial);
             System.out.println(textoFinal);
