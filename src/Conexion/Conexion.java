@@ -26,7 +26,7 @@ import java.sql.SQLException;
 		try {
 			
 		//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                      conection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/barberia", "root", "");
+                      conection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/barberia", "root", "12345678");
                       return conection;
                         
                     } 
