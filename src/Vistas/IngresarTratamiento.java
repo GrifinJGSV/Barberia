@@ -370,6 +370,11 @@ public class IngresarTratamiento extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "El nombre del tratamiento no puede estar vacío", "Error de validación", JOptionPane.WARNING_MESSAGE);
         return; // Salir del método si el campo está vacío
     }
+    //cantidad mnima de caracteres
+    if (nombre.length() < 5 ) {
+            JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 5 caracteres", "Error de validación", JOptionPane.WARNING_MESSAGE);
+            return; // Salir del método
+        }
     
     
     String TipoTratamiento = cbxTipoTratamiento.getSelectedItem().toString(); // que no este vacio, que solo seleccione 1
@@ -391,9 +396,9 @@ public class IngresarTratamiento extends javax.swing.JFrame {
             return; // Salir del método
         }
     }
-    
+    //cantidad minima de caracteres
     if (direccion.length() < 10 ) {
-            JOptionPane.showMessageDialog(null, "la descripciónebe de ingresar mas de 10 caracteres", "Error de validación", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "la descripción debe de ingresar mas de 10 caracteres", "Error de validación", JOptionPane.WARNING_MESSAGE);
             return; // Salir del método
         }
     
@@ -447,7 +452,7 @@ public class IngresarTratamiento extends javax.swing.JFrame {
 
                 }
                 JOptionPane.showMessageDialog(null, "Nuevo tratamiento ingresado exitosamente");
-                MostrarTratamientos();
+                //MostrarTratamientos();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Algo falló, consulte con el administrador del sistema", "Error al guardar", JOptionPane.OK_OPTION);
