@@ -73,7 +73,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
         //ocultar el txtId
         txtId.setVisible(false);
         
-        //Codigo para bloquear el pegado en el campo txtNombre
+        //Codigo para bloquear el pegado en el campo txtNombre tratamiento
         InputMap map1 = txtNombre.getInputMap(JTextField.WHEN_FOCUSED);
         map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
         
