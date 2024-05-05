@@ -348,7 +348,7 @@ public class Tratamiento {
     }
     
     
-    // Método para eliminar productos asociados a un tratamiento
+    // Método para eliminar productos asociados a un tratamiento 
     public static void EliminarProductosDeTratamiento(String idTratamiento) {
         Conexion con = new Conexion();
         Connection conexion = con.getConexion();
