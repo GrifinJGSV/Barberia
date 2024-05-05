@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author PC
+ * @author Arturo
  */
 public class VerTratamiento extends javax.swing.JFrame {
     private String idCorte;
