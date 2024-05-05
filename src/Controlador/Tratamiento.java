@@ -2,6 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+/**
+ * Nombre del archivo: Trtamiento.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023]
+ * Descripción: Este panel representa la ventana de edicion de tratamiento.
+ *              Permite a los usuarios editar tratamientos.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ */
+
 package Controlador;
 
 import Conexion.Conexion;
@@ -116,13 +126,22 @@ public class Tratamiento {
         } 
     }
      
+    /**
+    *
+    * @author Arturo
+    */
+    //Metodo para ver un tratamineto y sus atributos.
     public static void verPt() {
+        //Modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) Vistas.VerTratamiento.tblProductosDeTratamiento.getModel();
         model.setRowCount(0);
-    
+        
+        //variable para consultar en la DB. desde el QuerysTratamientoProductos.
         String sql = QuerysTratamientoProductos.verPtratamientos;
         String datos[] = new String[4];  // Cambiado de 5 a 4
     
+        //manejo de errores en la programacion.
+        //try por si no hay error
         try (PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery()) {
 
@@ -140,12 +159,14 @@ public class Tratamiento {
             // No es necesario establecer el modelo de la tabla aquí
             // Vistas.VerTratamiento.tblProductosDeTratamiento.setModel(model);
 
-        } catch (SQLException ex) {
+        } 
+        //Catch por si hay un error.
+        catch (SQLException ex) {
             Logger.getLogger(Tratamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    
+    //Metodo para ver los productos para agregarlos a la lista de los productos.
     public static void verPtPE() {
         DefaultTableModel model = (DefaultTableModel) Vistas.EditarTratamiento.tblProductosDeTratamiento.getModel();
         model.setRowCount(0);
@@ -216,6 +237,7 @@ public class Tratamiento {
         }
     }
     
+    //Metodo 
     public static boolean ActualizarTratamiento(QuerysTratamiento qp){
         String sql = QuerysTratamiento.ActualizarTratamiento;
         try(PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -294,9 +316,16 @@ public class Tratamiento {
         return null;
     }
     
+    /**
+    *
+    * @author Arturo
+    */
+    //metodo para actualizar al editar un tratamiento.
     public static boolean ActualizarTratamientoProductos(QuerysTratamientoProductos qpp) {
+        //variable para consultar en la DB. desde el metodo ActualizarTratamientoProductos.
         String sqlTP = QuerysTratamientoProductos.ActualizarTratamientoProductos;
 
+        //manejo de errores
         try {
             // Preparar la declaración para sqlTP
             PreparedStatement psTP = conexion.prepareStatement(sqlTP);
@@ -310,7 +339,9 @@ public class Tratamiento {
             psTP.executeUpdate();
 
             return true;
-        } catch (SQLException ex) {
+        }
+        //Manejo de error por si falla el try
+        catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -324,7 +355,8 @@ public class Tratamiento {
         PreparedStatement ps = null;
         System.out.println(idTratamiento);
         String sql = "DELETE FROM tratamientos_productos WHERE id = ?";
-
+        
+        //manejo de errores.
         try {
             ps = conexion.prepareStatement(sql);
             ps.setString(1, idTratamiento);
