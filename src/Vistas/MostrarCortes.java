@@ -24,7 +24,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 /*
  * Nombre del archivo: Mostrar cortes.java
- * Autor: Arturo Mendoza
+ * Autor: Arturo Mendoza 
  * Fecha de creación: [20/09/2023]
  * Descripción: Este panel representa la ventana del listado de los cortes.
  *              Permite a los usuarios ver una tabla con la lista de los cortes en la DB y hacer mas
