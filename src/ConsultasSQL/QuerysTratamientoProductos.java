@@ -36,6 +36,10 @@ public class QuerysTratamientoProductos {
     
     public static String RegistroTratamiento_productos = "INSERT INTO tratamientos_productos(id_tratamientos, id_productos) VALUES(?,?)";
     
+    /**
+    * @author Arturo
+    */
+    //metodo para ver los productos de la lista de los tratamientos.
     public static String verPtratamientos ="SELECT\n" +
         "    tp.id,\n" +
         "    tp.id_tratamientos,\n" +
