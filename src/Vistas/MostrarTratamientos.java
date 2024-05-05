@@ -39,7 +39,7 @@ import static Vistas.EditarTratamiento.tblProductosDeTratamiento;
 
 /**
  *
- * @author PC
+ * @author Arturo
  */
 public class MostrarTratamientos extends javax.swing.JPanel {
     
