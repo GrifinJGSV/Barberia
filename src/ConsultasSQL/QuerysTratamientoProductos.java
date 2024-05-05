@@ -39,7 +39,7 @@ public class QuerysTratamientoProductos {
     /**
     * @author Arturo
     */
-    //metodo para ver los productos de la lista de los tratamientos.
+    //metodo para ver los productos de la lista de los tratamientos. 
     public static String verPtratamientos ="SELECT\n" +
         "    tp.id,\n" +
         "    tp.id_tratamientos,\n" +
