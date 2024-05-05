@@ -2,6 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+/**
+ * Nombre del archivo: EditarTrtamiento.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este formulario representa la ventana para ver el tratamiento.
+ *              Permite a los usuarios ver los tratamientos.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ */
+
 package Vistas;
 import Conexion.Conexion;
 import ConsultasSQL.QuerysTratamiento;
