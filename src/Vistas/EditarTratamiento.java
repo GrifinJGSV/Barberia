@@ -6,7 +6,7 @@
 /**
  * Nombre del archivo: EditarTrtamiento.java
  * Autor: Arturo Mendoza 
- * Fecha de creación: [20/09/2023]
+ * Fecha de creación: [20/09/2023] 
  * Descripción: Este panel representa la ventana de edicion de tratamiento.
  *              Permite a los usuarios editar tratamientos.
  * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
