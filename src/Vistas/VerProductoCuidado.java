@@ -7,10 +7,15 @@ package Vistas;
 import java.awt.Color;
 
 /**
- *@author Andrea Ardon
+ *@author Arturo Mendoza
  * Descripcion: esta ventana tiene como objetivo mostrar los detalles de los producto.
- * Fecha de creación: [17/09/2023] 
- * Derechos de autor (c) [17/09/2023] Andrea Ardon. Todos los derechos reservados.
+ * Fecha de creación: [18/09/2023] 
+ * Derechos de autor (c) [18/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ */
+
+/**
+ *
+ * @author Arturo
  */
 public class VerProductoCuidado extends javax.swing.JFrame {
 
