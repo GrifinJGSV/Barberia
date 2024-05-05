@@ -11,7 +11,7 @@
  * edita un tratamiento.
  *Permite a los usuarios ingresar productos a la lista de productos en la ventana de editar tratamientos.
  * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
- */
+ */ 
 
 package Vistas;
 

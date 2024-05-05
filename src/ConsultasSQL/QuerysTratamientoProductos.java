@@ -9,14 +9,14 @@ public class QuerysTratamientoProductos {
     private int id;
     private int id_tratamientos;
     private int id_productos;
-
+ 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
+    } 
     
     public int getId_tratamientos() {
         return id_tratamientos;
@@ -46,6 +46,9 @@ public class QuerysTratamientoProductos {
         "JOIN\n" +
         "    catalogo_productos cp ON tp.id_productos = cp.id where tp.id_tratamientos = ?;";
     
+    /**
+    * @author Arturo
+    */
     public static String ActualizarTratamientoProductos = "INSERT INTO tratamientos_productos"
             + " (id_tratamientos, id_productos) SELECT id, ? FROM tratamientos WHERE id = ?;";
     
