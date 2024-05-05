@@ -10,6 +10,8 @@
  * Descripción: Este panel representa la ventana de edicion de tratamiento.
  *              Permite a los usuarios editar tratamientos.
  * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ * 
+ * 
  */
 
 package Vistas;
