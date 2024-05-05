@@ -230,7 +230,12 @@ public class VentasServicios {
         }
 
     }
-    
+     
+    /**
+    *
+    * @author Arturo
+    */
+    //Metodo para la funcionalidad de del panel de MostrarVentaServicios.
     public static void MostrarVentaServicios(String buscar, int paginaActual, int totalPages, String textoInicial, String textoFinal) {
         DefaultTableModel model = (DefaultTableModel) MostrarVentaServicios.jtventas.getModel();
         while (model.getRowCount() > 0) {
@@ -240,23 +245,26 @@ public class VentasServicios {
             MostrarVentaServicios.jtventas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
             MostrarVentaServicios.jtventas.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
         }
-
+        //limpia los elementos de la lista.
         Clientes.ids.clear();
 
 
-
+        //Arreglo de atributos con la cantidad de 7 atributos.
         String datos[] = new String[7];
-
+        //Manejo de errores, try cuando el codigo funciona.
         try {
-            
+            //variable que inicializa la busqueda.
             String sql = "";
            
+            //Condicion para cuando la busqueda esta vacia.
             if (buscar.equals("")) {
                 sql = QuerysVentas.LISTARVENTASERVICIOS +" WHERE "
                     + " ventas_servicios.fecha BETWEEN if(" + textoInicial + " IS NULL,'1980-01-01','" + textoInicial + "') and if(" + textoFinal + " IS NULL,'2900-01-01','" + textoFinal + "')" 
                     + " limit " + filasxPagina + " offset " + (paginaActual - 1) * filasxPagina;
                 ps = conexion.prepareStatement(sql);   
-            } else {
+            } 
+            //Condicion para cuando la busqueda tiene un parametro de entrada escrito.
+            else {
                 sql = QuerysVentas.LISTARVENTASERVICIOS + " WHERE "
                         + "(numeroFactura like concat('%',?,'%') "
                         + "or cai like concat('%',?,'%') "
@@ -270,9 +278,11 @@ public class VentasServicios {
                 ps.setString(3, buscar);
             }
 
-            
+            //variable que almacena el resultado ejectado en el querys.
             ResultSet rs = ps.executeQuery();
+            //variable que inicializa el contador de la paginacion.
             int count = 0;
+            //condicion para cuando la paginacion tenga de 1 a 20 registros solo mostrar esos 20 en una sola pagina.
             if (paginaActual == 1) {
                 count = 1;
             } else {
@@ -281,7 +291,7 @@ public class VentasServicios {
                 }
                 count += 1;
             }
-
+            //condicion para establecer los atributos en la tabla por columnas.
             while (rs.next()) {
                 datos[0] = count + "";
                 datos[1] = count + "";
@@ -294,7 +304,7 @@ public class VentasServicios {
                 model.addRow(datos);
                 count++;
             }
-            
+            //variable para el total de filas para la enumeracion.
             int totalRows = count - 1; // Restamos el encabezado de la tabla
             totalPages = (NumeroPages(buscar, textoInicial, textoFinal) == 0 && model.getRowCount() > 0) ? 1 : NumeroPages(buscar, textoInicial, textoFinal);
             paginaActual = model.getRowCount() == 0 ? 0 : paginaActual;
