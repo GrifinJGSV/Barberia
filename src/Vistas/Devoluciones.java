@@ -24,10 +24,16 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avil
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite hacer devolucciones        
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
 /**
  *
- * @author Admin
+ * @author Cristhian Avila
  */
 public class Devoluciones extends javax.swing.JFrame {
     private int filaSeleccionada = -1;
