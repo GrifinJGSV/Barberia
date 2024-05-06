@@ -97,7 +97,13 @@ public class QuerysCita {
     public static String RegistrarCitas= "INSERT INTO citas("+"nombre,"+"telefono,"+"tipo_cliente,"+"servicios,"+"empleado,"+"fecha,"+"hora,"+"notas"
             +")"+"VALUES(?,?,?,?,?,?,?,?)";
      public static String EditarCitas="UPDATE citas SET nombre=?, telefono=?, tipo_cliente=?, servicios=?, empleado=?, fecha=?, hora=?, notas=? WHERE id = ?";
-    public static String ListarCitas = "select citas.id,(clientes.nombre) as nombre, citas.tipo_cliente,citas.telefono, citas.servicios,\n" +
+    
+     /**
+     *
+     * @author Arturo
+     */
+     //variable publica para hacer consulta para listar las citas guardadas en la DB.
+     public static String ListarCitas = "select citas.id,(clientes.nombre) as nombre, citas.tipo_cliente,citas.telefono, citas.servicios,\n" +
         " (empleados.nombre)as nombre_empleado,citas.fecha, citas.hora, citas.notas \n" +
         " from citas join clientes on citas.nombre = clientes.id join empleados on citas.empleado = empleados.id;"; 
 }

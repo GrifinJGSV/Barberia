@@ -2,6 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
+/**
+ * Nombre del archivo: MostrarVentaServicios.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa la lista de la venta de servicios.
+ *              Permite a los usuarios ver, buscar, crear, editar ventas de servicios.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ * 
+ * 
+ */
+
 package Vistas;
 
 import Controlador.Clientes;
@@ -12,7 +24,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
  *
- * @author PC
+ * @author Arturo
  */
 public class MostrarVentaServicios extends javax.swing.JPanel {
     private int paginaActual = 1;
@@ -23,22 +35,33 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
      */
     public MostrarVentaServicios() {
         initComponents();
-        
+        //Variable para establecer la unidad de fecha.
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        //Variable para almacenar la primer fecha
         String textoInicial;
+        //variable para almacenar la segunda fecha.
         String textoFinal;
+               //Manejo de errores en el codigo.
+               //si funciona el codigo
                try {
                     textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
+               } 
+               //manejo de error si no funciona el codigo.
+               catch (Exception e) {
                     textoFinal = null;
                }
+               //Manejo de errores en el codigo.
+               //si funciona el codigo
                 try {
                     textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
+               } 
+                //manejo de error si no funciona el codigo.
+                catch (Exception e) {
                     textoInicial = null;
                }
-       
+       //Esta linea de codigo permite evr los atributos de las ventas de servicio en la tabla del listado.
         VentasServicios.MostrarVentaServicios("", paginaActual, totalPages, textoInicial, textoFinal);
+        //esta linea de codigo muestra la instruccion porque campos debe buscar el usuario.
         PromptSupport.setPrompt("Buscar por cliente, CAI.", txtbusqueda);
         
     }
@@ -240,16 +263,21 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        //abre la ventana para crear una nueva venta de servicio.
         CrearVentaServicio ventasServicio = new CrearVentaServicio();
         ventasServicio.setVisible(true);
         ventasServicio.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+        //Condicion para tarbajar con el 1er datachoser de fecha
         if ("date".equals(evt.getPropertyName())) {
+            //define el formato de la fecha
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             String textoBusqueda = txtbusqueda.getText();
+            //variable para asignar el minimo de fecha
             String textoInicial;
+            //variable para asignar el maximo de fecha.
             String textoFinal;
             try {
                 textoFinal = formato.format(jDateChooser1.getDate());
@@ -263,7 +291,8 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
             }
             System.out.println(textoInicial);
             System.out.println(textoFinal);
-
+            
+            //variable de paginacion inicializada.
             paginaActual = 1;
             totalPages = VentasServicios.NumeroPages(textoBusqueda,textoInicial,textoFinal);
             VentasServicios.MostrarVentaServicios(textoBusqueda, paginaActual, totalPages,textoInicial,textoFinal);
@@ -271,6 +300,7 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
     private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+        //Condicion para tarbajar con el 2do datachoser de fecha
         if ("date".equals(evt.getPropertyName())) {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             String textoBusqueda = txtbusqueda.getText();
@@ -296,9 +326,13 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+       //variable que establece el formato de la fecha
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        //variable que almacena el texto escrito en el txtBusqueda
         String textoBusqueda = txtbusqueda.getText();
+        //tamaño de la fecha inicial
         String textoInicial;
+        //tamaño de la fecha final
         String textoFinal;
         try {
             textoFinal = formato.format(jDateChooser1.getDate());
@@ -319,9 +353,13 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
     }//GEN-LAST:event_siguienteActionPerformed
 
     private void previoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previoActionPerformed
+        //variable que establece el formato de la fecha
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        //variable que almacena el texto escrito en el txtBusqueda
         String textoBusqueda = txtbusqueda.getText();
+        //Tamaño de la fecha inicial
         String textoInicial;
+        //Tamaño de la fecha final
         String textoFinal;
         try {
             textoFinal = formato.format(jDateChooser1.getDate());
@@ -341,7 +379,7 @@ public class MostrarVentaServicios extends javax.swing.JPanel {
     }//GEN-LAST:event_previoActionPerformed
 
     private void jtventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtventasMouseClicked
-
+        //condicion para ver los atributos de los registros de las ventas de servicios.
         if(evt.getClickCount() == 2){
             int fila = jtventas.getSelectedRow();
             VerVenta verVenta = new VerVenta(jtventas.getValueAt(fila, 0).toString());

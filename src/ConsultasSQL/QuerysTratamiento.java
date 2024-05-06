@@ -94,9 +94,20 @@ public class QuerysTratamiento {
     
     public static String ListarTratamiento = "SELECT * FROM tratamientos";
     
+    /** 
+    * @author Arturo
+    */
+    //Metodo para hacer la consulta en la DB y mostrar los atributos de los tratamientos.
     public static String VerTratamiento = "SELECT Nombre, tipoTratamiento,Descripcion, Foto1, Foto2, estado, precio FROM tratamientos WHERE id = ?";
-    
+    /**
+    * @author Arturo 
+    */
+    //Metodo con variable para almacenar la actualizacion de un tratamiento por consulta SQL
     public static String ActualizarTratamiento = "UPDATE tratamientos SET Nombre = ?, tipoTratamiento = ?, Descripcion = ?, Foto1 = ?, Foto2 = ?, estado = ?, precio = ? WHERE id = ?";
-    
+    /**
+    *
+    * @author Arturo
+    */
+    //Metodo para ver las fotos.
     public static String VerFoto = "SELECT Foto1, Foto2 FROM tratamientos WHERE id = ?";
 }

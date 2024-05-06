@@ -2,6 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+/**
+ * Nombre del archivo: EditarTrtamiento.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa la ventana de edicion de tratamiento.
+ *              Permite a los usuarios editar tratamientos.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ * 
+ * 
+ */
+
 package Vistas;
 
 import Conexion.Conexion;
@@ -42,28 +54,40 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author PC
+ * @author Arturo
  */
+
 public class EditarTratamiento extends javax.swing.JFrame {
+    //Variable para las imagenes
     private FileInputStream fis;
+    //Variable entera para el tamaño de bytes de las imagenes.
     private int longitudBytes;
+    //variables para establecer la conexion con la DB.
     private static Conexion con = new Conexion();
     private static java.sql.Connection conexion = con.getConexion();
     private static PreparedStatement ps = null;
+    //variable para almacenar el id del tartamiento que se esta editando.
     private String idTratamiento;
+    //variable para precargar la foto 1
     public static BufferedImage Foto1Image;
+    //Variable para precargar la foto 2
     public static BufferedImage Foto2Image;
 
     /**
      * Creates new form EditarTratamiento
+     * Metodo para editar el tratamiento
      */
     public EditarTratamiento(String idTratamiento) throws IOException {
         initComponents();
+        //esta linea de codigo coloca la ventana de edicion centrada.
         this.setLocationRelativeTo(null);
+        //esta linea de codigo asigna el color blanco en la ventana.
         getContentPane().setBackground(Color.white);
+        //esta linea de codigo trae el id que permite editar los atributos del id seleccionado en la tabla del listado.
         this.idTratamiento = idTratamiento;
         // Aquí deberías usar el ID para cargar los datos del corte en los componentes visuales (por ejemplo, lblNombre, lblPrecio, etc.).
         cargarDatosDelTratamiento();
+        //Modelo de la tabla.
         DefaultTableModel model = (DefaultTableModel) tblProductosDeTratamiento.getModel();
         // Después de cargar o actualizar los datos de la tabla, selecciona la primera fila
         if (tblProductosDeTratamiento.getRowCount() > 0) {
@@ -87,11 +111,15 @@ public class EditarTratamiento extends javax.swing.JFrame {
         
     }
     
+    //metodo para editar tratamiento
     private EditarTratamiento(){
+        //Manejo de la excepcion por si algo falla.
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    //metodo para cargar los datos del tratamiento en los campos para poder editar los.
     private void cargarDatosDelTratamiento() {
+        //Manejo de la carga de los atributos del tratamiento seleccionado.
         try {
             
             // Cargar la consulta SQL desde la variable 'verPtratamientos'.
@@ -109,44 +137,65 @@ public class EditarTratamiento extends javax.swing.JFrame {
             // Ejecutar la consulta y obtener el resultado.
             var rs = ps.executeQuery();
             var rs2 = ps2.executeQuery();
-        
+            
+            //Condicion para obtener los atributos del tratamiento que se esta editando.
             if(rs.next()){
+                //variable para obtener el nombre del tratamiento de la DB..
                 String nombre = rs.getString("Nombre");
+                //variable para obtener el tipo de tratamiento de la DB.
                 String tipoTratamiento = rs.getString("tipoTratamiento");
+                //Variable para obtener la descripcion de la DB.
                 String descripcion = rs.getString("Descripcion");
+                //variable para obtener el precio del tratamiento desde la DB.
                 String precio = rs.getString("precio");
+                //variable para obtener la foto 1 desde la DB.
                 Blob Foto1Blob = (Blob) rs.getBlob("Foto1");
+                //variable para obtener la foto 2 desde la BD.
                 Blob Foto2Blob = (Blob) rs.getBlob("Foto2");
             
+                //Variable para leer los datos binarios de la foto 1 
                 InputStream foto1Stream = Foto1Blob.getBinaryStream();
+                //Variable para leer los datos binarios de la foto 2
                 InputStream foto2Stream = Foto2Blob.getBinaryStream();
-            
+                
+                //Variable que contendrá la imagen que se ha leído desde foto1Stream, y poder trabajar con ella
+                // como mostrarla en un componente gráfico o realizar operaciones de procesamiento de imágenes
                 BufferedImage Foto1Image = ImageIO.read(foto1Stream);
+                //Variable que contendrá la imagen que se ha leído desde foto2Stream, y poder trabajar con ella
+                // como mostrarla en un componente gráfico o realizar operaciones de procesamiento de imágenes
                 BufferedImage Foto2Image = ImageIO.read(foto2Stream);
             
-                //String nombreProductos = rs.getString("estado");
-            
+                //variable que establece el nuevo nombre escrito en el campo txtNombre
                 txtNombre.setText(nombre);
+                //variable que establece el nuevo item seleccionado en el cbxTipoTratamiento.
                 cbxTipoTratamiento.setSelectedItem(tipoTratamiento);
+                //Variable que establece la nueva descripcion escrita en el txtDescripcion.
                 txtDescripcion.setText(descripcion);
+                //variable que almacena el nuevo precio escrito en el txtPrecio.
                 txtPrecio.setText(precio);
                 // Tamaño fijo para las imágenes
                 int imagenAncho = 200; // Ancho deseado en píxeles
                 int imagenAlto = 200; // Alto deseado en píxeles
             
+                //Condicion para cuando hay imagenes cargadas o disponibles.
                 if (Foto1Image != null) {
                     Foto1Image = resizeImage(Foto1Image, imagenAncho, imagenAlto);
                     Label_Foto1.setIcon(new ImageIcon(Foto1Image));
                     Label_Foto1.setText(""); // Borra cualquier texto previo
-                } else {
+                }
+                 //Condicion para cuando no hay imagenes cargadas o disponibles.
+                else {
                     Label_Foto1.setText("<html><div style='text-align: center;'>No hay imagen<br>disponible</div></html>");
                     Label_Foto1.setForeground(Color.RED);
                 }
+                //Condicion para cuando hay imagenes cargadas o disponibles.
                 if (Foto2Image != null) {
                     Foto2Image = resizeImage(Foto2Image, imagenAncho, imagenAlto);
                     Label_Foto2.setIcon(new ImageIcon(Foto2Image));
                     Label_Foto2.setText(""); // Borra cualquier texto previo
-                } else {
+                } 
+                //Condicion para cuando no hay imagenes cargadas o disponibles.
+                else {
                     Label_Foto2.setText("<html><div style='text-align: center;'>No hay imagen<br>disponible</div></html>");
                     Label_Foto2.setForeground(Color.RED);
                 }
@@ -167,7 +216,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
                     String idTratamiento = rs2.getString("id_tratamientos");
                     String id = rs2.getString("id");
                     String[] datos = {
-                        //String.valueOf(count),
+                        
                         nombreProducto,
                         idProducto,
                         idTratamiento,
@@ -188,10 +237,12 @@ public class EditarTratamiento extends javax.swing.JFrame {
         }
     }
     
+    //Metodo para devolver la imagen 1 guardada en la creacion.
     public BufferedImage getFoto1Image() {
         return Foto1Image;
     }
     
+    //Metodo para devolver la imagen 2 guardada en la creacion.
     public BufferedImage getFoto2Image() {
         return Foto2Image;
     }
@@ -212,6 +263,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
         Statement statement = null;
         ResultSet resultSet = null;
 
+        //manejo de error  por si no se obtiene el id del tratamiento  para la edicion
         try {
             
 
@@ -494,6 +546,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        //variable para restringir el incio del nombre con caracteres raros.
         txtNombre.setText(txtNombre.getText().replaceAll("( )+", " "));
         if (txtNombre.getText().length() == 0 && evt.getKeyChar() == ' ') {
             evt.consume();
@@ -523,8 +576,10 @@ public class EditarTratamiento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
+    //arreglo para obtener los bytes de la imagen.
     private byte[] obtenerBytesDeImagen(String rutaImagen) {
    
+    //variable que inicializa la ruta del archivo de la imagen que se quiere editar.
     File archivoImagen = new File(rutaImagen);
     
     // Verificar si el archivo de imagen existe
@@ -548,9 +603,9 @@ public class EditarTratamiento extends javax.swing.JFrame {
         return null; // Retorna null si hay un error al cargar la imagen
     }
 }
-    
+    //arreglo para obtener los bytes de la imagen.
      private byte[] obtenerBytesDeImage(String rutaImagen) {
-   
+    //variable que inicializa la ruta del archivo de la imagen que se quiere editar.
     File archivoImagen = new File(rutaImagen);
     
     // Verificar si el archivo de imagen existe
@@ -726,6 +781,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        //Variable que restringe caracteres raros en el nombre.
         txtDescripcion.setText(txtDescripcion.getText().replaceAll("( )+", " "));
         if (txtNombre.getText().length() == 0 && evt.getKeyChar() == ' ') {
                     evt.consume();
@@ -756,7 +812,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
     private void Label_Foto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_Foto1MouseClicked
-
+        //Variable para seleccionar una nueva imagen.
         JFileChooser se = new JFileChooser();
 
         // Agregar un filtro para seleccionar solo archivos PNG
@@ -800,7 +856,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
     }//GEN-LAST:event_Label_Foto1MouseClicked
 
     private void Label_Foto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_Foto2MouseClicked
-
+        //Variable para seleccionar una nueva imagen 2.
         JFileChooser se = new JFileChooser();
 
         // Agregar un filtro para seleccionar solo archivos PNG
@@ -848,13 +904,16 @@ public class EditarTratamiento extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxTipoTratamientoActionPerformed
 
     private void BtnAgregarListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarListadoActionPerformed
+        //variable que permite abrir la ventana para agregar productos a la listado de productos.
         ProductoPEtratamiento prod = new ProductoPEtratamiento();
         prod.setVisible(true);
         prod.setLocationRelativeTo(null);
     }//GEN-LAST:event_BtnAgregarListadoActionPerformed
 
     private void BtnLimpiarListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarListadoActionPerformed
+        //Manejo de errores al momento de querer limpiar el listado de los productos.
         try {
+            //variable para obtener la fila que se quiera eliminar.
             int filaSeleccionada = tblProductosDeTratamiento.getSelectedRow();
 
             // Si no hay fila seleccionada, preguntar si quiere borrar toda la tabla
@@ -912,6 +971,7 @@ public class EditarTratamiento extends javax.swing.JFrame {
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
        // TODO add your handling code here:
+       //variable para trabajar con las restricciones.
         char c = evt.getKeyChar();
 
         // No permitir cero o punto al inicio

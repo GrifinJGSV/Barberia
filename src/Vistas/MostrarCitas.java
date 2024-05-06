@@ -2,6 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
+/**
+ * Nombre del archivo: MostrarCitas.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa la lista de las citas.
+ *              Permite a los usuarios ver, buscar, crear, editar y eliminar citas.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ *
+ */
+
 package Vistas;
 
 import static Controlador.Citas.eliminarCita;
@@ -10,10 +21,12 @@ import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 /**
  *
- * @author PC
+ * @author Arturo
  */
 public class MostrarCitas extends javax.swing.JPanel {
+    //Variable para la paginacion inicializada en 1.
     private int paginaActual = 1;
+    //Variable  publica para almacenar el total de las paginas.
     public static int totalPages;
 
     /**
@@ -21,8 +34,9 @@ public class MostrarCitas extends javax.swing.JPanel {
      */
     public MostrarCitas() {
         initComponents();
-        
+        //Esta linea de codigo muestra la instruccion para la busqueda en el cuadro de busqueda.
         PromptSupport.setPrompt("Busqueda por todos los campos ", txtBusqueda);
+        //estas tres lineas de codigo permiten que se muestren los atributos en la tabla.
         tblMostraCitas.getTableHeader().setReorderingAllowed(false);
         totalPages = Controlador.Citas.NumeroPages("", paginaActual,Listadoempleados.getModel().getSelectedItem().toString());
         Controlador.Citas.MostrarCitas("", paginaActual, totalPages,Listadoempleados.getModel().getSelectedItem().toString());
@@ -289,6 +303,7 @@ public class MostrarCitas extends javax.swing.JPanel {
 
     private void tblMostraCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostraCitasMouseClicked
         // TODO add your handling code here:
+        //Condicion para dar doble click y abrir la vista de ver citas.
          if (evt.getClickCount() == 2){
             int fila =tblMostraCitas.getSelectedRow();
             VerCita verCitas = new VerCita();
@@ -311,12 +326,15 @@ public class MostrarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBusquedaActionPerformed
 
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        //Variable que obtiene lo escrito en el txtBusqueda.
         String textoBusqueda = txtBusqueda.getText();
         Controlador.Citas.MostrarCitas(textoBusqueda, paginaActual, totalPages,Listadoempleados.getModel().getSelectedItem().toString());
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+        //Variable para el total de paginas.
         totalPages = Controlador.Citas.NumeroPages(txtBusqueda.getText(), paginaActual,Listadoempleados.getModel().getSelectedItem().toString());
+        //Condicion por si se quiere cambiar de pagina muestre enque pagina de cuantas sesta.
         if (paginaActual < totalPages) {
             paginaActual++;
             Controlador.Citas.MostrarCitas(txtBusqueda.getText(), paginaActual, totalPages,Listadoempleados.getModel().getSelectedItem().toString());
@@ -325,6 +343,7 @@ public class MostrarCitas extends javax.swing.JPanel {
 
     private void PrevioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrevioActionPerformed
 
+        //Variable que resta una pagina si se regresa a la pagina anterior.
         if (paginaActual > 1) {
             paginaActual--;
             Controlador.Citas.MostrarCitas(txtBusqueda.getText(), paginaActual, totalPages,Listadoempleados.getModel().getSelectedItem().toString());
@@ -338,6 +357,7 @@ public class MostrarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_ListadoempleadosActionPerformed
 
     private void btnCrear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrear1ActionPerformed
+        //estas lineas de codigo abren la ventana para crear citas al precionar el btCrear1.
         IngresarCita ing = new IngresarCita();
         ing.setVisible(true);
         
@@ -370,7 +390,9 @@ public class MostrarCitas extends javax.swing.JPanel {
                     
                 }
             }
-        } catch (Exception e) {
+        } 
+        //manejo de errores si falla el try.
+        catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

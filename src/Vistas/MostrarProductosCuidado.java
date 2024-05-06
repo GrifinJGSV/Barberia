@@ -24,25 +24,27 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
         tblMostrarProductos.getTableHeader().setReorderingAllowed(false);
         Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
         PromptSupport.setPrompt("Buscar por el nombre, marca y tamaño ", txtbusqueda);
-      
-    tblMostrarProductos.addMouseListener(new MouseAdapter(){
-        public void mouseClicked(MouseEvent evt){
-            // TODO add your handling code here:
-        if(evt.getClickCount() == 2){
-            int fila = tblMostrarProductos.getSelectedRow();
-            
-                VerProductoCuidado vp = new VerProductoCuidado();
-                vp.setVisible(true);
-                Vistas.VerProductoCuidado.txtnombrepc.setText(tblMostrarProductos.getValueAt(fila,1).toString());
-                Vistas.VerProductoCuidado.txtmarcapc.setText(tblMostrarProductos.getValueAt(fila, 2).toString());
-                Vistas.VerProductoCuidado.txtamaniopc.setText(tblMostrarProductos.getValueAt(fila, 3).toString());
-                Vistas.VerProductoCuidado.txtcategoriapc.setText(tblMostrarProductos.getValueAt(fila, 4).toString());
-                Vistas.VerProductoCuidado.txtdescpc.setText(tblMostrarProductos.getValueAt(fila, 5).toString());
-           }
-        }
-    });
     
-    
+        //evento para abrir la venana ver detalles del Producto 
+       //Agrega un MouseListener a la tabla tblMostrarProductos para que al dar doble clic  
+        tblMostrarProductos.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent evt){
+                // Verifica si se ha hecho doble clic
+            if(evt.getClickCount() == 2){
+                int fila = tblMostrarProductos.getSelectedRow();
+                // Crea una instancia de VerProductoCuidado y la hace visible
+                    VerProductoCuidado vp = new VerProductoCuidado();
+                    vp.setVisible(true);
+
+                    // Establecer los valores de los campos en VerProductoCuidado
+                    Vistas.VerProductoCuidado.txtnombrepc.setText(tblMostrarProductos.getValueAt(fila,1).toString());
+                    Vistas.VerProductoCuidado.txtmarcapc.setText(tblMostrarProductos.getValueAt(fila, 2).toString());
+                    Vistas.VerProductoCuidado.txtamaniopc.setText(tblMostrarProductos.getValueAt(fila, 3).toString());
+                    Vistas.VerProductoCuidado.txtcategoriapc.setText(tblMostrarProductos.getValueAt(fila, 4).toString());
+                    Vistas.VerProductoCuidado.txtdescpc.setText(tblMostrarProductos.getValueAt(fila, 5).toString());
+               }
+            }
+        });
     }
 
     /**

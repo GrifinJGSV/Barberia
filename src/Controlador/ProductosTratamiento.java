@@ -72,27 +72,32 @@ public class ProductosTratamiento {
         }
     }
     
+    /** 
+    * @author Arturo
+    */
+    //Metodo para editar los productos del tratamiento.
     public static void ProductoPETratamiento(String buscar){
         DefaultTableModel model = (DefaultTableModel)ProductoPEtratamiento.tblProductosPETratamiento.getModel();
         while (model.getRowCount() > 0 ){
                 model.removeRow(0);
         }
-        
+        //variable que inicializa la busqueda.
          String sql = "";
             if(buscar.equals("")){
+                //esta avriable realiza la consulta para la busqueda en la DB.
                 sql = QuerysProductosCuidados.ListarProductos;
                 
             }
 
-            
+            //arreglo para los atributos.
             String datos[] = new String[5];
         
         try{
-        
+            //Estas lineas de codigo establecen la conexion con la DB.
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
             
-           
+           //Varibale que inicializa la enumeracion de la lista en la tabla de productos.
             int count = 1;
             while(rs.next()){
                 datos[0] = count+"";

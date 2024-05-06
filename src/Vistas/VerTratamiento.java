@@ -2,6 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+/**
+ * Nombre del archivo: EditarTrtamiento.java
+ * Autor: Arturo Mendoza 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este formulario representa la ventana para ver el tratamiento.
+ *              Permite a los usuarios ver los tratamientos.
+ * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ */
+
 package Vistas;
 import Conexion.Conexion;
 import ConsultasSQL.QuerysTratamiento;
@@ -21,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author PC
+ * @author Arturo
  */
 public class VerTratamiento extends javax.swing.JFrame {
     private String idCorte;
@@ -29,6 +39,7 @@ public class VerTratamiento extends javax.swing.JFrame {
     private static Connection conexion = con.getConexion();
     public VerTratamiento(String idCorte) throws IOException {
         initComponents();
+        //centra la ventana de ver  tratamientos.
         this.setLocationRelativeTo(null);
         getContentPane().setBackground(Color.white);
         this.idCorte = idCorte;
@@ -54,11 +65,11 @@ public class VerTratamiento extends javax.swing.JFrame {
         tblProductosDeTratamiento.getColumnModel().getColumn(columnIndex1).setResizable(false);
         
     }
-        
+    //metodo para manejar excepciones que no soporta el sistema.
     private VerTratamiento() {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+    //Metodo para cargar los atributos del registro seleccionado.
     private void cargarDatosDelTratamiento() {
         try {
             

@@ -69,6 +69,18 @@ public class TiposCortes {
     
          
     }
+    /**
+    * @author Arturo
+    */
+    
+    /*
+     * Nombre del archivo: TiposCortes.java
+     * Autor: Arturo Mendoza
+     * Fecha de creación: [20/09/2023]
+     * Descripción: Este archivo de java representa el controlador de la vista de MostrarCortes.
+     *              Permite al desarrollador modificar o construir la funcionalidad.
+     * Derechos de autor (c) [20/09/2023] Arturo Mendoza. Todos los derechos reservados.
+     */
     
     //jtextfild para el cuadro de busqueda
     private JTextField txtBusqueda;
@@ -107,7 +119,9 @@ public class TiposCortes {
         MostrarCortes("");
     }
     
+    //Metodo para Mostrar Cortes
     public static void MostrarCortes(String buscar) {
+        //Variable de Arreglo para colocarle tutilo a las columnas de la tabla.
         String[] titulos = {"<html><b>Número</b></html>", "<html><b>Nombre del corte</b></html>", "<html><b>Género</b></html>",
             "<html><b>Precio</b></html>","<html><b>Descripción</b></html>"};
         DefaultTableModel model = new DefaultTableModel(null, titulos);
@@ -116,24 +130,31 @@ public class TiposCortes {
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-    
+        
+        //Variable que llama al metodo LISTARCORTES del paquete Consultas SQL en el arcvhivo QuerysCortes
+        //Para hacer consulta de los registros en la DB.
         String sql = QuerysCortes.LISTARCORTES;
         if (!buscar.equals("")) {
             sql += " WHERE nombre_corte LIKE '%" + buscar + "%' OR genero LIKE '%" + buscar + "%'";
         }
     
+        //Variable de arreglo para ordenar los atrubutos de un registro en la tabla de la vista MostrarCortes
         String datos[] = new String[6]; // Incrementado a 6 para incluir el número de orden
     
         try {
+            //Variable para iniciar la conexion a la DB.
             java.sql.Statement st = (java.sql.Statement) Conexion.getConection().createStatement();
             ResultSet rs = st.executeQuery(sql);
             
             
-
+            //Variable para contar la cantiad de atributos en la tabla
             int count = 0;
+            //Variable para el idice de la paginacion
             int startIndex = (currentPage - 1) * PAGE_SIZE;
+            //Variable para saber donde termina la paginacion
             int endIndex = currentPage * PAGE_SIZE;
            
+            //Metodo para mostrar los atributos en la tabla
             while (rs.next()) {
                 if (count >= startIndex && count < endIndex) {
                     datos[0] = String.valueOf(count + 1); // Número de orden
@@ -145,7 +166,7 @@ public class TiposCortes {
                 }
                 count++;
             }
-
+            
             MostrarCortes.tblMostrarCortes.setModel(model);
 
             // Calcular el número total de páginas
@@ -169,13 +190,14 @@ public class TiposCortes {
             "<html><b>Precio</b></html>","<html><b>Descripción</b></html>"};
         DefaultTableModel model = new DefaultTableModel(null, titulos);
         
-        
+        //metodo para obtener el conteo de las filas
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
     
+        //Variable para la conexion y consulta a la DB.
         String sql;
-    
+        //Variable para el arreglo de los atributos en la tabla MostrarCortes.
         String datos[] = new String[6]; // Incrementado a 6 para incluir el número de orden
         
         if(opbuscar == 0 && valor == null){
@@ -200,11 +222,13 @@ public class TiposCortes {
             ResultSet rs = st.executeQuery(sql);
             
             
-
+            //variable para contar los atributos de la tabla MostrarCortes
             int count = 0;
+            //Variable para el indice de la paginacion
             int startIndex = (currentPage - 1) * PAGE_SIZE;
+            //Variable para el indice final de la paginacion
             int endIndex = currentPage * PAGE_SIZE;
-           
+            //Metodo para ordenar los atributos por columnas en la tabla MostrarCortes
             while (rs.next()) {
                 if (count >= startIndex && count < endIndex) {
                     datos[0] = String.valueOf(count + 1); // Número de orden
@@ -243,22 +267,28 @@ public class TiposCortes {
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        
+        //Variable para hacer la consulta a la DB desde el package QUERYS.
         String sql = QuerysCortes.LISTARCORTES;
         if (!buscar.equals("")) {
             sql += " WHERE nombre_corte LIKE '%" + buscar + "%' OR genero LIKE '%" + buscar + "%'";
         }
         
+        //arreglo para el orden de los atributos.
         String datos[] = new String[5]; // Incrementado a 5 para incluir el número de orden
 
         try {
+            //variable para la conexion a la DB.
             java.sql.Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
-
+            
+            //Contador para los indices de la paginacion
             int count = 0;
+            //Variable para el indice inicial
             int startIndex = (currentPage - 1) * PAGE_SIZE;
+            //Variable para el indice final
             int endIndex = currentPage * PAGE_SIZE;
             
+            //Metodo para mostrar los atributos en orden en la tabla MostrarCortes.
             while (rs.next()) {
                 if (count >= startIndex && count < endIndex) {
                     datos[0] = String.valueOf(count + 1); // Número de orden
@@ -292,7 +322,9 @@ public class TiposCortes {
     
      //Metodo para eliminar datos de la tabla de cortes de cabello
     public static void eliminarCorte(String buscar){
+        //Variable para almacenar que row esta seleccionada de la tabla
         int fila = MostrarCortes.tblMostrarCortes.getSelectedRow();
+        //Variable para obtener la fila y la columna
         String valor = MostrarCortes.tblMostrarCortes.getValueAt(fila, 1).toString();
         
         try {
@@ -306,11 +338,11 @@ public class TiposCortes {
             DefaultTableModel model = new DefaultTableModel(null, titulos);
     
       
-        
+            //Metodo para remover una fila.
             while (model.getRowCount() > 0) {
                 model.removeRow(0);
             }
-        
+            //variable para llamar el metodo LISTARCORTES dese el QUERYSCORTES
             String sql = QuerysCortes.LISTARCORTES;
             if (!buscar.equals("")) {
                 sql += " WHERE nombre_corte LIKE '%" + buscar + "%'";

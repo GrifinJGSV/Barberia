@@ -90,6 +90,11 @@ public class QuerysCortes {
             +"nombre_corte,"+"genero,"+"corte,"+"cote2,"+"corte3,"+"precio,"+"descripcion)"
             +"VALUES(?,?,?,?,?,?,?)";
     
+    
+    /**
+    * @author Arturo
+    */
+    //Metodo para consultar en la DB el catalogo de los cortes.
     public static String LISTARCORTES = "SELECT * FROM catalogo_cortes";
     
      public static String VerCortes = "SELECT nombre_corte, genero, corte, cote2, corte3, precio, descripcion FROM catalogo_cortes WHERE id = ?";

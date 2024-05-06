@@ -151,17 +151,25 @@ public class Citas {
     }
 }
 
-
+    /**
+     *
+     * @author Arturo
+     */
+    //Metodo para la funcioalidad de la vista MostrarCitas.
     public static void MostrarCitas(String buscar, int paginaActual, int totalPages,String estado){
         DefaultTableModel model = (DefaultTableModel)MostrarCitas.tblMostraCitas.getModel();
+        //variable que inicializa el JCombobox de estado para la busqueda.
         String textoEstado = "";
         
+        //Condicion si el estado esta seleccionado en todos.
         if(estado.equals("Todos")){
             textoEstado = "";
         }
+        //Condicion para cuando el estado seleccionado es corte.
         if(estado.equals("Corte")){
             textoEstado = " servicios = 'Corte' and ";
         }
+        //Condicion para cuando el estado seleccionado es Tratamiento.
         if(estado.equals("Tratamiento")){
             textoEstado = " servicios = 'Tratamiento' and ";
         }
@@ -172,11 +180,13 @@ public class Citas {
         while (model.getRowCount() > 0 ){
             model.removeRow(0);  
         }
-    
+        
+        //Esta variable almacena la consulta para la DB.
         String sql = "select citas.id,(clientes.nombre) as nombre, citas.tipo_cliente,citas.telefono, citas.servicios,\n" +
         " (empleados.nombre)as nombre_empleado,citas.fecha, citas.hora, citas.notas \n" +
         " from citas join clientes on citas.nombre = clientes.id join empleados on citas.empleado = empleados.id;";
-
+        
+        //Condicion si la variable buscar esta vacia.
         if (buscar.isEmpty()) {
             sql = "select citas.id, (clientes.nombre) as nombre, citas.tipo_cliente, citas.telefono, citas.servicios, (empleados.nombre)as nombre_empleado, \n" +
             "citas.fecha, citas.hora, citas.notas from citas join clientes on citas.nombre = clientes.id join empleados on citas.empleado = empleados.id  WHERE "+textoEstado+" (clientes.nombre like concat('%','"+buscar+"','%') or "
@@ -185,7 +195,10 @@ public class Citas {
             MostrarCitas.siguiente.setVisible(true);
             MostrarCitas.Previo.setVisible(true);
             MostrarCitas.seguimiento.setVisible(true);
-        } else {
+        } 
+        //condicion por si la variable buscar tiene parametros de entrada.
+        else {
+            //Variable para realizar la consulta en la DB.
             sql = "select citas.id, (clientes.nombre) as nombre, citas.tipo_cliente, citas.telefono, citas.servicios, (empleados.nombre)as nombre_empleado, \n" +
             "citas.fecha, citas.hora, citas.notas from citas join clientes on citas.nombre = clientes.id join empleados on citas.empleado = empleados.id  WHERE "+textoEstado+" (clientes.nombre like concat('%','"+buscar+"','%') or "
             + "(empleados.nombre) like '%"+buscar+"%' or " + "servicios like '%"+buscar+"%'or " + "fecha like '%"+buscar+"%'"
@@ -195,7 +208,9 @@ public class Citas {
             MostrarCitas.seguimiento.setVisible(true);
         }
     
+        //arreglo para los atributos en la tabala para la busqueda.
         String datos[] = new String[10];
+        //Manejo de errores en la coneccion.
         try{
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -225,9 +240,13 @@ public class Citas {
                 //MostrarEmpleados.tblMostrarEmpleados.getColumnModel().getColumn(4).setCellRenderer(tcr);
                 count++;
             }
+            //variable numerica para almacenar el total de las filas para la enumeracion.
             int totalRows = count; // Restamos el encabezado de la tabla
+            //Variable para almacenar el total de las paginas.
             totalPages = NumeroPages(buscar,paginaActual,estado);
+            //se obtiene el total de la paginacion.
             totalPages = (int) Math.ceil((double) totalRows / filasxPagina);
+            //variable que establece el texto "Pagina" para la paginacion
             MostrarCitas.seguimiento.setText("Página " + paginaActual + " de " + totalPages);
             DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
             MostrarCitas.tblMostraCitas.setModel(model);     
@@ -238,10 +257,13 @@ public class Citas {
 
     //Metodo para eliminar el corte
     public static void eliminarCita(){
+        //Variable numerica que almacena la fila seleccionada de la tabla.
         int fila = MostrarCitas.tblMostraCitas.getSelectedRow();
+        //variable que evalua que este seleccionada la fila con la columna 1
         String valor = MostrarCitas.tblMostraCitas.getValueAt(fila, 1).toString();
         
         try {
+            //esta variable ejecuta la consulta para la eliminacion de un registro en la DB y en la tabla.
             PreparedStatement eliminar = conexion.prepareStatement("DELETE FROM citas WHERE"
                     + " id = '"+valor+"'");
             eliminar.executeUpdate();
