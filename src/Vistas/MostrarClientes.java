@@ -9,11 +9,14 @@ import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: MostrarClientes.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame con la lista de todos los cliente y en paginas. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class MostrarClientes extends javax.swing.JPanel {
-
+    // Define la página actual y el total de páginas para la paginación de los clientes
     private int paginaActual = 1;
     public static int totalPages = Clientes.NumeroPages("");
 
@@ -22,9 +25,12 @@ public class MostrarClientes extends javax.swing.JPanel {
      */
     public MostrarClientes() {
         initComponents();
+        // Muestra los clientes en la página actual con el total de páginas
         Clientes.MostrarClientes("", paginaActual, totalPages);
+        // Establece un texto de ayuda en el campo de búsqueda
         PromptSupport.setPrompt("Buscar por nombre y apellido", txtBusqueda);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -217,62 +223,78 @@ public class MostrarClientes extends javax.swing.JPanel {
                 .addContainerGap(174, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método para manejar la acción del botón "Nuevo"
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // Abre la ventana para crear un nuevo cliente
         CrearCliente crearCliente = new CrearCliente();
         crearCliente.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
-
+    // Método para manejar la acción del botón de edición de cliente
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // Obtiene la fila seleccionada en la tabla
         int seleccion = tblMostrarClientes.getSelectedRow();
+        // Verifica si se ha seleccionado una fila
         if(seleccion == -1){
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para editar");
             return;
         }
-        
+
+        // Abre la ventana de edición de cliente con la información del cliente seleccionado
         EditarCliente editarCliente = new EditarCliente(Clientes.TraerCliente((int)Clientes.ids.get(seleccion)));
         editarCliente.setVisible(true);
-        
-        Clientes.MostrarClientes("", 1, MostrarClientes.totalPages);
-        
-    }//GEN-LAST:event_btnEditarActionPerformed
 
+        // Actualiza la lista de clientes después de la edición
+        Clientes.MostrarClientes("", 1, MostrarClientes.totalPages);
+    }//GEN-LAST:event_btnEditarActionPerformed
+    // Método para manejar la pulsación de tecla al buscar clientes
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        // Obtiene el texto de búsqueda ingresado por el usuario
         String textoBusqueda = txtBusqueda.getText();
+        // Reinicia la página actual a 1 cada vez que se realiza una nueva búsqueda
         paginaActual = 1;
+        // Calcula el número total de páginas según el texto de búsqueda actual
         totalPages = Clientes.NumeroPages(textoBusqueda);
-        Clientes.MostrarClientes(textoBusqueda, paginaActual, totalPages);// TODO add your handling code here:
+        // Muestra los clientes que coinciden con el texto de búsqueda en la página actual
+        Clientes.MostrarClientes(textoBusqueda, paginaActual, totalPages);
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBusquedaActionPerformed
-
+    // Método para manejar el evento de siguiente página
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+        // Verifica si hay más páginas disponibles
         if (paginaActual < totalPages) {
+            // Incrementa el número de página actual
             paginaActual++;
+            // Obtiene el texto de búsqueda ingresado por el usuario
             String textoBusqueda = txtBusqueda.getText();
-
+            // Muestra los clientes que coinciden con el texto de búsqueda en la página actual
             Clientes.MostrarClientes(textoBusqueda, paginaActual, totalPages);
         }
     }//GEN-LAST:event_siguienteActionPerformed
-
+    // Método para manejar el evento de página anterior
     private void previoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previoActionPerformed
+        // Verifica si la página actual es mayor que 1
         if (paginaActual > 1) {
+            // Decrementa el número de página actual
             paginaActual--;
+            // Obtiene el texto de búsqueda ingresado por el usuario
             String textoBusqueda = txtBusqueda.getText();
-
+            // Muestra los clientes que coinciden con el texto de búsqueda en la página actual
             Clientes.MostrarClientes(textoBusqueda, paginaActual, totalPages);
         }
     }//GEN-LAST:event_previoActionPerformed
-
+    // Método para manejar el evento de clic en la tabla de clientes
     private void tblMostrarClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostrarClientesMouseClicked
-       if(evt.getClickCount() == 2){
-           int seleccion = tblMostrarClientes.getSelectedRow();
-
+        // Verifica si el usuario hizo doble clic en una fila de la tabla
+        if(evt.getClickCount() == 2){
+            // Obtiene la fila seleccionada
+            int seleccion = tblMostrarClientes.getSelectedRow();
+            // Muestra los detalles del cliente seleccionado en una nueva ventana
             VerCliente cliente = new VerCliente(Clientes.TraerCliente((int)Clientes.ids.get(seleccion)));
             cliente.setVisible(true);
-       }
+        }
     }//GEN-LAST:event_tblMostrarClientesMouseClicked
 
 
