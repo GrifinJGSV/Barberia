@@ -25,9 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
- *
- * @author Alejandra Suárez
+ * Nombre del archivo: CrearCliente.java
+ * Autor: Alejandra Suárez
+ * Fecha de creación: [20/09/2023]
+ * Descripción: JFRame que contiene los campos necesarios para crear un nuevo cliente.
+ * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
  */
+
 public class CrearCliente extends javax.swing.JFrame {
 
     /**
@@ -38,14 +42,14 @@ public class CrearCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Date fechaActual = new Date();
 
-// Crea una instancia de Calendar y la inicializa con la fecha actual
+        // Crea una instancia de Calendar y la inicializa con la fecha actual
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaActual);
 
-// Resta 18 años
+        // Resta 18 años
         calendar.add(Calendar.YEAR, -1);
 
-// Obtiene la nueva fecha
+        // Obtiene la nueva fecha
         Date nuevaFecha = calendar.getTime();
         jdFechaNa.setMaxSelectableDate(nuevaFecha);
         jdFechaNa.setDate(nuevaFecha);
@@ -67,8 +71,7 @@ public class CrearCliente extends javax.swing.JFrame {
         //código para bloquear el pegado en la descripcion
         InputMap map4 = txtDireccion.getInputMap( JTextArea.WHEN_FOCUSED);
         map4.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
-        
-        
+        //Desabilita el campo de escritura de selector de fecha
          ((JTextFieldDateEditor)jdFechaNa.getDateEditor()).setEditable(false);
     }
 
@@ -227,8 +230,9 @@ public class CrearCliente extends javax.swing.JFrame {
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
-
+    // Método para guardar un nuevo cliente al presionar el botón "Guardar"
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
         String telefono = txtTelefono.getText();
 
         if (!telefono.matches("[0-9][0-9 -]+")) {//El codigo contiene caracteres diferentes se muestra el siguiente mensaje
@@ -312,25 +316,24 @@ public class CrearCliente extends javax.swing.JFrame {
         
         
           if (nombre.length() < 3) {
-        JOptionPane.showMessageDialog(null, "El nombre del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El nombre del cliente debe tener al menos 3 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
         return; // Salir del método si el nombre es demasiado corto
     }
-         if (apellido.length() < 5) {
-        JOptionPane.showMessageDialog(null, "El apellido del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+         if (apellido.length() < 3) {
+        JOptionPane.showMessageDialog(null, "El apellido del cliente debe tener al menos 3 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el apellido es demasiado corto
     }
            if (telefono.length() < 8) {
         JOptionPane.showMessageDialog(null, "El telefono debe tener al menos 8 numeros", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+        return; // Salir del método si el telefono es demasiado corto
     }
             if (direccion.length() < 20) {
         JOptionPane.showMessageDialog(null, "La direccion debe tener al menos 20 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+        return; // Salir del método si la direccion es demasiado corta
     }
 
         if (Clientes.Guardar(querys)) {
             JOptionPane.showMessageDialog(null, "Nuevo cliente ingresado exitosamente");
-            //Terrenos.MostrarTerrenos("");
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Algo falló, consulte con el administrador del sistema", "Error al guardar",
@@ -338,7 +341,7 @@ public class CrearCliente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    // Método para validar la entrada de texto en el campo de nombre
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char character = evt.getKeyChar();
         String currentText = txtNombre.getText();
@@ -361,7 +364,7 @@ public class CrearCliente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    // Método para validar la entrada de texto en el campo de apellido
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         char character = evt.getKeyChar();
         String currentText = txtApellido.getText();
@@ -385,7 +388,7 @@ public class CrearCliente extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_txtApellidoKeyTyped
-
+    // Método para validar la entrada de texto en el campo de teléfono
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         char character = evt.getKeyChar();
         if (!Character.isDigit(character)) {
@@ -397,7 +400,7 @@ public class CrearCliente extends javax.swing.JFrame {
             getToolkit().beep();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
-
+    // Método para validar la entrada de texto en el campo de dirección
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
  String currentText = txtDireccion.getText();
         char keyPressed = evt.getKeyChar();
