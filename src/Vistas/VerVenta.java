@@ -8,8 +8,11 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: VerVenta.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame para ver los datos que contiene una venta existente. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class VerVenta extends javax.swing.JFrame {
 
@@ -17,21 +20,29 @@ public class VerVenta extends javax.swing.JFrame {
      * Creates new form VerVenta
      */
     public VerVenta() {
+        // Inicializar los componentes de la interfaz
         initComponents();
+        // Centrar la ventana en la pantalla
         this.setLocationRelativeTo(null);
+        // Establecer el color de fondo del contenido principal
         getContentPane().setBackground(Color.white);
-        
     }
 
     
-     public VerVenta(String id) {
+    // Constructor de la clase VerVenta
+    public VerVenta(String id) {
+        // Inicializar los componentes de la interfaz
         initComponents();
-        //JOptionPane.showMessageDialog(null, id);
+        // Mostrar la venta correspondiente al ID proporcionado
         Controlador.VerVentas.VerVenta(id);
+        // Centrar la ventana en la pantalla
         this.setLocationRelativeTo(null);
+        // Establecer el color de fondo del contenido principal
         getContentPane().setBackground(Color.white);
+        // Evitar que la ventana sea redimensionable
         setResizable(false);
     }
+
      
     
 
@@ -243,9 +254,9 @@ public class VerVenta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método para manejar el evento de clic en el botón "Volver"
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        dispose();
+        dispose(); // Cerrar la ventana actual
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
