@@ -27,8 +27,11 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
- *
- * @author Human Being
+ * Nombre del archivo: EditarCliente.java
+ * Autor: Alejandra Suárez
+ * Fecha de creación: [20/09/2023]
+ * Descripción: JFRame que contiene los campos necesarios para editar un cliente existente.
+ * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
  */
 public class EditarCliente extends javax.swing.JFrame {
 
@@ -45,32 +48,34 @@ public class EditarCliente extends javax.swing.JFrame {
             Date fechaActual = new Date();
             
             
+
+            // Crea una instancia de Calendar y la inicializa con la fecha actual
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaActual);
+
+            // Resta 18 años
+            calendar.add(Calendar.YEAR, -1);
+
+            // Obtiene la nueva fecha
+            Date nuevaFecha = calendar.getTime();
+            jdFechaNa.setMaxSelectableDate(nuevaFecha);
+            jdFechaNa.setDate(nuevaFecha);
+
             
-// Crea una instancia de Calendar y la inicializa con la fecha actual
-Calendar calendar = Calendar.getInstance();
-calendar.setTime(fechaActual);
-
-// Resta 18 años
-calendar.add(Calendar.YEAR, -1);
-
-// Obtiene la nueva fecha
-Date nuevaFecha = calendar.getTime();
-jdFechaNa.setMaxSelectableDate(nuevaFecha);
-jdFechaNa.setDate(nuevaFecha);
-
-txtNombre.setText(cliente.getNombre());
-txtApellido.setText(cliente.getApellido());
-txtTelefono.setText(cliente.getTelefono());
-txtDireccion.setText(cliente.getDireccion());
-SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
+            //Se establece los valores que trae el cliente seleccioando
+            txtNombre.setText(cliente.getNombre());
+            txtApellido.setText(cliente.getApellido());
+            txtTelefono.setText(cliente.getTelefono());
+            txtDireccion.setText(cliente.getDireccion());
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         } catch (ParseException ex) {
             Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
                 
         
-                //código para bloquear el pegado en Nombre del producto.
+        //código para bloquear el pegado en Nombre del producto.
         InputMap map1 = txtNombre.getInputMap(JTextField.WHEN_FOCUSED);
         map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
         
@@ -86,7 +91,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         InputMap map4 = txtDireccion.getInputMap( JTextArea.WHEN_FOCUSED);
         map4.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
         
-        
+        //Desabilita el campo de escritura de selector de fecha
          ((JTextFieldDateEditor)jdFechaNa.getDateEditor()).setEditable(false);
     }
     
@@ -312,11 +317,11 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
-
+    // Metodo de cierre del JFRAME
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    // Método para validar la entrada de texto en el campo de nombre
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char character = evt.getKeyChar();
         String currentText = txtNombre.getText();
@@ -340,7 +345,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
                       
 
     }//GEN-LAST:event_txtNombreKeyTyped
-
+   // Método para guardar lod nurvos cambios del cliente al presionar el botón "Actualizar"
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         String telefono = txtTelefono.getText().trim();
        
@@ -377,7 +382,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         
         if (!telefono.matches("[2389]\\d{7}")) {
                         JOptionPane.showMessageDialog(null, "El número de teléfono debe empezar con 2, 3, 8 o 9", "Error al guardar", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        return; // Salir del método si el campo no cumple con el formato definido
                     }
         
         String direccion = txtDireccion.getText().trim();
@@ -390,7 +395,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
              if(direccion.length()>0){
              JOptionPane.showMessageDialog(null, "Alguno de los caracteres que ingresó en la dirección no es válido", "Error al guardar", 
                     JOptionPane.WARNING_MESSAGE);
-            return;//sale del método
+            return;// Salir del método si el campo no cumple con el formato definido
              }
          }
    
@@ -415,20 +420,20 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
         
        
           if (nombre.length() < 3) {
-        JOptionPane.showMessageDialog(null, "El nombre del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El nombre del cliente debe tener al menos 3 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
         return; // Salir del método si el nombre es demasiado corto
     }
-         if (apellido.length() < 5) {
-        JOptionPane.showMessageDialog(null, "El apellido del cliente debe tener al menos 5 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+         if (apellido.length() < 3) {
+        JOptionPane.showMessageDialog(null, "El apellido del cliente debe tener al menos 3 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
+        return; // Salir del método si el apellido es demasiado corto
     }
            if (telefono.length() < 8) {
         JOptionPane.showMessageDialog(null, "El telefono debe tener al menos 8 numeros", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+        return; // Salir del método si el telefono es demasiado corto
     }
             if (direccion.length() < 20) {
         JOptionPane.showMessageDialog(null, "La direccion debe tener al menos 20 letras", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si el nombre es demasiado corto
+        return; // Salir del método si la direccion es demasiado corto
     }
         
          
@@ -454,7 +459,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
                     JOptionPane.OK_OPTION);
          }
     }//GEN-LAST:event_btnActualizarActionPerformed
-
+ // Método para validar la entrada de texto en el campo de apellido
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         char character = evt.getKeyChar();
         String currentText = txtApellido.getText();
@@ -476,7 +481,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
             evt.consume();
         }
     }//GEN-LAST:event_txtApellidoKeyTyped
-
+// Método para validar la entrada de texto en el campo de teléfono
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         char character = evt.getKeyChar();
                 if (!Character.isDigit(character)) {
@@ -488,7 +493,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
              getToolkit().beep();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
-
+// Método para validar la entrada de texto en el campo de dirección
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
         String currentText = txtDireccion.getText();
         char keyPressed = evt.getKeyChar();
@@ -508,7 +513,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
     }//GEN-LAST:event_txtDireccionKeyTyped
 
     /**
-     * @param args the command line arguments
+     * Funiones por defecto que prueban la edicion sin presionar un registro en la tabla
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -551,7 +556,7 @@ jdFechaNa.setDate(formato.parse(cliente.getFechaNacimiento()));
                     cliente.setApellido(rs.getString("apellido"));
                     cliente.setTelefono(rs.getString("telefono"));
                     cliente.setDireccion(rs.getString("direccion"));
-                    cliente.setFechaNacimiento(rs.getString("FechaNacimiento"));;
+                    cliente.setFechaNacimiento(rs.getString("FechaNacimiento"));
                     cliente.setFechaRegistro(rs.getString("FechaRegistro"));
                     cliente.setId(rs.getInt("id"));
                     

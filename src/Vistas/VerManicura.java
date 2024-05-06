@@ -13,11 +13,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: VerManicura.java
+ * Autor: Alejandra Suárez
+ * Fecha de creación: [20/09/2023]
+ * Descripción: JFRame que contiene los campos necesarios para mostrar los datos de la manicura y pedicura existente.
+ * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
  */
-
-
 public class VerManicura extends javax.swing.JFrame {
 
     /**
@@ -27,12 +28,15 @@ public class VerManicura extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+         //Se establece los valores que trae el cliente seleccioando
         jlEsmaltado.setText(manicura.getEsmaltado());
         jlEstilo.setText(manicura.getEstilo());
         jlPrecio.setText(manicura.getPrecio().toString());
         jlTecnica.setText(manicura.getTecnica());
         jADescripcion.setText(manicura.getDescripcion());
         
+        
+        // Se transforma la imagen para crear un icon para mostrar al usuario
         ImageIcon imageIcon = new ImageIcon(manicura.getFoto());
         
         Image image = imageIcon.getImage();
@@ -47,6 +51,7 @@ public class VerManicura extends javax.swing.JFrame {
                  
         Label_Foto1.setIcon(new ImageIcon(scaledImage));
         
+        // Se transforma la imagen para crear un icon para mostrar al usuario
         ImageIcon imageIcon2 = new ImageIcon(manicura.getFoto1());
         
         Image image2 = imageIcon2.getImage();
@@ -212,15 +217,13 @@ public class VerManicura extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Metodo de cierre del JFRAME
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
   
 
     private void jADescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jADescripcionKeyTyped
-        
-      
            
     }//GEN-LAST:event_jADescripcionKeyTyped
 
