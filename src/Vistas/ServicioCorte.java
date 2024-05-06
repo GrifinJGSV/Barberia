@@ -17,8 +17,11 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
- * @author Andrea
+ * @author Andrea Ardon
+ * Fecha de creación: [02/12/2023] 
+ * Descripción: esta ventana funciona en conjunto con la ventana venta de servicios, 
+ * en esta se muestra un listado con los nombres de los tratamientos con el fin de agregarlos a la farctura de la venta de servicios.
+ * Derechos de autor (c) [02/12/2023] Andrea Ardón. Todos los derechos reservados.
  */
 public class ServicioCorte extends javax.swing.JFrame {
 
@@ -306,16 +309,23 @@ public class ServicioCorte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblCortesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCortesMouseClicked
-         if (evt.getClickCount() == 2) {
+        // Se verifica si se ha hecho doble clic en la tabla 
+        if (evt.getClickCount() == 2) {
+            // Se obtiene el índice de la fila seleccionada
             int filaSeleccionada = tblCortes.getSelectedRow();
+            // Se verifica si se ha seleccionado alguna fila
             if (filaSeleccionada >= 0) {
+                // Se obtiene el ID del corte de la columna 3 de la fila seleccionada
                 String idCorte = (String) tblCortes.getValueAt(filaSeleccionada, 3);
+                // Se declara una variable para la ventana de detalles del corte
                 VerCortes verCortes = null;
                 try {
+                    // Se intenta crear una instancia de VerCortes pasando el ID del corte como argumento
                     verCortes = new VerCortes(idCorte);
                 } catch (IOException ex) {
-                   // Logger.getLogger(MostrarCortes.class.getName()).log(Level.SEVERE, null, ex);
+                   // En caso de excepción, se maneja pero no se muestra en la consola
                 }
+                // Se hace visible la ventana de detalles del corte
                 verCortes.setVisible(true);
             }
         }
