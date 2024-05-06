@@ -16,34 +16,39 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: MostrarVentas.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame para mostrar todas las opciones que presenta el sistema. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class Vistaprincipal extends javax.swing.JFrame {
 
-    
-
-    /**
-     * Creates new form Vistaprincipal
-     */
+    // Constructor de la clase Vistaprincipal
     public Vistaprincipal() {
+        // Inicialización de los componentes
         initComponents();
+        // Agregar el panel jPanel1 al contenedor
         add(jPanel1);
+        // Establecer el tamaño del contenedor
         content.setSize(1000, 500);
-        //LogoAlcaldiaPrincipal logoAlcaldia = new LogoAlcaldiaPrincipal();
-        //identificarVista(logoAlcaldia);
-        
-
     }
-    
+
+    // Método para identificar una vista y mostrarla en el contenedor
     public void identificarVista(JPanel vista){
+        // Establecer el tamaño de la vista
         vista.setSize(1000, 600);
+        // Establecer la posición de la vista
         vista.setLocation(0,0);
+        // Quitar todos los componentes del contenedor
         content.removeAll();      
+        // Agregar la vista al contenedor en el centro
         content.add(vista, BorderLayout.CENTER);
+        // Validar y repintar el contenedor para reflejar los cambios
         content.revalidate();
         content.repaint();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -402,131 +407,155 @@ public class Vistaprincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método para manejar el evento del botón de productos
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        
+        // Crear un menú emergente para las opciones relacionadas con los productos
         JPopupMenu menuCompras = new JPopupMenu();
+        // Crear elementos del menú
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Establecer propiedades del primer submenú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
+        // Establecer propiedades del segundo submenú
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
 
-        
+        // Establecer el tamaño del menú emergente
         menuCompras.setPopupSize(btnProductos.getWidth(), btnProductos.getPreferredSize().height+50);
 
+        // Agregar acción al primer submenú (Crear)
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana para crear productos
                 CrearProductosCuidado crearProductosCuidado = new CrearProductosCuidado();
+                // Mostrar la ventana
                 crearProductosCuidado.setVisible(true);
             }
         });
+        // Agregar acción al segundo submenú (Listar)
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana para mostrar productos
                 MostrarProductosCuidado mostrarProductosCuidado = new MostrarProductosCuidado();
+                // Identificar y mostrar la vista correspondiente
                 identificarVista(mostrarProductosCuidado);
-                
-                
             }
         });
-        
-        
-        menuCompras.show(btnProductos, 0,btnProductos.getHeight());
-        
 
+        // Mostrar el menú emergente en la posición del botón de productos
+        menuCompras.show(btnProductos, 0, btnProductos.getHeight());
     }//GEN-LAST:event_btnProductosActionPerformed
-
+    // Método para manejar el evento del botón de proveedores
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-                JPopupMenu menuCompras = new JPopupMenu();
+        // Crear un menú emergente para las opciones relacionadas con los proveedores
+        JPopupMenu menuCompras = new JPopupMenu();
+        // Crear elementos del menú
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Establecer propiedades del primer submenú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
+        // Establecer propiedades del segundo submenú
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
+        // Establecer el tamaño del menú emergente
         menuCompras.setPopupSize(btnProveedores.getWidth(), btnProveedores.getPreferredSize().height+50);
-        
+
+        // Agregar acción al primer submenú (Crear)
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                       ProvedoresStore proveedores = new ProvedoresStore();
-                       proveedores.setVisible(true);
-                       proveedores.setLocationRelativeTo(null);
+                // Crear una instancia de la ventana para crear proveedores
+                ProvedoresStore proveedores = new ProvedoresStore();
+                // Mostrar la ventana
+                proveedores.setVisible(true);
+                // Centrar la ventana en la pantalla
+                proveedores.setLocationRelativeTo(null);
             }
         });
+        // Agregar acción al segundo submenú (Listar)
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de la ventana para mostrar proveedores
                 MostrarProveedores provedooor = new MostrarProveedores();
-                    identificarVista(provedooor);
+                // Identificar y mostrar la vista correspondiente
+                identificarVista(provedooor);
             }
         });
-        
-        menuCompras.show(btnProveedores, 0,btnProveedores.getHeight());
-          
+
+        // Mostrar el menú emergente en la posición del botón de proveedores
+        menuCompras.show(btnProveedores, 0, btnProveedores.getHeight());  
     }//GEN-LAST:event_btnProveedoresActionPerformed
-
+    // Método para manejar el evento del botón de inicio
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-   Vistaprincipal vistaprincipal = new  Vistaprincipal();
-                vistaprincipal.setVisible(true); 
-                dispose();
+        // Crear una instancia de la ventana principal
+        Vistaprincipal vistaprincipal = new  Vistaprincipal();
+        // Mostrar la ventana principal
+        vistaprincipal.setVisible(true); 
+        // Cerrar la ventana actual
+        dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
-
+    // Manejar el evento del botón de compras
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-
+        // Crear un menú emergente para las opciones de compras
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar el estilo de los elementos del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnCompras.getWidth(), btnCompras.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnCompras.getWidth(), btnCompras.getPreferredSize().height + 50);
+
+        // Agregar acciones a los elementos del menú
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Abrir la ventana para ingresar una compra
                 IngresarCompra ingresarCompra = new IngresarCompra();
                 ingresarCompra.setVisible(true);
                 ingresarCompra.setLocationRelativeTo(null);
@@ -535,42 +564,48 @@ public class Vistaprincipal extends javax.swing.JFrame {
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para listar las compras
                 MostrarCompras mostrarCompras = new MostrarCompras();
                 identificarVista(mostrarCompras);
             }
         });
-        
-        
-        menuCompras.show(btnCompras, 0,btnCompras.getHeight());
+
+        // Mostrar el menú emergente en la posición del botón de compras
+        menuCompras.show(btnCompras, 0, btnCompras.getHeight());
         
     }//GEN-LAST:event_btnComprasActionPerformed
-
+    // Manejar el evento del botón de clientes
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // Crear un menú emergente para las opciones de clientes
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar el estilo de los elementos del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnClientes.getWidth(), btnClientes.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnClientes.getWidth(), btnClientes.getPreferredSize().height + 50);
+
+        // Agregar acciones a los elementos del menú
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Abrir la ventana para crear un nuevo cliente
                 CrearCliente crearCliente = new CrearCliente();
                 crearCliente.setVisible(true);
             }
@@ -578,48 +613,53 @@ public class Vistaprincipal extends javax.swing.JFrame {
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para listar los clientes
                 MostrarClientes mostrarClientes = new MostrarClientes();
                 identificarVista(mostrarClientes);
             }
         });
-        
-        menuCompras.show(btnClientes, 0,btnClientes.getHeight());
-        
 
+        // Mostrar el menú emergente en la posición del botón de clientes
+        menuCompras.show(btnClientes, 0, btnClientes.getHeight());
     }//GEN-LAST:event_btnClientesActionPerformed
-
-    
+    // Manejar el evento del botón de inventario
     private void btnInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventario1ActionPerformed
+        // Mostrar la ventana para mostrar el mobiliario y equipo
         MostrarMobiliarioyEquipo mostrarMobiliarioyEquipo = new MostrarMobiliarioyEquipo();
         identificarVista(mostrarMobiliarioyEquipo);
     }//GEN-LAST:event_btnInventario1ActionPerformed
-
+    // Manejar el evento del botón de empleados
     private void btnEmpleados1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleados1ActionPerformed
+        // Crear un menú emergente para acciones relacionadas con empleados
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar la apariencia de los elementos del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnEmpleados1.getWidth(), btnEmpleados1.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnEmpleados1.getWidth(), btnEmpleados1.getPreferredSize().height + 50);
+
+        // Manejar las acciones de los elementos del menú
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para crear empleados
                 EmpleadosStore empleadosStore = new EmpleadosStore();
                 empleadosStore.setVisible(true);
             }
@@ -627,83 +667,95 @@ public class Vistaprincipal extends javax.swing.JFrame {
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para listar empleados
                 MostrarEmpleados mostrarEmpleados = new MostrarEmpleados();
                 identificarVista(mostrarEmpleados);
             }
         });
-        
-        menuCompras.show(btnEmpleados1, 0,btnEmpleados1.getHeight());
-        
+
+        // Mostrar el menú emergente en la posición del botón de empleados
+        menuCompras.show(btnEmpleados1, 0, btnEmpleados1.getHeight());
     }//GEN-LAST:event_btnEmpleados1ActionPerformed
-
+    // Manejar el evento del botón de cortes
     private void btnCortesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCortesActionPerformed
-        JPopupMenu menuCompras = new JPopupMenu();
-        JMenuItem submenu = new JMenuItem("                   Crear");
-        JMenuItem submenu2 = new JMenuItem("                   Listar");
+        // Crear un menú emergente para acciones relacionadas con cortes
+         JPopupMenu menuCompras = new JPopupMenu();
+         JMenuItem submenu = new JMenuItem("                   Crear");
+         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
-        menuCompras.add(submenu);
-        menuCompras.add(submenu2);
-        
-        submenu.setOpaque(true);
-        submenu.setBackground(Color.gray);
-        submenu.setForeground(Color.white);
-        submenu.setHorizontalAlignment(SwingConstants.CENTER);
-        submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        submenu2.setOpaque(true);
-        submenu2.setBackground(Color.gray);
-        submenu2.setForeground(Color.white);
-        submenu2.setHorizontalAlignment(SwingConstants.CENTER);
-        submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnCortes.getWidth(), btnCortes.getPreferredSize().height+50);
-        
-        submenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IngresarCorte ingresarCorte = new IngresarCorte();
-                ingresarCorte.setVisible(true);
-            }
-        });
-        submenu2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MostrarCortes mostrarCortes = new MostrarCortes();
-                identificarVista(mostrarCortes);
-            }
-        });
-        
-        menuCompras.show(btnCortes, 0,btnCortes.getHeight());
-        
+         // Agregar elementos al menú
+         menuCompras.add(submenu);
+         menuCompras.add(submenu2);
+
+         // Personalizar la apariencia de los elementos del menú
+         submenu.setOpaque(true);
+         submenu.setBackground(Color.gray);
+         submenu.setForeground(Color.white);
+         submenu.setHorizontalAlignment(SwingConstants.CENTER);
+         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
+
+         submenu2.setOpaque(true);
+         submenu2.setBackground(Color.gray);
+         submenu2.setForeground(Color.white);
+         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
+         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
+
+         // Establecer el tamaño del menú emergente
+         menuCompras.setPopupSize(btnCortes.getWidth(), btnCortes.getPreferredSize().height + 50);
+
+         // Manejar las acciones de los elementos del menú
+         submenu.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 // Mostrar la ventana para ingresar un nuevo corte
+                 IngresarCorte ingresarCorte = new IngresarCorte();
+                 ingresarCorte.setVisible(true);
+             }
+         });
+         submenu2.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 // Mostrar la ventana para listar cortes
+                 MostrarCortes mostrarCortes = new MostrarCortes();
+                 identificarVista(mostrarCortes);
+             }
+         });
+
+         // Mostrar el menú emergente en la posición del botón de cortes
+         menuCompras.show(btnCortes, 0, btnCortes.getHeight());
     }//GEN-LAST:event_btnCortesActionPerformed
-
+    // Manejar el evento del botón de tratamiento
     private void btnTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTratamientosActionPerformed
+        // Crear un menú emergente para acciones relacionadas con tratamientos
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar la apariencia de los elementos del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnTratamientos.getWidth(), btnTratamientos.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnTratamientos.getWidth(), btnTratamientos.getPreferredSize().height + 50);
+
+        // Manejar las acciones de los elementos del menú
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para ingresar un nuevo tratamiento
                 IngresarTratamiento ingresarTratamiento = new IngresarTratamiento();
                 ingresarTratamiento.setVisible(true);
             }
@@ -711,47 +763,52 @@ public class Vistaprincipal extends javax.swing.JFrame {
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-        MostrarTratamientos mostrarTratamientos = null;
-        try {
-            mostrarTratamientos = new MostrarTratamientos();
-        } catch (IOException ex) {
-            //Logger.getLogger(Vistaprincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        identificarVista(mostrarTratamientos);
+                // Mostrar la ventana para listar tratamientos
+                MostrarTratamientos mostrarTratamientos = null;
+                try {
+                    mostrarTratamientos = new MostrarTratamientos();
+                } catch (IOException ex) {
+                    // Manejar la excepción en caso de error al abrir la ventana
+                }
+                identificarVista(mostrarTratamientos);
             }
         });
-        
-        menuCompras.show(btnTratamientos, 0,btnTratamientos.getHeight());
-        
 
+        // Mostrar el menú emergente en la posición del botón de tratamientos
+        menuCompras.show(btnTratamientos, 0, btnTratamientos.getHeight());
     }//GEN-LAST:event_btnTratamientosActionPerformed
-
+    // Manejar el evento del botón de manicura y pedicura
     private void btnManicuraPedicuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManicuraPedicuraActionPerformed
+        // Crear un menú emergente para acciones relacionadas con manicura y pedicura
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar la apariencia de los elementos del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnManicuraPedicura.getWidth(), btnManicuraPedicura.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnManicuraPedicura.getWidth(), btnManicuraPedicura.getPreferredSize().height + 50);
+
+        // Manejar las acciones de los elementos del menú
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para ingresar una nueva manicura
                 IngresarManicura ingresarManicura = new IngresarManicura();
                 ingresarManicura.setVisible(true);
             }
@@ -759,183 +816,215 @@ public class Vistaprincipal extends javax.swing.JFrame {
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Mostrarmanicuraypedicura mostrarmanicuraypedicura = new  Mostrarmanicuraypedicura();
+                // Mostrar la ventana para listar manicuras y pedicuras
+                Mostrarmanicuraypedicura mostrarmanicuraypedicura = new Mostrarmanicuraypedicura();
                 identificarVista(mostrarmanicuraypedicura);
             }
         });
-        
-        menuCompras.show(btnManicuraPedicura, 0,btnManicuraPedicura.getHeight());
 
+        // Mostrar el menú emergente en la posición del botón de manicura y pedicura
+        menuCompras.show(btnManicuraPedicura, 0, btnManicuraPedicura.getHeight());
     }//GEN-LAST:event_btnManicuraPedicuraActionPerformed
-
+    // Manejar el evento del botón de inventario
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-             
+        // Crear un menú emergente para listar el inventario
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar el elemento al menú
+        menuCompras.add(submenu2);
+
+        // Personalizar la apariencia del elemento del menú
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.add(submenu2);
 
-        
-        menuCompras.setPopupSize(btnInventario.getWidth(), btnInventario.getPreferredSize().height+50);
-        
- 
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnInventario.getWidth(), btnInventario.getPreferredSize().height + 50);
+
+        // Manejar la acción del elemento del menú
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MostrarInventario mostrarinventario = new  MostrarInventario();
+                // Mostrar la ventana para listar el inventario
+                MostrarInventario mostrarinventario = new MostrarInventario();
                 identificarVista(mostrarinventario);
             }
         });
-        
-        menuCompras.show(btnInventario, 0,btnInventario.getHeight());
-        
-        
 
+        // Mostrar el menú emergente en la posición del botón de inventario
+        menuCompras.show(btnInventario, 0, btnInventario.getHeight());
     }//GEN-LAST:event_btnInventarioActionPerformed
-
+    // Manejar el evento del botón de ventas
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-
+        // Crear un menú emergente para opciones de ventas
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar la apariencia del primer elemento del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
+        // Personalizar la apariencia del segundo elemento del menú
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnVentas.getWidth(), btnVentas.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnVentas.getWidth(), btnVentas.getPreferredSize().height + 50);
+
+        // Manejar la acción del primer elemento del menú (Crear)
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para crear ventas
                 CrearVentas crearVentas = new CrearVentas();
                 crearVentas.setVisible(true);
             }
         });
+
+        // Manejar la acción del segundo elemento del menú (Listar)
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para listar ventas
                 MostrarVentas mostrarVentas = new MostrarVentas();
                 identificarVista(mostrarVentas);
             }
         });
-        
-        menuCompras.show(btnVentas, 0,btnVentas.getHeight());
+
+        // Mostrar el menú emergente en la posición del botón de ventas
+        menuCompras.show(btnVentas, 0, btnVentas.getHeight());
     }//GEN-LAST:event_btnVentasActionPerformed
-
+    // Manejar el evento del botón jButton8
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-        JPopupMenu menuCompras = new JPopupMenu();
-        JMenuItem submenu = new JMenuItem("                   Crear");
-        JMenuItem submenu2 = new JMenuItem("                   Listar");
+        // Crear un menú emergente para opciones de citas
+         JPopupMenu menuCompras = new JPopupMenu();
+         JMenuItem submenu = new JMenuItem("                   Crear");
+         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
-        menuCompras.add(submenu);
-        menuCompras.add(submenu2);
-        
-        submenu.setOpaque(true);
-        submenu.setBackground(Color.gray);
-        submenu.setForeground(Color.white);
-        submenu.setHorizontalAlignment(SwingConstants.CENTER);
-        submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        submenu2.setOpaque(true);
-        submenu2.setBackground(Color.gray);
-        submenu2.setForeground(Color.white);
-        submenu2.setHorizontalAlignment(SwingConstants.CENTER);
-        submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(jButton8.getWidth(), jButton8.getPreferredSize().height+50);
-        
-        submenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IngresarCita ingresarCita = new IngresarCita();
-                ingresarCita.setVisible(true);
-            }
-        });
-        submenu2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MostrarCitas citaas = new MostrarCitas();
-                identificarVista(citaas);
-            }
-        });
-        
-        menuCompras.show(jButton8, 0,jButton8.getHeight());
-        
+         // Agregar elementos al menú
+         menuCompras.add(submenu);
+         menuCompras.add(submenu2);
 
+         // Personalizar la apariencia del primer elemento del menú
+         submenu.setOpaque(true);
+         submenu.setBackground(Color.gray);
+         submenu.setForeground(Color.white);
+         submenu.setHorizontalAlignment(SwingConstants.CENTER);
+         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
+
+         // Personalizar la apariencia del segundo elemento del menú
+         submenu2.setOpaque(true);
+         submenu2.setBackground(Color.gray);
+         submenu2.setForeground(Color.white);
+         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
+         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
+
+         // Establecer el tamaño del menú emergente
+         menuCompras.setPopupSize(jButton8.getWidth(), jButton8.getPreferredSize().height + 50);
+
+         // Manejar la acción del primer elemento del menú (Crear)
+         submenu.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 // Mostrar la ventana para ingresar una nueva cita
+                 IngresarCita ingresarCita = new IngresarCita();
+                 ingresarCita.setVisible(true);
+             }
+         });
+
+         // Manejar la acción del segundo elemento del menú (Listar)
+         submenu2.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 // Mostrar la ventana para listar citas
+                 MostrarCitas citaas = new MostrarCitas();
+                 identificarVista(citaas);
+             }
+         });
+
+         // Mostrar el menú emergente en la posición del botón jButton8
+         menuCompras.show(jButton8, 0, jButton8.getHeight());
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    // Manejar el evento del botón btnVentaServicios
     private void btnVentaServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaServiciosActionPerformed
+        // Crear un menú emergente para opciones de venta de servicios
         JPopupMenu menuCompras = new JPopupMenu();
         JMenuItem submenu = new JMenuItem("                   Crear");
         JMenuItem submenu2 = new JMenuItem("                   Listar");
 
-        
+        // Agregar elementos al menú
         menuCompras.add(submenu);
         menuCompras.add(submenu2);
-        
+
+        // Personalizar la apariencia del primer elemento del menú
         submenu.setOpaque(true);
         submenu.setBackground(Color.gray);
         submenu.setForeground(Color.white);
         submenu.setHorizontalAlignment(SwingConstants.CENTER);
         submenu.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
+
+        // Personalizar la apariencia del segundo elemento del menú
         submenu2.setOpaque(true);
         submenu2.setBackground(Color.gray);
         submenu2.setForeground(Color.white);
         submenu2.setHorizontalAlignment(SwingConstants.CENTER);
         submenu2.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        
-        menuCompras.setPopupSize(btnVentaServicios.getWidth(), btnVentaServicios.getPreferredSize().height+50);
-        
+
+        // Establecer el tamaño del menú emergente
+        menuCompras.setPopupSize(btnVentaServicios.getWidth(), btnVentaServicios.getPreferredSize().height + 50);
+
+        // Manejar la acción del primer elemento del menú (Crear)
         submenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para crear una nueva venta de servicio
                 CrearVentaServicio crearVentaServicio = new CrearVentaServicio();
                 crearVentaServicio.setVisible(true);
                 crearVentaServicio.setLocationRelativeTo(null);
             }
         });
+
+        // Manejar la acción del segundo elemento del menú (Listar)
         submenu2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mostrar la ventana para listar ventas de servicios
                 MostrarVentaServicios mostrarVentaServicios = new MostrarVentaServicios();
                 identificarVista(mostrarVentaServicios);
             }
         });
-        
-        menuCompras.show(btnVentaServicios, 0,btnVentaServicios.getHeight());
-    }//GEN-LAST:event_btnVentaServiciosActionPerformed
 
+        // Mostrar el menú emergente en la posición del botón btnVentaServicios
+        menuCompras.show(btnVentaServicios, 0, btnVentaServicios.getHeight());
+    }//GEN-LAST:event_btnVentaServiciosActionPerformed
+    // Manejar el evento del botón jButton6
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       MostrarDevoluciones mostrarDevoluciones = new MostrarDevoluciones();
+        // Crear una instancia de la ventana para mostrar devoluciones
+        MostrarDevoluciones mostrarDevoluciones = new MostrarDevoluciones();
+
+        // Utilizar el método identificarVista para mostrar la ventana en la interfaz principal
         identificarVista(mostrarDevoluciones);
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    // Manejar el evento del botón btnAcercade
     private void btnAcercadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercadeActionPerformed
-      Acerca_DEe acerca = new Acerca_DEe();
-      identificarVista(acerca);
+        // Crear una instancia de la ventana Acerca_DEe
+        Acerca_DEe acerca = new Acerca_DEe();
+        // Utilizar el método identificarVista para mostrar la ventana en la interfaz principal
+        identificarVista(acerca);
     }//GEN-LAST:event_btnAcercadeActionPerformed
 
     /**
