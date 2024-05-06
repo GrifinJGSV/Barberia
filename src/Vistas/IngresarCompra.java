@@ -22,10 +22,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avila
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite ingresar una compra        
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
 /**
  *
- * @author PC
+ * @author Cristhian Avila
  */
 public class IngresarCompra extends javax.swing.JFrame {
     public int numeroDeFilas;
@@ -42,10 +48,10 @@ public class IngresarCompra extends javax.swing.JFrame {
     public int obtenerUltimoIDCompraProducto() {
         int ultimoID = 0;
         try {
-            // Utiliza la conexión existente desde la clase Conexion
-           // Connection conexion = Conexion.getConexion();
+             // Utiliza la conexión existente desde la clase Conexion
+            // Connection conexion = Conexion.getConexion();
 
-            // Consulta SQL para obtener el último ID de comprasproductos
+             // Consulta SQL para obtener el último ID de comprasproductos
             String query = "SELECT MAX(idCompra) FROM detallecompra";
             PreparedStatement consulta = conexion.prepareStatement(query);
             ResultSet resultado = consulta.executeQuery();
@@ -54,7 +60,7 @@ public class IngresarCompra extends javax.swing.JFrame {
                 ultimoID = resultado.getInt(1);
             }
 
-            // Cierra la conexión después de usarla
+             // Cierra la conexión después de usarla
             consulta.close();
             resultado.close();
         } catch (SQLException e) {
@@ -74,28 +80,28 @@ public class IngresarCompra extends javax.swing.JFrame {
         // Configura el valor del campo txt_Id
         //txt_Id.setText(String.valueOf(numeroDeFilas));
         
-        // Obtener el último ID de comprasproductos y establecerlo en txt_Id
+         // Obtener el último ID de comprasproductos y establecerlo en txt_Id
         int ultimoIDCompraProducto = obtenerUltimoIDCompraProducto();
         txt_Id.setText(String.valueOf(ultimoIDCompraProducto + 1)); // Incrementar en 1 el último ID
 
     
-        //para llenar el id y el nombre del proveedor al boton de seleccion desplegable
+         //para llenar el id y el nombre del proveedor al boton de seleccion desplegable
         llenarProveedor();
         
-      // Obtener la fecha actual
+       // Obtener la fecha actual
     Calendar calendario = Calendar.getInstance();
     Date fechaActual = calendario.getTime();
 
-    // Restar 2 meses a la fecha actual
+      // Restar 2 meses a la fecha actual
     calendario.add(Calendar.MONTH, -2);
     Date fechaMinima = calendario.getTime();
 
-    // Establecer la fecha máxima y mínima seleccionable en el componente Fecha
+     // Establecer la fecha máxima y mínima seleccionable en el componente Fecha
     Fecha.setMaxSelectableDate(fechaActual);
     Fecha.setMinSelectableDate(fechaMinima);
         
-        //Inicializando la variable para calcular el total de la factura
-        //totalFactura = 0.0;     
+         //Inicializando la variable para calcular el total de la factura
+         //totalFactura = 0.0;     
           DefaultTableModel model = (DefaultTableModel) tblProductosCompras.getModel();
 
         model.addTableModelListener(e -> {
@@ -107,7 +113,7 @@ public class IngresarCompra extends javax.swing.JFrame {
     }  
 
  
-    //metodo para poder traer el id y el nombre del proveedor
+     //metodo para poder traer el id y el nombre del proveedor
     public void llenarProveedor(){
         ModeloProveedores modProv = new ModeloProveedores();
         ArrayList<Proveedor> listaProveedores = modProv.getProveedor();
@@ -448,23 +454,23 @@ public class IngresarCompra extends javax.swing.JFrame {
         int selectedRow = tblProductosCompras.getSelectedRow();
 
         if (selectedRow != -1) {
-            // Si hay una fila seleccionada, elimina solo esa fila
+             // Si hay una fila seleccionada, elimina solo esa fila
             model.removeRow(selectedRow);
         } else {
-            // Si no hay fila seleccionada, preguntar al usuario si quiere borrar todo
+             // Si no hay fila seleccionada, preguntar al usuario si quiere borrar todo
             int response = JOptionPane.showConfirmDialog(null, "¿Desea eliminar todas las filas?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
             if (response == JOptionPane.YES_OPTION) {
-                // Si el usuario elige "Sí", elimina todas las filas
+                 // Si el usuario elige "Sí", elimina todas las filas
                 int rowCount = model.getRowCount();
                 for (int i = rowCount - 1; i >= 0; i--) {
                     model.removeRow(i);
                 }
             } else if (response == JOptionPane.NO_OPTION) {
-                // Si el usuario elige "No", informar que debe seleccionar una fila para eliminar
+                 // Si el usuario elige "No", informar que debe seleccionar una fila para eliminar
                 JOptionPane.showMessageDialog(null, "Por favor, seleccione un producto para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
-            // Si el usuario elige "No" o cierra la ventana de confirmación, no se hace nada.
+             // Si el usuario elige "No" o cierra la ventana de confirmación, no se hace nada.
         }
     }//GEN-LAST:event_btnEliminarPActionPerformed
 
@@ -478,13 +484,13 @@ public class IngresarCompra extends javax.swing.JFrame {
 
     private void btnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseExited
         // TODO add your handling code here:
-        //cambiar el color del boton al salir
+         //cambiar el color del boton al salir
         //btnAgregar.setBackground(new Color(204,204,204));
     }//GEN-LAST:event_btnAgregarMouseExited
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseEntered
         // TODO add your handling code here:
-        //cambiar el color del boton
+         //cambiar el color del boton
         //btnAgregar.setBackground(new Color(42, 126, 126));
     }//GEN-LAST:event_btnAgregarMouseEntered
 
@@ -520,8 +526,8 @@ public class IngresarCompra extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        //Guardar factura en la base de datos
-        //variable que guarda la fecha
+         //Guardar factura en la base de datos
+         //variable que guarda la fecha
         String fcha = ((JTextField)Fecha.getDateEditor().getUiComponent()).getText();
         // Obtener el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblProductosCompras.getModel();
@@ -550,7 +556,7 @@ public class IngresarCompra extends javax.swing.JFrame {
                 guardarCP.executeUpdate();
 
                 for (int i = 0; i < model.getRowCount(); i++) {
-                    // Obtener los datos de la fila actual
+                     // Obtener los datos de la fila actual
                     int idCompra = Integer.parseInt(txt_Id.getText());
                     String producto = model.getValueAt(i, 0).toString();
                     String Marca = model.getValueAt(i, 1).toString();
@@ -560,7 +566,7 @@ public class IngresarCompra extends javax.swing.JFrame {
                     double  precio_venta= Double.parseDouble(model.getValueAt(i, 6).toString());
                     try {
                         PreparedStatement guardarDC = conection.prepareStatement("INSERT INTO detallecompra(idCompra, producto, cantidad, tipoProducto, precio) VALUES(?,?,?,?,?)");
-                        // Insertar los datos en la base de datos (personaliza la sentencia SQL)
+                         // Insertar los datos en la base de datos (personaliza la sentencia SQL)
                         guardarDC.setInt(1, idCompra);
                         guardarDC.setString(2, producto);
                         guardarDC.setInt(3, cantidad);
@@ -583,16 +589,16 @@ public class IngresarCompra extends javax.swing.JFrame {
             int cantidadExistente = resultSet.getInt("Cantidad");
             double precioExistente = resultSet.getDouble("Precio");
             double precioVenta = resultSet.getDouble("Precio_venta");
-            // Sumar la cantidad en la factura a la cantidad existente en el inventario
+             // Sumar la cantidad en la factura a la cantidad existente en el inventario
             int nuevaCantidad = cantidadExistente + cantidad;
 
-            // Reemplazar el precio en el inventario si es mayor
+             // Reemplazar el precio en el inventario si es mayor
             double nuevoPrecio = Math.max(precioExistente, precio);
             
-            // Reemplazar el precio en el inventario si es mayor
+             // Reemplazar el precio en el inventario si es mayor
             double nuevoPrecioVenta = Math.max(precioVenta, precio_venta);
 
-            // Actualizar la cantidad y el precio en el inventario
+             // Actualizar la cantidad y el precio en el inventario
             PreparedStatement actualizarExistente = conection.prepareStatement("UPDATE inventarioproductos SET Cantidad = ?, Precio = ?, Precio_venta =? WHERE Producto = ? AND Marca = ? AND tipo_Producto = ?");
             actualizarExistente.setInt(1, nuevaCantidad);
             actualizarExistente.setDouble(2, nuevoPrecio);
@@ -602,7 +608,7 @@ public class IngresarCompra extends javax.swing.JFrame {
             actualizarExistente.setString(6, presentacion);
             actualizarExistente.executeUpdate();
         } else {
-            // El producto no existe en el inventario, inserta un nuevo registro
+             // El producto no existe en el inventario, inserta un nuevo registro
             PreparedStatement insertarNuevo = conection.prepareStatement("INSERT INTO inventarioproductos(Producto, Marca, tipo_Producto, Cantidad, Precio, Precio_venta) VALUES(?,?,?,?,?,?)");
             insertarNuevo.setString(1, producto);
             insertarNuevo.setString(2, Marca);
@@ -651,7 +657,7 @@ public class IngresarCompra extends javax.swing.JFrame {
                 double subtotal = Double.parseDouble(value.toString());
                 totalFactura += subtotal;
             } catch (NumberFormatException e) {
-                // Manejar una conversión de cadena a número incorrecta
+                 // Manejar una conversión de cadena a número incorrecta
                 e.printStackTrace();
             }
         }
