@@ -11,37 +11,45 @@ import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: MostrarVentas.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame para ver los datos de ventas registrados en el sistema. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class MostrarVentas extends javax.swing.JPanel {
+// Definición de la página actual y el número total de páginas
+
     private int paginaActual = 1;
     public static int totalPages = Clientes.NumeroPages("");
+
     /**
      * Creates new form MostrarVentas
      */
     public MostrarVentas() {
         initComponents();
-        
+
+        // Formateo de las fechas
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoInicial;
         String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
-       
+        try {
+            textoFinal = formato.format(jDateChooser1.getDate());
+        } catch (Exception e) {
+            textoFinal = null;
+        }
+        try {
+            textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+        } catch (Exception e) {
+            textoInicial = null;
+        }
+
+        // Mostrar ventas según las fechas seleccionadas
         Ventas.MostrarVentas("", paginaActual, totalPages, textoInicial, textoFinal);
+
+        // Establecer un mensaje de búsqueda en el campo de texto
         PromptSupport.setPrompt("Buscar por cliente, CAI.", txtbusqueda);
-        
-        
-        
+
     }
 
     /**
@@ -264,157 +272,192 @@ public class MostrarVentas extends javax.swing.JPanel {
                 .addGap(55, 55, 55))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método para manejar el evento de clic en el botón de nuevo
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // Crear una instancia de la ventana CrearVentas
         CrearVentas crearVentas = new CrearVentas();
+        // Mostrar la ventana de CrearVentas
         crearVentas.setVisible(true);
+        // Centrar la ventana en la pantalla
         crearVentas.setLocationRelativeTo(null);
-       
     }//GEN-LAST:event_btnNuevoActionPerformed
-
+    // Método para manejar el evento de clic en el botón de editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int fila = jtventas.getSelectedRow();  
-        
-        if (fila>=0){
-            Devoluciones devoluciones = new Devoluciones(jtventas.getValueAt(fila, 0).toString());     
+        // Obtener la fila seleccionada en la tabla de ventas
+        int fila = jtventas.getSelectedRow();
+
+        // Verificar si se seleccionó una fila válida
+        if (fila >= 0) {
+            // Crear una instancia de Devoluciones y pasar el ID de la venta seleccionada
+            Devoluciones devoluciones = new Devoluciones(jtventas.getValueAt(fila, 0).toString());
+            // Establecer los valores de la factura, CAI, cliente y fecha en la ventana de devoluciones
             devoluciones.lblFactura.setText(jtventas.getValueAt(fila, 4).toString());
             devoluciones.lblCai.setText(jtventas.getValueAt(fila, 3).toString());
             devoluciones.lblCliente.setText(jtventas.getValueAt(fila, 2).toString());
             devoluciones.lblFecha.setText(jtventas.getValueAt(fila, 5).toString());
+            // Mostrar la ventana de devoluciones
             devoluciones.setVisible(true);
         } else {
-        JOptionPane.showMessageDialog(null,  " Seleccione la venta en la que va a realizar la devolución");
+            // Mostrar un mensaje si no se seleccionó ninguna fila
+            JOptionPane.showMessageDialog(null, "Seleccione la venta en la que va a realizar la devolución");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
-
+    // Método para manejar el evento de liberación de tecla en el campo de búsqueda
     private void txtbusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbusquedaKeyReleased
+        // Formatear la fecha en formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoBusqueda = txtbusqueda.getText();
         String textoInicial;
         String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
+        try {
+            textoFinal = formato.format(jDateChooser1.getDate());
+        } catch (Exception e) {
+            textoFinal = null;
+        }
+        try {
+            textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+        } catch (Exception e) {
+            textoInicial = null;
+        }
+        // Restablecer la página actual a 1
         paginaActual = 1;
+        // Obtener el número total de páginas con los parámetros actuales y mostrar las ventas
         totalPages = Ventas.NumeroPages(textoBusqueda, textoInicial, textoFinal);
-        Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);        // TODO add your handling code here:
+        Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
     }//GEN-LAST:event_txtbusquedaKeyReleased
-
+    // Método para manejar el evento de hacer clic en el botón "previo"
     private void previoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previoActionPerformed
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        // Formatear la fecha en formato "yyyy-MM-dd"
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoBusqueda = txtbusqueda.getText();
         String textoInicial;
         String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
+        try {
+            textoFinal = formato.format(jDateChooser1.getDate());
+        } catch (Exception e) {
+            textoFinal = null;
+        }
+        try {
+            textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+        } catch (Exception e) {
+            textoInicial = null;
+        }
+        // Retroceder la página actual si es mayor que 1
         if (paginaActual > 1) {
             paginaActual--;
-
-            Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);    
-        }     
+            // Mostrar las ventas con los parámetros actuales
+            Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
+        }
     }//GEN-LAST:event_previoActionPerformed
-
+    // Método para manejar el evento de hacer clic en el botón "siguiente"
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+        // Formatear la fecha en formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoBusqueda = txtbusqueda.getText();
         String textoInicial;
         String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
+        try {
+            textoFinal = formato.format(jDateChooser1.getDate());
+        } catch (Exception e) {
+            textoFinal = null;
+        }
+        try {
+            textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+        } catch (Exception e) {
+            textoInicial = null;
+        }
+        // Calcular el número total de páginas
         totalPages = Ventas.NumeroPages(txtbusqueda.getText(), textoInicial, textoFinal);
+        // Incrementar la página actual si no excede el número total de páginas
         if (paginaActual < totalPages) {
             paginaActual++;
-
-           Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);      
-        }        
+            // Mostrar las ventas con los parámetros actuales
+            Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
+        }
     }//GEN-LAST:event_siguienteActionPerformed
-
+    // Método para manejar el clic en la tabla de ventas (jtventas)
     private void jtventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtventasMouseClicked
-             
-        if(evt.getClickCount() == 2){
-            int fila = jtventas.getSelectedRow(); 
-             VerVenta verVenta = new VerVenta(jtventas.getValueAt(fila, 0).toString());
-            //JOptionPane.showMessageDialog(null, jtventas.getValueAt(fila, 7));
+        // Verificar si se ha hecho doble clic en una fila
+        if (evt.getClickCount() == 2) {
+            // Obtener la fila seleccionada
+            int fila = jtventas.getSelectedRow();
+            // Crear una instancia de VerVenta y pasar el ID de la venta seleccionada
+            VerVenta verVenta = new VerVenta(jtventas.getValueAt(fila, 0).toString());
+            // Establecer los valores de los componentes de VerVenta con los datos de la fila seleccionada
             verVenta.lblfactura.setText(jtventas.getValueAt(fila, 4).toString());
             verVenta.lblCai.setText(jtventas.getValueAt(fila, 3).toString());
             verVenta.lblcliente.setText(jtventas.getValueAt(fila, 2).toString());
             verVenta.lblfecha.setText(jtventas.getValueAt(fila, 5).toString());
-          verVenta.setVisible(true);
-       
-        }  // TODO add your handling code here:
-    }//GEN-LAST:event_jtventasMouseClicked
-
-    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
-        if ("date".equals(evt.getPropertyName())) {
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-               String textoBusqueda = txtbusqueda.getText();
-               String textoInicial;
-               String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
-               System.out.println(textoInicial);
-                  System.out.println(textoFinal);
-
-               paginaActual = 1;
-               totalPages = Ventas.NumeroPages(textoBusqueda,textoInicial,textoFinal);
-               Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages,textoInicial,textoFinal);       
+            // Mostrar la ventana VerVenta
+            verVenta.setVisible(true);
         }
-       
-    }//GEN-LAST:event_jDateChooser2PropertyChange
+    }//GEN-LAST:event_jtventasMouseClicked
+    // Método para manejar el cambio de propiedad en el jDateChooser2
+    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+        // Verificar si la propiedad cambiada es la fecha
+        if ("date".equals(evt.getPropertyName())) {
+            // Formato de fecha
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            // Texto de búsqueda ingresado por el usuario
+            String textoBusqueda = txtbusqueda.getText();
+            String textoInicial;
+            String textoFinal;
+            try {
+                // Convertir la fecha seleccionada en el jDateChooser1 a formato de texto
+                textoFinal = formato.format(jDateChooser1.getDate());
+            } catch (Exception e) {
+                textoFinal = null;
+            }
+            try {
+                // Convertir la fecha seleccionada en el jDateChooser2 a formato de texto
+                textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+            } catch (Exception e) {
+                textoInicial = null;
+            }
+            // Imprimir las fechas para verificar
+            System.out.println(textoInicial);
+            System.out.println(textoFinal);
 
+            // Reiniciar la página actual a 1
+            paginaActual = 1;
+            // Obtener el número total de páginas
+            totalPages = Ventas.NumeroPages(textoBusqueda, textoInicial, textoFinal);
+            // Actualizar la tabla de ventas mostrando los resultados
+            Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
+        }
+    }//GEN-LAST:event_jDateChooser2PropertyChange
+    // Método para manejar el cambio de propiedad en el jDateChooser1   
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
-               if ("date".equals(evt.getPropertyName())) {
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-               String textoBusqueda = txtbusqueda.getText();
-               String textoInicial;
-               String textoFinal;
-               try {
-                    textoFinal = formato.format(jDateChooser1.getDate());
-               } catch (Exception e) {
-                    textoFinal = null;
-               }
-                try {
-                    textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
-               } catch (Exception e) {
-                    textoInicial = null;
-               }
-               System.out.println(textoInicial);
-               System.out.println(textoFinal);
-               
-               paginaActual = 1;
-               totalPages = Ventas.NumeroPages(textoBusqueda,textoInicial,textoFinal);
-               Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages,textoInicial,textoFinal);        
+        // Verificar si la propiedad cambiada es la fecha
+        if ("date".equals(evt.getPropertyName())) {
+            // Formato de fecha
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            // Texto de búsqueda ingresado por el usuario
+            String textoBusqueda = txtbusqueda.getText();
+            String textoInicial;
+            String textoFinal;
+            try {
+                // Convertir la fecha seleccionada en el jDateChooser1 a formato de texto
+                textoFinal = formato.format(jDateChooser1.getDate());
+            } catch (Exception e) {
+                textoFinal = null;
+            }
+            try {
+                // Convertir la fecha seleccionada en el jDateChooser2 a formato de texto
+                textoInicial = formato.format(jDateChooser2.getDateEditor().getDate());
+            } catch (Exception e) {
+                textoInicial = null;
+            }
+            // Imprimir las fechas para verificar
+            System.out.println(textoInicial);
+            System.out.println(textoFinal);
+
+            // Reiniciar la página actual a 1
+            paginaActual = 1;
+            // Obtener el número total de páginas
+            totalPages = Ventas.NumeroPages(textoBusqueda, textoInicial, textoFinal);
+            // Actualizar la tabla de ventas mostrando los resultados
+            Ventas.MostrarVentas(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
         }
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
