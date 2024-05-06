@@ -2,26 +2,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avila
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite mostrar las devoluciones realizadas        
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
+
+
+/**
+ *
+ * @author Cristhian Avila
+ */
+
 package Vistas;
 
 import java.awt.Color;
 
 
-
+// Definimos una clase llamada VerDevoluciones que extiende JFrame (marco de ventana)
 public class VerDevoluciones extends javax.swing.JFrame {
 
+    // Constructor de la clase VerDevoluciones
     public VerDevoluciones() {
         initComponents();
+        // Establecemos la posición de la ventana en el centro de la pantalla
         this.setLocationRelativeTo(null);
+        // Establecemos el color de fondo de la ventana en blanco
         getContentPane().setBackground(Color.white);
         
     }
     
+    // Llamamos al método para inicializar los componentes de la interfaz gráfica
     public VerDevoluciones(String id, String idVentas, String monto_a_devolver) {
         initComponents();
+        // Deshabilitamos el campo de texto txtDescripcion para que no sea editable
         txtDescripcion.setEnabled(false);
+         // Llamamos a un método del controlador Devoluciones para manejar la lógica relacionada con la devolución de ventas,
+    // pasando los parámetros idVentas y monto_a_devolver
         Controlador.Devoluciones.VerDevolucionesYVentas(idVentas,  monto_a_devolver);
         this.setLocationRelativeTo(null);
+        // Establecemos el color de fondo de la ventana en blanco
         getContentPane().setBackground(Color.white);
         
     
@@ -310,12 +332,13 @@ public class VerDevoluciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    
+    // Cierra la ventana actual
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
     
 
+    // Método que maneja el evento de escribir en el campo de texto txtDescripcion
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         
     }//GEN-LAST:event_txtDescripcionKeyTyped
@@ -359,9 +382,10 @@ public class VerDevoluciones extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        // Llama al método invokeLater() de EventQueue para ejecutar la creación y visualización de la ventana en el hilo de despacho de eventos de Swing
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // Crea una nueva instancia de VerDevoluciones y la hace visible
                 new VerDevoluciones().setVisible(true);
             }
         });
