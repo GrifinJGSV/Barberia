@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import java.awt.event.MouseAdapter;
@@ -10,12 +9,11 @@ import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
  * @author Andrea Ardon
- * Fecha de creación: [27/09/2023] 
+ * Fecha de creación: [23/10/2023] 
  * Descripción: este panel muestra el listado del mobiliario y equipo de la barberia,
  * cuenta con el acceso a crear, editar y ver los detalles del mobiliario o el equipo.
- * Derechos de autor (c) [27/09/2023] Arturo Mendoza. Todos los derechos reservados.
+ * Derechos de autor (c) [23/10/2023] Andrea Ardón. Todos los derechos reservados.
  */
 public class MostrarMobiliarioyEquipo extends javax.swing.JPanel {
 
@@ -333,7 +331,6 @@ public class MostrarMobiliarioyEquipo extends javax.swing.JPanel {
                 mobiliario.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnAgregarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox<String> ListadoEstado;
