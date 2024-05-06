@@ -2,6 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avila
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite mostrar las devoluciones realizadas por el usuario        
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
+
+/**
+ *
+ * @author Cristhian Avila
+ */
 package Vistas;
 
 import java.awt.Color;
@@ -11,12 +23,16 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 import Controlador.Devoluciones;
 
 public class MostrarDevoluciones extends javax.swing.JPanel {
-        private int paginaActual = 1;
+    // Variable para almacenar la página actual de la tabla    
+    private int paginaActual = 1;
+    // Variable estática para almacenar el número total de páginas
     public static int totalPages ;
     public MostrarDevoluciones() {
         initComponents();
     
+        // Constructor de la clase MostrarDevoluciones
         tblMostrarDevoluciones.getTableHeader().setReorderingAllowed(false);
+        // Formatea la fecha inicial y final utilizando el formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoInicial;
         String textoFinal;
@@ -30,7 +46,12 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
                } catch (Exception e) {
                     textoInicial = null;
                }
+        
+        // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+        // pasando valores vacíos para la búsqueda, la página actual, el número total de páginas y
+        // los textos inicial y final de las fechas        
         Devoluciones.MostrarDevoluciones("", paginaActual, totalPages, textoInicial, textoFinal);
+       // Configura un mensaje de sugerencia para el campo de búsqueda
         PromptSupport.setPrompt("Buscar por la fecha, por descripción y por el número de factura", txtBusqueda);
       
     }
@@ -230,7 +251,9 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        // Obtiene el texto ingresado en el campo de búsqueda
         String textoBusqueda = txtBusqueda.getText();
+        // Formatea las fechas inicial y final utilizando el formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoInicial;
         String textoFinal;
@@ -244,14 +267,19 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
                } catch (Exception e) {
                     textoInicial = null;
                }
+         // Reinicia el número de página actual a 1
         paginaActual = 1;
+        // Obtiene el número total de páginas de devoluciones, pasando el texto de búsqueda, las fechas inicial y final
         totalPages = Devoluciones.NumeroPages(textoBusqueda, textoInicial, textoFinal);
+        // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+       // pasando el texto de búsqueda, la página actual, el número total de páginas y
+      // los textos inicial y final de las fechas
         Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
     private void txtBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusGained
         // TODO add your handling code here:
-        //placeholder para notificar como realizar la busqueda
+         //placeholder para notificar como realizar la busqueda
         JTextField textField = (JTextField) evt.getSource();
         String placeholder = "Buscar por la fecha, por descripción y por el número de factura";
 
@@ -261,6 +289,7 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtBusquedaFocusGained
 
+    
     private void txtBusquedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusLost
         // TODO add your handling code here:
         //placeholder para notificar como realizar la busqueda
@@ -272,47 +301,67 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
             textField.setForeground(Color.GRAY); // Establece el color de fuente del placeholder
           }
     }//GEN-LAST:event_txtBusquedaFocusLost
-
+ 
+    // Método que maneja el evento de acción cuando se hace clic en el botón "Atras"
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // Formatea la fecha actual utilizando el formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        // Obtiene el texto ingresado en el campo de búsqueda
         String textoBusqueda = txtBusqueda.getText();
+        // Variables para almacenar los textos de las fechas inicial y final
         String textoInicial;
         String textoFinal;
                try {
+                   // Intenta formatear la fecha final y captura cualquier excepción 
                     textoFinal = formato.format(FechaFinal.getDate());
                } catch (Exception e) {
-                    textoFinal = null;
+                    textoFinal = null; // En caso de excepción, establece el texto final como null
                }
                 try {
+                   // Intenta formatear la fecha inicial y captura cualquier excepción
                     textoInicial = formato.format(FechaInicio.getDateEditor().getDate());
                } catch (Exception e) {
-                    textoInicial = null;
+                    textoInicial = null;// En caso de excepción, establece el texto inicial como null
                }
+                // Verifica si hay páginas anteriores disponibles
           totalPages = Devoluciones.NumeroPages(textoBusqueda, textoInicial, textoFinal);
         if (paginaActual > 1) {
+            // Decrementa el número de página actual
             paginaActual--;
+            // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+            // pasando el texto de búsqueda, la página actual, el número total de páginas y
+            // los textos inicial y final de las fechas
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    // Método que maneja el evento de acción cuando se hace clic en el botón "Adelante"
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+        // Formatea la fecha actual utilizando el formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String textoBusqueda = txtBusqueda.getText();
+        // Variables para almacenar los textos de las fechas inicial y final
         String textoInicial;
         String textoFinal;
                try {
+                   // Intenta formatear la fecha final y captura cualquier excepción 
                     textoFinal = formato.format(FechaFinal.getDate());
                } catch (Exception e) {
-                    textoFinal = null;
+                    textoFinal = null;// En caso de excepción, establece el texto final como null
                }
                 try {
+                    // Intenta formatear la fecha inicial y captura cualquier excepción
                     textoInicial = formato.format(FechaInicio.getDateEditor().getDate());
                } catch (Exception e) {
-                    textoInicial = null;
+                    textoInicial = null;// En caso de excepción, establece el texto inicial como null
                }
               totalPages = Devoluciones.NumeroPages(textoBusqueda, textoInicial, textoFinal);
         if (paginaActual < totalPages) {
+            // Incrementa el número de página actual
             paginaActual++;
+            // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+        // pasando el texto de búsqueda, la página actual, el número total de páginas y
+        // los textos inicial y final de las fechas
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages, textoInicial, textoFinal);
         }
     }//GEN-LAST:event_btnAdelanteActionPerformed
@@ -323,14 +372,14 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
         int fila = tblMostrarDevoluciones.getSelectedRow();
 
-        if (fila != -1) { // Asegura que se haya seleccionado una fila
+        if (fila != -1) {  // Asegura que se haya seleccionado una fila
             String id = tblMostrarDevoluciones.getValueAt(fila, 8).toString();
             String idVentas = tblMostrarDevoluciones.getValueAt(fila, 9).toString();
             String monto_a_devolver = tblMostrarDevoluciones.getValueAt(fila, 7).toString();
 
             VerDevoluciones verDevoluciones = new VerDevoluciones(id, idVentas, monto_a_devolver);
 
-            // Configura otros componentes en VerDevoluciones según sea necesario
+             // Configura otros componentes en VerDevoluciones según sea necesario
             verDevoluciones.txtDescripcion.setText(tblMostrarDevoluciones.getValueAt(fila, 2).toString());
             verDevoluciones.lblFecha1.setText(tblMostrarDevoluciones.getValueAt(fila, 3).toString());
 
@@ -339,74 +388,103 @@ public class MostrarDevoluciones extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_tblMostrarDevolucionesMouseClicked
 
+    // Método que maneja el cambio de propiedad del componente FechaInicio
     private void FechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_FechaInicioPropertyChange
+        // Verifica si la propiedad cambiada es "date"
         if ("date".equals(evt.getPropertyName())) {
+            // Formatea la fecha actual utilizando el formato "yyyy-MM-dd"
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            // Obtiene el texto ingresado en el campo de búsqueda
             String textoBusqueda = txtBusqueda.getText();
+            // Variables para almacenar los textos de las fechas inicial y final
             String textoInicial;
             String textoFinal;
             try {
+                // Intenta formatear la fecha final y captura cualquier excepción
                 textoFinal = formato.format(FechaFinal.getDate());
             } catch (Exception e) {
-                textoFinal = null;
+                textoFinal = null;// En caso de excepción, establece el texto final como null
             }
             try {
+                // Intenta formatear la fecha inicial y captura cualquier excepción
                 textoInicial = formato.format(FechaInicio.getDateEditor().getDate());
             } catch (Exception e) {
-                textoInicial = null;
+                textoInicial = null;// En caso de excepción, establece el texto inicial como null
             }
 //            System.out.println(textoInicial);
 //            System.out.println(textoFinal);
 
             paginaActual = 1;
             totalPages = Devoluciones.NumeroPages(textoBusqueda,textoInicial,textoFinal);
+            // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+            // pasando el texto de búsqueda, la página actual, el número total de páginas y
+            // los textos inicial y final de las fechas
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages,textoInicial,textoFinal);
         }
 
     }//GEN-LAST:event_FechaInicioPropertyChange
 
+    // Método que maneja el cambio de propiedad del componente FechaFinal
     private void FechaFinalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_FechaFinalPropertyChange
+       // Verifica si la propiedad cambiada es "date"
         if ("date".equals(evt.getPropertyName())) {
+            // Formatea la fecha actual utilizando el formato "yyyy-MM-dd"
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            // Obtiene el texto ingresado en el campo de búsqueda
             String textoBusqueda = txtBusqueda.getText();
+            // Variables para almacenar los textos de las fechas inicial y final
             String textoInicial;
             String textoFinal;
             try {
+                // Intenta formatear la fecha final y captura cualquier excepción
                 textoFinal = formato.format(FechaFinal.getDate());
             } catch (Exception e) {
-                textoFinal = null;
+                textoFinal = null;// En caso de excepción, establece el texto final como null
             }
             try {
+                // Intenta formatear la fecha inicial y captura cualquier excepción
                 textoInicial = formato.format(FechaInicio.getDateEditor().getDate());
             } catch (Exception e) {
-                textoInicial = null;
+                textoInicial = null; // En caso de excepción, establece el texto inicial como null
             }
 //            System.out.println(textoInicial);
 //            System.out.println(textoFinal);
-
+            // Reinicia el número de página actual a 1
             paginaActual = 1;
+            // Obtiene el número total de páginas de devoluciones, pasando el texto de búsqueda, las fechas inicial 
             totalPages = Devoluciones.NumeroPages(textoBusqueda,textoInicial,textoFinal);
+            // Llama a un método de Devoluciones para mostrar las devoluciones en la tabla,
+            // pasando el texto de búsqueda, la página actual, el número total de páginas y
+            // los textos inicial y final de las fechas
             Devoluciones.MostrarDevoluciones(textoBusqueda, paginaActual, totalPages,textoInicial,textoFinal);
         }
     }//GEN-LAST:event_FechaFinalPropertyChange
-
+    // Método que maneja el evento de acción cuando se hace clic en el botón "Recargar"
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        // Establece las fechas de inicio y final en null, borrando así cualquier fecha seleccionada
         FechaInicio.setDate(null);    
         FechaFinal.setDate(null);    
+        // Formatea la fecha actual utilizando el formato "yyyy-MM-dd"
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            // Variables para almacenar los textos de las fechas inicial y final
             String textoInicial;
             String textoFinal;
                try {
-                    textoFinal = formato.format(FechaFinal.getDate());
+                   // Intenta formatear la fecha final y captura cualquier excepción  
+                   textoFinal = formato.format(FechaFinal.getDate());
                } catch (Exception e) {
-                    textoFinal = null;
+                    textoFinal = null; // En caso de excepción, establece el texto final como null
                }
                 try {
+                    // Intenta formatear la fecha inicial y captura cualquier excepción
                     textoInicial = formato.format(FechaInicio.getDateEditor().getDate());
                } catch (Exception e) {
-                    textoInicial = null;
+                    textoInicial = null;// En caso de excepción, establece el texto inicial como null
                }
-        Devoluciones.MostrarDevoluciones("", paginaActual, totalPages, textoInicial, textoFinal);
+                // Llama a un método de Devoluciones para mostrar todas las devoluciones en la tabla,
+               // pasando valores vacíos para el texto de búsqueda, la página actual, el número total de páginas y
+              // los textos inicial y final de las fechas
+                Devoluciones.MostrarDevoluciones("", paginaActual, totalPages, textoInicial, textoFinal);
     }//GEN-LAST:event_btnRecargarActionPerformed
 
 

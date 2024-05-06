@@ -18,6 +18,19 @@ import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avila
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite ver los tipos de cortes        
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
+
+
+/**
+ *
+ * @author Cristhian Avila
+ */
 
 public class VerCortes extends javax.swing.JFrame {
 
@@ -29,7 +42,7 @@ public class VerCortes extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         getContentPane().setBackground(Color.white);
         this.idCorte = idCorte;
-        // Aquí deberías usar el ID para cargar los datos del corte en los componentes visuales (por ejemplo, lblNombre, lblPrecio, etc.).
+         // Aquí deberías usar el ID para cargar los datos del corte en los componentes visuales (por ejemplo, lblNombre, lblPrecio, etc.).
         cargarDatosDelCorte();
     }
 
@@ -42,14 +55,14 @@ public class VerCortes extends javax.swing.JFrame {
 //        java.sql.Connection conexion = Conexion.getConexion(); // Usar tu método para obtener la conexión.
         
     try {
-        // Cargar la consulta SQL desde el archivo 'QuerysCortes'.
+         // Cargar la consulta SQL desde el archivo 'QuerysCortes'.
         String consultaSQL = QuerysCortes.VerCortes;
 
         // Crear una sentencia preparada con la consulta SQL.
         PreparedStatement ps = conexion.prepareStatement(consultaSQL);
         ps.setString(1, idCorte); 
 
-        // Ejecutar la consulta y obtener el resultado.
+         // Ejecutar la consulta y obtener el resultado.
         var rs = ps.executeQuery();
         if (rs.next()) {
             String nombre = rs.getString("nombre_corte");
@@ -71,14 +84,14 @@ public class VerCortes extends javax.swing.JFrame {
 
             lblNombre.setText(nombre);
             lblGenero.setText(genero);
-            // Tamaño fijo para las imágenes
-            int imagenAncho = 200; // Ancho deseado en píxeles
-            int imagenAlto = 200; // Alto deseado en píxeles
+             // Tamaño fijo para las imágenes
+            int imagenAncho = 200;  // Ancho deseado en píxeles
+            int imagenAlto = 200;  // Alto deseado en píxeles
 
             if (corte1Image != null) {
                 corte1Image = resizeImage(corte1Image, imagenAncho, imagenAlto);
                 LblImagen1.setIcon(new ImageIcon(corte1Image));
-                LblImagen1.setText(""); // Borra cualquier texto previo
+                LblImagen1.setText("");  // Borra cualquier texto previo
             } else {
                 LblImagen1.setText("<html><div style='text-align: center;'>No hay imagen<br>disponible</div></html>");
                 LblImagen1.setForeground(Color.RED);
@@ -87,7 +100,7 @@ public class VerCortes extends javax.swing.JFrame {
             if (corte2Image != null) {
                 corte2Image = resizeImage(corte2Image, imagenAncho, imagenAlto);
                 LblImagen2.setIcon(new ImageIcon(corte2Image));
-                LblImagen2.setText(""); // Borra cualquier texto previo
+                LblImagen2.setText("");  // Borra cualquier texto previo
             } else {
                 LblImagen2.setText("<html><div style='text-align: center;'>No hay imagen<br>disponible</div></html>");
                 LblImagen2.setForeground(Color.RED);
@@ -96,7 +109,7 @@ public class VerCortes extends javax.swing.JFrame {
             if (corte3Image != null) {
                 corte3Image = resizeImage(corte3Image, imagenAncho, imagenAlto);
                 LblImagen3.setIcon(new ImageIcon(corte3Image));
-                LblImagen3.setText(""); // Borra cualquier texto previo
+                LblImagen3.setText("");  // Borra cualquier texto previo
             } else {
                 LblImagen3.setText("<html><div style='text-align: center;'>No hay imagen<br>disponible</div></html>");
                 LblImagen3.setForeground(Color.RED);
@@ -106,17 +119,17 @@ public class VerCortes extends javax.swing.JFrame {
            
 
         }
-        // Cierra los recursos (ResultSet, PreparedStatement).
+         // Cierra los recursos (ResultSet, PreparedStatement).
         rs.close();
         ps.close();
     } catch (SQLException ex) {
         ex.printStackTrace();
-        // Maneja los errores apropiadamente.
+         // Maneja los errores apropiadamente.
     }
 }
 
 
-// Método para redimensionar la imagen a un tamaño específico
+ // Método para redimensionar la imagen a un tamaño específico
 private BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
     BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
     Graphics2D graphics = resizedImage.createGraphics();

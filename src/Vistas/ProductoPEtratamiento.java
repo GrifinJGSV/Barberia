@@ -26,9 +26,17 @@ import java.sql.Statement;
 import javax.swing.JTextField;
 import static Vistas.EditarTratamiento.tblProductosDeTratamiento;
 
+/*
+    * Nombre del archivo: Conexion.java
+    * Autor: Cristhian Avila
+    * Fecha de creación: [20/09/2023]
+    * Descripción: Esta clase permite agregar producto de tratamiento       
+    * Derechos de autor (c) [20/09/2023] Cristhian Avila. Todos los derechos reservados.
+ */
+
 /**
  *
- * @author Arturo
+ * @author Cristhian Avila
  */
 public class ProductoPEtratamiento extends javax.swing.JFrame {
     
@@ -40,10 +48,10 @@ public class ProductoPEtratamiento extends javax.swing.JFrame {
      */
     public ProductoPEtratamiento() {
         initComponents();
-        //esta linea de codigo centra la ventana.
+         //esta linea de codigo centra la ventana.
         this.setLocationRelativeTo(null);
        
-        //esta linea de codigo permite hacer busqueda en la ventana.
+         //esta linea de codigo permite hacer busqueda en la ventana.
         Controlador.ProductosTratamiento.ProductoPETratamiento("");
         
             tblProductosPETratamiento.addMouseListener(new MouseAdapter() {
@@ -56,33 +64,37 @@ public class ProductoPEtratamiento extends javax.swing.JFrame {
     
     //metodo para buscar productos.
     public void filtrarDatosProductos(String valor){
-        //variable para asignar titulo a las columnas.
+         // Definimos los títulos de las columnas de la tabla
         String[] titulos = {"<html>Num.</html>","<html>Nombre del Producto</html>"};
-        //arreglo para asiganar los atributos en columnas en la tabla 
+         // Arreglo para almacenar los registros de productos
         String[] registrosP = new String[4];
-        
-        //estas lineas de codigo realizan filtro de busqueda.
+         // Creamos un nuevo modelo de tabla con los títulos especificados
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
         String SQL = "select * from catalogo_productos WHERE nombre like '%" + valor + "'";
-
+         // Construimos la consulta SQL para filtrar los productos por el valor especificado
         
-        //manejo de error si no falla el codigo
+        
         try {
+            // Establecemos una conexión con la base de datos y creamos un objeto Statement
             Statement st=(Statement) Conexion.getConection().createStatement();
+            // Ejecutamos la consulta SQL y obtenemos el conjunto de resultados
             ResultSet rs= st.executeQuery(SQL);
              
             while(rs.next()){
+                // Almacenamos los valores de la fila actual en el arreglo registrosP
                 registrosP[0]=rs.getString("id");
                 registrosP[1]=rs.getString("nombre");
                 
+                 // Agregamos la fila al modelo de la tabla
                 modelo.addRow(registrosP);
                 
             }
             
+            // Establecemos el modelo de la tabla en la tabla de productos de la interfaz
             ProductoPEtratamiento.tblProductosPETratamiento.setModel(modelo);
             
         } 
-        //manejo de excepcion u error si falla el codigo.
+        // En caso de error, mostramos un mensaje de error
         catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error"+e);
         }
@@ -278,32 +290,32 @@ public class ProductoPEtratamiento extends javax.swing.JFrame {
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
 
-        //Variable para obtener la fila seleccionada.
+         //Variable para obtener la fila seleccionada.
         int fila = tblProductosPETratamiento.getSelectedRow();
 
-//Manejo de errores u excepcioines 
+ //Manejo de errores u excepcioines 
 try {
     // Variables para capturar los campos de la tabla de productos
     String nombreProd, id;
     
-    //condicion por si se selecciona o no una fila.
+     //condicion por si se selecciona o no una fila.
     if (fila < 0) {
         JOptionPane.showMessageDialog(null, "No se seleccionó ningún producto",
                 "Error al agregar producto", JOptionPane.WARNING_MESSAGE);
-        return; // Salir del método si no se seleccionó ningún producto
+        return;  // Salir del método si no se seleccionó ningún producto
     }
-    //Estas lineas de codigo obtienen las columnas con los atributos que se desean obtener.
+     //Estas lineas de codigo obtienen las columnas con los atributos que se desean obtener.
     DefaultTableModel modelo = (DefaultTableModel) tblProductosPETratamiento.getModel();
     id = tblProductosPETratamiento.getValueAt(fila, 1).toString();
     nombreProd = tblProductosPETratamiento.getValueAt(fila, 0).toString();
 
-    // Obtener el valor de id_tratamiento (puedes ajustar esto según tu lógica)
+     // Obtener el valor de id_tratamiento (puedes ajustar esto según tu lógica)
     String idTratamiento = obtenerValorIdTratamiento();
 
-    // Enviar los campos seleccionados de la tabla de productos a la tabla de factura de compras
+     // Enviar los campos seleccionados de la tabla de productos a la tabla de factura de compras
     modelo = (DefaultTableModel) tblProductosDeTratamiento.getModel();
 
-    // Buscar el producto en la tabla tblProductosDeTratamiento
+     // Buscar el producto en la tabla tblProductosDeTratamiento
     boolean productoEncontrado = false;
     for (int i = 0; i < modelo.getRowCount(); i++) {
         String idEnTabla = modelo.getValueAt(i, 0).toString();
@@ -312,42 +324,42 @@ try {
             break;
         }
     }
-    //condicion para cuando se quiera ingresar un producto ya antes ingresado.
+     //condicion para cuando se quiera ingresar un producto ya antes ingresado.
     if (productoEncontrado) {
         JOptionPane.showMessageDialog(null, "El producto ya existe en la tabla", "Duplicado", JOptionPane.WARNING_MESSAGE);
     } else {
-        // El producto no existe en la tabla, agregarlo como una nueva fila
+         // El producto no existe en la tabla, agregarlo como una nueva fila
         String filaElemento[] = {id, nombreProd,idTratamiento};
         modelo.addRow(filaElemento);
-        // JOptionPane.showMessageDialog(null, "Se agregó el producto!");
+         // JOptionPane.showMessageDialog(null, "Se agregó el producto!");
     }
 }
-//manejo de error si falla el codigo.
+ //manejo de error si falla el codigo.
 catch (Exception e) {
     e.printStackTrace();
 }
 
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
-    // Método ficticio para obtener el valor de id_tratamiento (ajusta esto según tu lógica)
+     // Método ficticio para obtener el valor de id_tratamiento (ajusta esto según tu lógica)
 private String obtenerValorIdTratamiento() {
     DefaultTableModel tabla = (DefaultTableModel) tblProductosDeTratamiento.getModel();
 
-    // Obtener la fila seleccionada (si es aplicable)
+     // Obtener la fila seleccionada (si es aplicable)
     int filaSeleccionada = tblProductosDeTratamiento.getSelectedRow();
 
-    // Verificar si hay una fila seleccionada
+     // Verificar si hay una fila seleccionada
     if (filaSeleccionada != -1) {
-        // Obtener el valor de la columna 2 (indice 1 en base 0)
+         // Obtener el valor de la columna 2 (indice 1 en base 0)
         Object valorColumna2 = tabla.getValueAt(filaSeleccionada, 2);
 
-        // Verificar si el valor no es nulo antes de convertirlo a String
+         // Verificar si el valor no es nulo antes de convertirlo a String
         if (valorColumna2 != null) {
             return valorColumna2.toString();
         }
     }
 
-    // Manejar el caso donde no se puede obtener el valor
+     // Manejar el caso donde no se puede obtener el valor
     return "";
 }
 
@@ -362,9 +374,9 @@ private String obtenerValorIdTratamiento() {
 
     private void CuadroBuscarProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CuadroBuscarProductoFocusGained
         // TODO add your handling code here:
-        //placeholder para notificar como realizar la busqueda
+         //placeholder para notificar como realizar la busqueda
         JTextField textField = (JTextField) evt.getSource();
-        //variable que almacena el texto que explica como realizar busqueda.
+         //variable que almacena el texto que explica como realizar busqueda.
         String placeholder = "Buscar por nombre de producto";
 
         if (textField.getText().equals(placeholder)) {
@@ -375,7 +387,7 @@ private String obtenerValorIdTratamiento() {
 
     private void CuadroBuscarProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CuadroBuscarProductoFocusLost
         // TODO add your handling code here:
-        //placeholder para notificar como realizar la busqueda
+         //placeholder para notificar como realizar la busqueda
         JTextField textField = (JTextField) evt.getSource();
         String placeholder = "Buscar por nombre de producto";
 
@@ -391,7 +403,7 @@ private String obtenerValorIdTratamiento() {
 
     private void CuadroBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CuadroBuscarProductoKeyReleased
         // TODO add your handling code here:
-        //esta linea de codigo obtiene lo ingresado en el cuadro de busqueda como parametro de entrada.
+         //esta linea de codigo obtiene lo ingresado en el cuadro de busqueda como parametro de entrada.
         filtrarDatosProductos(CuadroBuscarProducto.getText());
     }//GEN-LAST:event_CuadroBuscarProductoKeyReleased
 
@@ -401,7 +413,7 @@ private String obtenerValorIdTratamiento() {
     }//GEN-LAST:event_CuadroBuscarProductoKeyTyped
 
     private void bntAgregarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAgregarProdActionPerformed
-        //estas lineas de codigo abren la ventana para crear productos de cuidado.
+         //estas lineas de codigo abren la ventana para crear productos de cuidado.
         CrearProductosCuidado crearproducto = new CrearProductosCuidado();
         crearproducto.setVisible(true);
     }//GEN-LAST:event_bntAgregarProdActionPerformed
