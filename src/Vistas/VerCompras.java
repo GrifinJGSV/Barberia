@@ -5,28 +5,35 @@
 package Vistas;
 
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: VerCompras.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame y los valores de la compra que se selecciona. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class VerCompras extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VerCompras
-     */
+    // Constructor de la clase VerCompras
     public VerCompras() {
+        // Inicializa los componentes de la interfaz gráfica
         initComponents();
+        // Establece la ubicación relativa al centro de la pantalla
         this.setLocationRelativeTo(null);
+        // Establece el color de fondo en blanco
         getContentPane().setBackground(Color.white);
     }
-    
+
+    // Constructor de la clase VerCompras que recibe un ID como parámetro
     public VerCompras(String id) {
+        // Inicializa los componentes de la interfaz gráfica
         initComponents();
-        //JOptionPane.showMessageDialog(null, id);
+        // Llama al método para mostrar la compra correspondiente al ID recibido
         Controlador.VerCompra.VerCompras(id);
+        // Establece la ubicación relativa al centro de la pantalla
         this.setLocationRelativeTo(null);
+        // Establece el color de fondo en blanco
         getContentPane().setBackground(Color.white);
     }
 
