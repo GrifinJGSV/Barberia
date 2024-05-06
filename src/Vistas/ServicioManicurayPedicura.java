@@ -18,8 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
- * @author Andrea
+ * @author Andrea Ardon
+ * Fecha de creación: [29/11/2023] 
+ * Descripción: esta ventana funciona en conjunto con la ventana venta de servicios, 
+ * en esta se muestra un listado con los nombres de los tratamientos con el fin de agregarlos a la farctura de la venta de servicios.
+ * Derechos de autor (c) [29/11/2023] Andrea Ardón. Todos los derechos reservados.
  */
 public class ServicioManicurayPedicura extends javax.swing.JFrame {
 
