@@ -21,15 +21,13 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Andrea
+ * @author Andrea Ardon
+ * Fecha de creación: [28/11/2023] 
+ * Descripción: esta ventana tiene el objetivo de agendar una cita con los detalles de los servicios a realizar.
+ * Derechos de autor (c) [28/11/2023] Andrea Ardón. Todos los derechos reservados.
  */
 
 public class IngresarCita extends javax.swing.JFrame {
-
-    /**
-     * Creates new form IngresarCita
-     */
     
     //para poner publico el nombre del cliente
     static  String clienteSeleccionadoNombre;
@@ -59,21 +57,28 @@ public class IngresarCita extends javax.swing.JFrame {
         });
 
     }
-      //metodo para poder traer el id y el nombre del proveedor
+      //metodo para poder traer el id y el nombre del cliente
     public void llenarCliente(){
+        // Crea una instancia del modelo de clientes
         ModeloClientes modCli = new ModeloClientes();
+        // Obtiene la lista de clientes del modelo
         ArrayList<Cliente> listaCliente = modCli.getCliente();
+        // Inicializa variables para almacenar el cliente seleccionado
         int clienteSeleccionadoId = 0;
-        clienteSeleccionadoNombre = "---";
-        
+        clienteSeleccionadoNombre = "---";// Esto debería ser una variable de instancia si se va a utilizar fuera de este método
+        // Elimina todos los elementos existentes del combo box
         cbxCliente.removeAllItems();
         
+        // Itera sobre la lista de clientes
         for(int i = 0; i < listaCliente.size(); i++ ){
+            // Agrega cada cliente como un ítem al combo box
             cbxCliente.addItem(new Cliente(listaCliente.get(i).getId(),
                     listaCliente.get(i).getNombre(),listaCliente.get(i).getApellido()));
             
+            // Obtiene el índice seleccionado del combo box
             int indiceSeleccionado = cbxCliente.getSelectedIndex();
             
+            // Si el índice seleccionado coincide con el índice actual del bucle
             if (indiceSeleccionado == i) {
                 // Guardar el ID del proveedor seleccionado
                 clienteSeleccionadoId = listaCliente.get(i).getId();
@@ -82,6 +87,7 @@ public class IngresarCita extends javax.swing.JFrame {
         }    
     }
     public void llenarEmpleado() {
+        // Crea una instancia del modelo de empleados
         ModeloEmpleados modEmp = new ModeloEmpleados();
 
         // Obtener el servicio seleccionado en el JComboBox
@@ -89,17 +95,21 @@ public class IngresarCita extends javax.swing.JFrame {
         
         // Llenar el ComboBox de empleados con los empleados activos del servicio seleccionado
         ArrayList<Empleados> listaEmpleados = modEmp.getEmpleadosActivosPorServicio(servicioSeleccionado);
-        //System.out.println("Servicios seleccionados:" + servicioSeleccionado);
+        
+        // Inicializa variables para almacenar el empleado seleccionado
         int empleadoSeleccionadoId = 0;
         empleadoSeleccionadoNombre = "---";
-
+        
+        // Elimina todos los elementos existentes del JComboBox cbxEmpleados
         cbxEmpleados.removeAllItems();
-
+        
+        // Itera sobre la lista de empleados
         for (int i = 0; i < listaEmpleados.size(); i++) {
+            // Agrega cada empleado como un ítem al JComboBox cbxEmpleados
             cbxEmpleados.addItem(new Empleados(listaEmpleados.get(i).getId(),listaEmpleados.get(i).getNombre(), listaEmpleados.get(i).getApellido(),listaEmpleados.get(i).getCargo()));
-
+            // Obtiene el índice seleccionado del JComboBox cbxEmpleados
             int indiceSeleccionado = cbxEmpleados.getSelectedIndex();
-
+            // Si el índice seleccionado coincide con el índice actual del bucle
             if (indiceSeleccionado == i) {
                 // Guardar el ID y el Nombre del empleado seleccionado
                 empleadoSeleccionadoId = listaEmpleados.get(i).getId();
@@ -372,12 +382,16 @@ public class IngresarCita extends javax.swing.JFrame {
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
+    //crea un (Set) llamado horasOcupadas que almacenará cadenas de texto.
     private Set<String> horasOcupadas = new HashSet<>();
     
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
+        // Seleccionar el cliente del ComboBox y guardarlo en una variable llamada clienteSeleccionado
         Cliente clienteSeleccionado = (Cliente) cbxCliente.getSelectedItem();
+        // Seleccionar el empleado del ComboBox y guardarlo en una variable llamada empleadoSeleccionado
         Empleados empleadoSeleccionado = (Empleados) cbxEmpleados.getSelectedItem();
         
+        // Obtener los datos ingresados y convertirlo a una cadena de texto
         String tipoClienteSeleccionado = cbxTipoCliente.getSelectedItem().toString();
         String telefono = txtTelefono.getText();
         String servicioSeleccionado = cbxServicio.getSelectedItem().toString();
