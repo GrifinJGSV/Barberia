@@ -13,24 +13,18 @@ import javax.swing.UIManager;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- * Nombre del archivo: CrearVentasProductos.java
- * Autor: Alejandra Suárez
- * Fecha de creación: [20/09/2023]
- * Descripción: JFRame que contiene los campos necesarios para agregar productos a una nueva venta a crear.
- * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
+ *
+ * @author XxHunterxX
  */
-
 public class CrearVentasProductos extends javax.swing.JFrame {
-    //Inicializacion de las variables de la paginacion, la primera pagina y el numero total de paginas
     private int paginaActual = 1;
     public static int totalPages = Ventas.NumeroPagesProductos("");
-
+    /**
+     * Creates new form CrearVentasClientes
+     */
     public CrearVentasProductos() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Evita el cierre automático
-        
-        
-        //Carga de la paginacion principal del tabla de productos
         Ventas.MostrarInventario("", paginaActual, totalPages);
         PromptSupport.setPrompt("Buscar por producto y marca", jtBuscar);
         setResizable(false);
@@ -234,14 +228,14 @@ public class CrearVentasProductos extends javax.swing.JFrame {
     private void jtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtBuscarActionPerformed
-    //Metodo de busqueda de la tabla, utilizando jtextfield para busqueda dinamica
+
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
         String textoBusqueda = jtBuscar.getText();
         paginaActual = 1;
         totalPages = Ventas.NumeroPagesProductos(textoBusqueda);
         Ventas.MostrarInventario(textoBusqueda, paginaActual, totalPages);        
     }//GEN-LAST:event_jtBuscarKeyReleased
-    // Método de búsqueda de la tabla, desplazándose de las páginas hacia la izquierda
+
     private void previo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previo1ActionPerformed
         if (paginaActual > 1) {
             paginaActual--;
@@ -250,7 +244,7 @@ public class CrearVentasProductos extends javax.swing.JFrame {
             Ventas.MostrarInventario(textoBusqueda, paginaActual, totalPages);    
         }   
     }//GEN-LAST:event_previo1ActionPerformed
-    // Método de búsqueda de la tabla, desplazándose de las páginas hacia la derecha
+
     private void siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguiente1ActionPerformed
         totalPages = Ventas.NumeroPagesProductos(jtBuscar.getText());
         if (paginaActual < totalPages) {
@@ -262,84 +256,88 @@ public class CrearVentasProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_siguiente1ActionPerformed
 
     private void jtProductosVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosVentasMouseClicked
-          boolean val = true;  // Variable booleana para controlar el bucle de entrada.
-            int seleccion = jtProductosVentas.getSelectedRow();  // Obtiene el índice de la fila seleccionada en la tabla.
-
-            QuerysInventarioProductos inventarioProductos = Ventas.inventarioProductoses.get(seleccion);  // Obtiene el objeto QuerysInventarioProductos de la lista en base a la selección.
-            String valor = "0";  // Inicializa la cadena de valor con "0".
-            do {       
-                // Configuración de los botones del diálogo de entrada.
-                UIManager.put("OptionPane.yesButtonText", "Si");
-                UIManager.put("OptionPane.noButtonText", "No");
-                UIManager.put("OptionPane.cancelButtonText", "Cancelar");
-                // Muestra el cuadro de diálogo de entrada y asigna el valor ingresado a "valor".
-                valor = JOptionPane.showInputDialog(null, "Agregue la cantidad a vender", "", JOptionPane.INFORMATION_MESSAGE);
-
-                if (valor != null) {  // Si se ingresa un valor:
-                    int cantidad = 0;  // Inicializa la cantidad en 0.
-                    try {
-                        cantidad = Integer.parseInt(valor);  // Intenta convertir el valor ingresado a un entero.
-
-                        if (!(cantidad > 0)) {  // Si la cantidad no es mayor que cero:
-                            JOptionPane.showMessageDialog(null, "La Cantidad no puede ser 0");  // Muestra un mensaje de error.
-                            return;  // Sale del método actual.
-                        }
-
-                        val = false;  // Establece val como falso para salir del bucle.
-                    } catch (NumberFormatException e) {  // Si hay un error al convertir el valor a entero:
-                        val = true;  // Establece val como verdadero para continuar el bucle.
-                    }
-
-                    if (!val) {  // Si val es falso:
-                        val = false;  // Reinicializa val como falso.
-                        if (inventarioProductos.getCantidad() >= cantidad) {  // Si la cantidad disponible es mayor o igual a la cantidad requerida:
-
-                        } else {  // Si la cantidad disponible es menor que la cantidad requerida:
-                            JOptionPane.showMessageDialog(null, "La cantidad no deber sobrepasar la existencia");  // Muestra un mensaje de error.
-                            val = true;  // Establece val como verdadero para continuar el bucle.
-                        }
-
-                    } else {  // Si val es verdadero:
-                        JOptionPane.showMessageDialog(null, "La Cantidad es incorrecta");  // Muestra un mensaje de error.
-                        val = true;  // Establece val como verdadero para continuar el bucle.
-                    }
-                } else {  // Si no se ingresa ningún valor y se cancela el diálogo:
-                    return;  // Sale del método actual.
+           boolean val = true;
+           int seleccion = jtProductosVentas.getSelectedRow();
+           
+           QuerysInventarioProductos inventarioProductos = Ventas.inventarioProductoses.get(seleccion);
+           String valor = "0";
+           do {       
+        UIManager.put("OptionPane.yesButtonText", "Si");
+        UIManager.put("OptionPane.noButtonText", "No");
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
+            valor = JOptionPane.showInputDialog(null, "Agregue la cantidad a vender","",JOptionPane.INFORMATION_MESSAGE);
+            
+            
+            
+            
+                if (valor != null) {
+                int cantidad = 0;
+               try {
+                   cantidad = Integer.parseInt(valor);
+                   
+                   if(!(cantidad > 0)){
+                        JOptionPane.showMessageDialog(null, "La Cantidad no puede ser 0");
+                        return;
+                   }
+                   
+                   val = false;
+               } catch (NumberFormatException e) {
+                   val = true;
+               }
+               
+            if (!val){
+                val = false;
+                if (inventarioProductos.getCantidad() >= cantidad){
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "La cantidad no deber sobrepasar la existencia");
+                    val = true;
                 }
-            } while (val);  // Repite el bucle mientras val sea verdadero.
-
-
-            QuerysDetalleVentas querysDetalleVentas = new QuerysDetalleVentas();  // Crea un nuevo objeto QuerysDetalleVentas.
-            querysDetalleVentas.setFk_producto(inventarioProductos.getId());  // Establece el ID del producto en el objeto.
-            querysDetalleVentas.setFk_ventas(0);  // Establece el ID de la venta en el objeto.
-            querysDetalleVentas.setCantidad(Integer.parseInt(valor));  // Establece la cantidad vendida en el objeto.
-            querysDetalleVentas.setPrecio(inventarioProductos.getPrecio_venta());  // Establece el precio de venta en el objeto.
-
-            boolean existe = false;  // Variable para verificar si el producto ya existe en la lista de detalles de ventas.
-            for(QuerysDetalleVentas detalleVentas :CrearVentas.lisDetalles ){  // Itera sobre la lista de detalles de ventas.
-                if(detalleVentas.getFk_producto() == querysDetalleVentas.getFk_producto()){  // Si el producto ya existe en la lista:
-                    existe = true;  // Establece existe como verdadero.
-
-                    int suma = detalleVentas.getCantidad()+Integer.parseInt(valor);  // Calcula la suma de la cantidad existente y la nueva cantidad.
-
-                    if(suma > inventarioProductos.getCantidad()){  // Si la suma es mayor que la cantidad disponible en inventario:
-                        JOptionPane.showMessageDialog(null, "La cantidad no deber sobrepasar la existencia");  // Muestra un mensaje de error.
-                        return;  // Sale del método actual.
-                    }
-                    detalleVentas.setCantidad(suma);  // Establece la nueva cantidad en el detalle de ventas.
-                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "La Cantidad es incorrecta");
+                val = true;
             }
 
-            if(!existe){  // Si el producto no existe en la lista:
-                CrearVentas.lisDetalles.add(querysDetalleVentas);  // Agrega el detalle de ventas a la lista.
-            }
+                } else {
+                    return;
+                }
+            
+            
+           } while (val);
+           
+        
+           QuerysDetalleVentas querysDetalleVentas = new QuerysDetalleVentas();
+           querysDetalleVentas.setFk_producto(inventarioProductos.getId());
+           querysDetalleVentas.setFk_ventas(0);
+           querysDetalleVentas.setCantidad(Integer.parseInt(valor));
+           querysDetalleVentas.setPrecio(inventarioProductos.getPrecio_venta());
+           
+           boolean existe = false;
+           for(QuerysDetalleVentas detalleVentas :CrearVentas.lisDetalles ){
+               if(detalleVentas.getFk_producto() == querysDetalleVentas.getFk_producto()){
+                   existe = true;
+                   
+                   int suma = detalleVentas.getCantidad()+Integer.parseInt(valor);
+                   
+                   if(suma > inventarioProductos.getCantidad()){
+                        JOptionPane.showMessageDialog(null, "La cantidad no deber sobrepasar la existencia");
+                        return;
+                   }
+                   detalleVentas.setCantidad(suma);
+               }
+               
+           }
+           
+           if(!existe){
+           CrearVentas.lisDetalles.add(querysDetalleVentas); 
+           }
 
-            CrearVentas.rellenarTabla();  // Actualiza la tabla de ventas.
-            this.dispose();  // Cierra la ventana actual.
-
+           CrearVentas.rellenarTabla();
+           this.dispose();
        
     }//GEN-LAST:event_jtProductosVentasMouseClicked
-    // Metodo de cierre del JFRAME
+
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

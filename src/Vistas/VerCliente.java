@@ -7,11 +7,8 @@ package Vistas;
 import ConsultasSQL.QuerysClientes;
 
 /**
- * Nombre del archivo: VerCliente.java
- * Autor: Alejandra Suárez
- * Fecha de creación: [20/09/2023]
- * Descripción: JFRame que contiene los campos necesarios para mostrar los datos un cliente existente.
- * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
+ *
+ * @author Human Being
  */
 public class VerCliente extends javax.swing.JFrame {
 
@@ -21,7 +18,7 @@ public class VerCliente extends javax.swing.JFrame {
     public VerCliente(QuerysClientes cliente) {
         initComponents();
         this.setLocationRelativeTo(null);
-         //Se establece los valores que trae el cliente seleccioando
+        
         lblNombre.setText(cliente.getNombre());
         lblApellido.setText(cliente.getApellido());
         lblTelefono.setText(cliente.getTelefono());
@@ -215,7 +212,7 @@ public class VerCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    // Metodo de cierre del JFRAME
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

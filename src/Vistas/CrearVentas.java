@@ -25,52 +25,37 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- * Nombre del archivo: CrearVentas.java Autor: Alejandra Suárez Fecha de
- * creación: [20/09/2023] Descripción: JFRame que contiene los campos necesarios
- * para agregar una nueva venta. Derechos de autor (c) [20/09/2023] Alejandra
- * Suárez. Todos los derechos reservados.
+ *
+ * @author XxHunterxX
  */
 public class CrearVentas extends javax.swing.JFrame {
-
-    // Variable estática para almacenar el ID del cliente
     public static int cliente = 0;
-
-    // Objeto de conexión a la base de datos
     private static Conexion con = new Conexion();
     private static java.sql.Connection conexion = con.getConexion();
     private static PreparedStatement ps = null;
-
-    // Lista estática para almacenar los detalles de las ventas
+    
     public static List<QuerysDetalleVentas> lisDetalles = new ArrayList<>();
-
+    
     /**
-     * Constructor de la clase CrearVentas
+     * Creates new form CrearVentas
      */
     public CrearVentas() {
-        // Inicializa los componentes de la interfaz gráfica
         initComponents();
-
-        // Reinicia la lista de detalles de ventas
         CrearVentas.lisDetalles = new ArrayList<>();
-
-        // Configuración de la ventana
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Evita el cierre automático
         setResizable(false);
-
-        // Obtiene la fecha actual y la formatea
         Date fechaActual = new Date();
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
-
-        // Formatea la fecha utilizando el objeto SimpleDateFormat
+        setLocationRelativeTo(null);
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        
+        // Formatear la fecha utilizando el objeto SimpleDateFormat
         String fechaFormateada = formatoFecha.format(fechaActual);
-        txtFecha.setText(fechaFormateada); // Establece la fecha en el campo de texto
-
-        // Genera y muestra el número de factura y el código CAI
+        txtFecha.setText(fechaFormateada);
+        
+        
         txtNumFactura.setText(generarNumeroFactura());
-        txtCai.setText(generarCodigoHexadecimal());
-
-        // Establece un texto de ayuda para el campo jtClientes
+        txtCai.setText(generarCodigoHexadecimal()); 
+        
         PromptSupport.setPrompt("Dar click para seleccionar cliente", jtClientes);
     }
 
@@ -429,43 +414,38 @@ public class CrearVentas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    // Método para abrir la ventana de productos y agregarlos a la venta
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Abre la ventana para agregar productos a la venta
         CrearVentasProductos productos = new CrearVentasProductos();
         productos.setVisible(true);
-        productos.setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        productos.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1ActionPerformed
-    // Método para cancelar la venta y limpiar los detalles de la venta
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // Muestra un mensaje de confirmación para descartar la venta
-        int decision = JOptionPane.showConfirmDialog(rootPane, "Desea descartar la venta de estos productos");
-        if (decision == JOptionPane.YES_OPTION) {
-            // Limpia la lista de detalles de ventas y actualiza la tabla de detalles
+        int desicion = JOptionPane.showConfirmDialog(rootPane, "Desea descartar la venta de estos productos");
+        if(desicion == JOptionPane.YES_OPTION){
             CrearVentas.lisDetalles.clear();
-            CrearVentas.rellenarTabla();
-        }
+            CrearVentas.rellenarTabla(); 
+        } 
     }//GEN-LAST:event_btnCancelarActionPerformed
-    // Método para guardar la venta
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-        // Verifica si se ha seleccionado un cliente para la venta
-        if (jtClientes.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para la venta");
-            return;
+        
+        
+            
+        if(jtClientes.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para la venta");
+             return;
         }
-
-        // Personaliza los botones del cuadro de diálogo de confirmación
+        
         UIManager.put("OptionPane.yesButtonText", "Si");
         UIManager.put("OptionPane.noButtonText", "No");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
-
-        // Muestra un cuadro de diálogo para confirmar la acción
-        int decision = JOptionPane.showConfirmDialog(null, "Desea agregar este producto de la ventana", "", JOptionPane.WARNING_MESSAGE);
-        if (decision == JOptionPane.YES_OPTION) {
-            // Verifica si hay detalles de venta
+        
+        int desicion = JOptionPane.showConfirmDialog(null, "Desea agregar este producto de la ventana","",JOptionPane.WARNING_MESSAGE);
+        if(desicion == JOptionPane.YES_OPTION){
             if (!CrearVentas.lisDetalles.isEmpty()) {
-                // Crea un objeto para almacenar la venta
+                
                 QuerysVentas ventas = new QuerysVentas();
                 ventas.setCai(txtCai.getText());
                 ventas.setFecha(txtFecha.getText());
@@ -474,59 +454,48 @@ public class CrearVentas extends javax.swing.JFrame {
                 ventas.setImpuestos(Double.parseDouble(jlImpuesto.getText().replace(',', '.')));
                 ventas.setTotal(Double.parseDouble(jlTotal.getText().replace(',', '.')));
 
-                // Guarda la venta en la base de datos
                 Ventas.Guardar(ventas, CrearVentas.lisDetalles);
-
-                // Muestra un mensaje de confirmación y limpia los detalles de venta
+             
                 JOptionPane.showMessageDialog(null, "Venta ingresada exitosamente");
                 CrearVentas.lisDetalles.clear();
-                Ventas.MostrarVentas("", 1, Clientes.NumeroPages(""), null, null);
-                dispose(); // Cierra la ventana actual
+                Ventas.MostrarVentas("", 1, Clientes.NumeroPages(""),null,null);
+                dispose();
             } else {
-                // Muestra un mensaje de error si no hay detalles de venta
                 JOptionPane.showMessageDialog(null, "No hay detalles para la venta", "Error al guardar",
                         JOptionPane.OK_OPTION);
             }
-        }
+        } 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtClientesActionPerformed
 
     }//GEN-LAST:event_jtClientesActionPerformed
-    // Método para manejar el clic en la tabla de clientes
+
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
-        // Abre la ventana de selección de clientes para la venta
         CrearVentasClientes crearVentas = new CrearVentasClientes();
         crearVentas.setVisible(true);
         crearVentas.setLocationRelativeTo(null);
     }//GEN-LAST:event_jtClientesMouseClicked
-    // Método para manejar el clic en la tabla de detalles de venta
+
     private void jtDetallesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDetallesMouseClicked
-        // Habilita el botón de eliminar detalle cuando se selecciona un detalle
-        int selet = jtDetalles.getSelectedRow();
-        jbEliminarDetalle.setEnabled(true);
+       int selet = jtDetalles.getSelectedRow();
+       jbEliminarDetalle.setEnabled(true);
     }//GEN-LAST:event_jtDetallesMouseClicked
-    // Método para manejar la acción de eliminar un detalle de la venta
+
     private void jbEliminarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarDetalleActionPerformed
-        // Configura los botones del cuadro de diálogo de confirmación
         UIManager.put("OptionPane.yesButtonText", "Si");
         UIManager.put("OptionPane.noButtonText", "No");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
-        
-        // Muestra un cuadro de diálogo para confirmar la eliminación del detalle
-        int decision = JOptionPane.showConfirmDialog(rootPane, "Desea descartar este producto de la venta", "", JOptionPane.INFORMATION_MESSAGE);
-        if (decision == JOptionPane.YES_OPTION) {
-            // Obtiene el índice del detalle seleccionado
-            int selectedIndex = jtDetalles.getSelectedRow();
-
-            // Elimina el detalle de la lista de detalles
-            CrearVentas.lisDetalles.remove(selectedIndex);
-            // Actualiza la tabla de detalles de venta
-            CrearVentas.rellenarTabla();
-        }
-        // Deshabilita el botón de eliminar detalle después de realizar la acción
-        jbEliminarDetalle.setEnabled(false);
+        int desicion = JOptionPane.showConfirmDialog(rootPane, "Desea descartar este producto de la venta","",JOptionPane.INFORMATION_MESSAGE);
+        if(desicion == JOptionPane.YES_OPTION){
+            int select = jtDetalles.getSelectedRow();
+            
+            
+            CrearVentas.lisDetalles.remove(select);
+            CrearVentas.rellenarTabla(); 
+        } 
+         jbEliminarDetalle.setEnabled(false);
     }//GEN-LAST:event_jbEliminarDetalleActionPerformed
 
     /**
@@ -563,7 +532,7 @@ public class CrearVentas extends javax.swing.JFrame {
             }
         });
     }
-
+    
     public static String generarNumeroFactura() {
         String ultimoNumero = "00000000"; // Número por defecto si no se encuentra ningún registro en la base de datos
 
@@ -592,6 +561,7 @@ public class CrearVentas extends javax.swing.JFrame {
         // Construir el número de factura con el formato requerido
         return "001-002-00-" + nuevoNumeroStr;
     }
+    
 
     public static String generarCodigoHexadecimal() {
         Random random = new Random();
@@ -609,42 +579,42 @@ public class CrearVentas extends javax.swing.JFrame {
 
         return sb.toString().toUpperCase(); // Devuelve el código hexadecimal en mayúsculas
     }
-
-    public static void rellenarTabla() {
+    
+     public static void rellenarTabla() {
         //CrearVentas.lisDetalles;
-        DefaultTableModel model = (DefaultTableModel) CrearVentas.jtDetalles.getModel();
-
+         DefaultTableModel model = (DefaultTableModel) CrearVentas.jtDetalles.getModel();
+        
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-
+        
         int count = 1;
         double subtotal;
         double impuesto;
         double total = 0;
         String[] datos = new String[8];
 
-        for (QuerysDetalleVentas detalleVentas : CrearVentas.lisDetalles) {
-            datos[0] = count + "";
-            datos[1] = detalleVentas.getDatosProducto().getProducto();
-            datos[2] = String.valueOf(detalleVentas.getCantidad());
-            datos[3] = String.valueOf(detalleVentas.getDatosProducto().getPrecio_venta());
-            datos[4] = String.valueOf(detalleVentas.getCantidad() * detalleVentas.getDatosProducto().getPrecio_venta());
-
-            total += detalleVentas.getCantidad() * detalleVentas.getDatosProducto().getPrecio_venta();
-            model.addRow(datos);
-            count++;
-        }
-
-        subtotal = total - (total * 0.15);
-        impuesto = (total * 0.15);
-
-        CrearVentas.jlImpuesto.setText(String.format("%.2f", impuesto));
-        CrearVentas.jlSubTotal.setText(String.format("%.2f", subtotal));
-        CrearVentas.jlTotal.setText(String.format("%.2f", total));
-
+            for ( QuerysDetalleVentas detalleVentas: CrearVentas.lisDetalles) {
+                datos[0] = count + "";
+                datos[1] = detalleVentas.getDatosProducto().getProducto();
+                datos[2] = String.valueOf(detalleVentas.getCantidad());
+                datos[3] = String.valueOf(detalleVentas.getDatosProducto().getPrecio_venta());
+                datos[4] = String.valueOf(detalleVentas.getCantidad()*detalleVentas.getDatosProducto().getPrecio_venta());
+                
+                total+=detalleVentas.getCantidad()*detalleVentas.getDatosProducto().getPrecio_venta();
+                model.addRow(datos);
+                count++;
+            }
+        
+       subtotal = total  - (total*0.15);
+       impuesto = (total*0.15);
+          
+       CrearVentas.jlImpuesto.setText(String.format("%.2f", impuesto));
+       CrearVentas.jlSubTotal.setText(String.format("%.2f", subtotal));
+       CrearVentas.jlTotal.setText(String.format("%.2f", total));
+         
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

@@ -2,18 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
-/**
- * Nombre del archivo: ProductosCuidado.java
- * Autor: Andera Ardon 
- * Fecha de creación: [17/09/2023] 
- * Descripción: Esta clase representa los metodos para la funcionalidad de los productos de cuidado personal.
- *              Permite a los desarrolladores tratar la funcionalidad del modulo de productosde cuidado personal.
- * Derechos de autor (c) [17/09/2023] Andrea Ardon. Todos los derechos reservados.
- * 
- * 
- */
-
 package Controlador;
 
 
@@ -80,16 +68,9 @@ public class ProductosCuidado {
 
         }
         
-        /**
-        *
-        * @author Andrea
-        */
-        //metodo para la funcionalidad del listado de productos de cuidado
          public static void MostrarProductosCuidado(String buscar, int paginaActual, int totalPages, String categoria){
         DefaultTableModel model = (DefaultTableModel)MostrarProductosCuidado.tblMostrarProductos.getModel();
-            //Esta variable inicializa la categoria.
            String textoCategoria = "";
-           //condiciones para realizar busqueda segun la categoria seleccionada en el ComboBox.
             if(categoria.equals("Todas")){
                 textoCategoria = "";
             }else if(categoria.equals("Cuidado corporal")){
@@ -102,20 +83,17 @@ public class ProductosCuidado {
                  textoCategoria = " categoria = 'Cuidado facial' and ";
             }     
         
-        //Esta condicion estable tamaños de columnas en la tabla del listado de productos de cuidado.    
         while(model.getRowCount() > 0 ){
                
             MostrarProductosCuidado.tblMostrarProductos.getColumnModel().getColumn(5).setMaxWidth(0);
             MostrarProductosCuidado.tblMostrarProductos.getColumnModel().getColumn(5).setMinWidth(0);
             MostrarProductosCuidado.tblMostrarProductos.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(0);
             MostrarProductosCuidado.tblMostrarProductos.getTableHeader().getColumnModel().getColumn(5).setMinWidth(0);
-            //remueve filas.
+
             model.removeRow(0);
         }
-           //variable que inicializa la busqueda.
            String sql = "";
            
-           //condicion if para cuando el cuadro de busqueda esta vacio.
             if (!buscar.isEmpty()) {
                 sql = "select * from catalogo_productos  WHERE "+textoCategoria+" (nombre like concat('%','"+buscar+"','%') or "
                 + "marca like '%"+buscar+"%') limit " + filasxPagina + " offset " + (paginaActual - 1) * filasxPagina;
@@ -123,9 +101,7 @@ public class ProductosCuidado {
                 MostrarProductosCuidado.siguiente.setVisible(true);
                 MostrarProductosCuidado.Previo.setVisible(true);
                 MostrarProductosCuidado.seguimiento.setVisible(true);
-            } 
-            //condicion else para cuando hay parametros de entrada en el cuadro de busqueda.
-            else {
+            } else {
                 sql = "select * from catalogo_productos WHERE "+textoCategoria+" (nombre like concat('%','"+buscar+"','%') or "
                 + "marca like '%"+buscar+"%')";
             
@@ -134,50 +110,35 @@ public class ProductosCuidado {
                 MostrarProductosCuidado.seguimiento.setVisible(true);
             
             }
-            
-        // arreglo para los atributos de la tabala.
+
         String datos[] = new String[7];
         
-        //Manejo de errrores, el try maneja el codigo si funciona.
         try{
-            //estas variables establecen la coneccion con la DB.
+        
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
             
-            //variable para inicializar el contador de paginacion.
             int count = 0;
-            //Condicion cuando la pagina sea igual a 1
             if(paginaActual ==1) {
                 count =1;
-            }
-            //condicion cuando la pagina no sea igual a 1 y muestre en la tabla 20 filas o registros.
-            else{
+            }else{
                 for(int i =1;i < paginaActual ; i++){
                     count +=20;
                 }
                 count +=1;
             }
-           //Condicion para ordenar los atributos en la tabla.
+           
             while(rs.next()){
-                //arreglo para el contador de la enumeracion de los registros en la tabla
                 datos[0] = count+"";
-                //Variable que obtiene el nombre de la DB. y lo pone en la columna Nombre de la tabla en la posicion 1
                 datos[1] = rs.getString("nombre");
-                //Variable que obtiene la marca de la DB. y lo pone en la columna Marca de la tabla en la posicion 2
                 datos[2] = rs.getString("marca");
-                //Variable que obtiene el tamaño de la DB. y lo pone en la columna tamaño de la tabla en la posicion 3
                 datos[3] = rs.getString("tamano");
-                //Variable que obtiene la categoria de la DB. y lo pone en la columna categoria de la tabla en la posicion 4
                 datos[4] = rs.getString("categoria");
-                //Variable que obtiene la descripcione de la DB. y lo pone en la columna descricion de la tabla en la posicion 5
                 datos[5] = rs.getString("descripcion");
-                //Variable que obtiene el id de la DB. y lo pone en la columna id de la tabla en la posicion 6
                 datos[6] = rs.getString("id");
-                //esta linea de codigo agrega esos datos ordenados en la tabla.
+                
                 model.addRow(datos);
-                //aumenta el contador de registros para la paginacion.
                 count++;
-                //variable que almacena la paginacion.
                 totalPages = NumeroPages(buscar,paginaActual,categoria);
                 
                 MostrarProductosCuidado.seguimiento.setText("Página " + paginaActual + " de " + totalPages);
@@ -187,9 +148,7 @@ public class ProductosCuidado {
                 
             }
            
-        }
-        //manejo de error si el codigo falla.
-        catch (SQLException ex){
+        }catch (SQLException ex){
             Logger.getLogger(MostrarProductosCuidado.class.getName()).log(Level.SEVERE, null, ex);
             
         }

@@ -20,39 +20,31 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- * Nombre del archivo: CrearVentaServicio.java
- * Autor: Alejandra Suárez
- * Fecha de creación: [20/09/2023]
- * Descripción: JFRame que contiene los campos necesarios para agregar una nueva venta de servicio.
- * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
+ *
+ * @author Human Being
  */
 public class CrearVentaServicio extends javax.swing.JFrame {
-
     public static int cliente = 0;
     private static Conexion con = new Conexion();
     private static java.sql.Connection conexion = con.getConexion();
     private static PreparedStatement ps = null;
-
     /**
      * Creates new form CrearVentaServicio
      */
     public CrearVentaServicio() {
         initComponents();
-        // Genera un número de factura y un código hexadecimal para el CAI
         txtNumFactura.setText(generarNumeroFactura());
-        txtCai.setText(generarCodigoHexadecimal());
-
-        // Obtiene la fecha actual
-        Date fechaActual = new Date();
+        txtCai.setText(generarCodigoHexadecimal()); 
+        
+        
+       Date fechaActual = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Formatea la fecha utilizando el objeto SimpleDateFormat
+        
+        // Formatear la fecha utilizando el objeto SimpleDateFormat
         String fechaFormateada = formatoFecha.format(fechaActual);
         jlFecha.setText(fechaFormateada);
-
-        // Establece un texto de ayuda para el campo jtClientes
+        
         PromptSupport.setPrompt("Dar click para seleccionar cliente", jtClientes);
-
     }
 
     /**
@@ -329,23 +321,23 @@ public class CrearVentaServicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    // Metodo para hacer visible la ventana de agregar corte
+
     private void btnCorteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorteActionPerformed
         ServicioCorte servicioCorte = new ServicioCorte();
         servicioCorte.setVisible(true);
         servicioCorte.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCorteActionPerformed
-    // Metodo para hacer visible la ventana de agregar cliente
+
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
         CrearVentasServiciosClientes crearVentaServicio = new CrearVentasServiciosClientes();
-        crearVentaServicio.setVisible(true);
+         crearVentaServicio.setVisible(true);
         crearVentaServicio.setLocationRelativeTo(null);
     }//GEN-LAST:event_jtClientesMouseClicked
 
     private void jtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtClientesActionPerformed
 
     }//GEN-LAST:event_jtClientesActionPerformed
-    // Metodo para hacer visible la ventana de agregar manicura
+
     private void btnManicuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManicuraActionPerformed
         ServicioManicurayPedicura servicioManicurayPedicura = new ServicioManicurayPedicura();
         servicioManicurayPedicura.setVisible(true);
@@ -357,24 +349,20 @@ public class CrearVentaServicio extends javax.swing.JFrame {
     }//GEN-LAST:event_tblServicioPropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        // Verifica si no se ha seleccionado un cliente para la venta
-        if (jtClientes.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para la venta");
-            return;
+         
+        if(jtClientes.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para la venta");
+             return;
         }
-
-        // Configuración de los botones del cuadro de diálogo
+        
         UIManager.put("OptionPane.yesButtonText", "Si");
         UIManager.put("OptionPane.noButtonText", "No");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
-
-        // Muestra un cuadro de confirmación para guardar la venta
-        int decision = JOptionPane.showConfirmDialog(null, "Desea guardar esta venta", "", JOptionPane.WARNING_MESSAGE);
-        if (decision == JOptionPane.YES_OPTION) {
-            DefaultTableModel model = (DefaultTableModel) tblServicio.getModel();
-            // Verifica si hay detalles para la venta en la tabla
-            if (model.getRowCount() > 0) {
+        
+        int desicion = JOptionPane.showConfirmDialog(null, "Desea guardar esta venta","",JOptionPane.WARNING_MESSAGE);
+        if(desicion == JOptionPane.YES_OPTION){
+            DefaultTableModel model = (DefaultTableModel)tblServicio.getModel();
+            if (model.getRowCount() > 0 ){
                 QuerysVentas ventas = new QuerysVentas();
                 ventas.setCai(txtCai.getText());
                 ventas.setFecha(jlFecha.getText());
@@ -383,28 +371,27 @@ public class CrearVentaServicio extends javax.swing.JFrame {
                 ventas.setImpuestos(0.00);
                 ventas.setTotal(Double.valueOf(jlTotal.getText().replace(',', '.')));
 
-                // Guarda la venta en la base de datos
                 VentasServicios.Guardar(ventas, model);
-
+             
                 JOptionPane.showMessageDialog(null, "Venta ingresada exitosamente");
                 //Ventas.MostrarVentas("", 1, Clientes.NumeroPages(""),null,null);
                 dispose();
-                VentasServicios.MostrarVentaServicios("", 1, VentasServicios.NumeroPages("", null, null), null, null);
+                VentasServicios.MostrarVentaServicios("", 1, VentasServicios.NumeroPages("",null,null),null,null);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay detalles para la venta", "Error al guardar",
                         JOptionPane.OK_OPTION);
             }
-        }
-
+        } 
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    // Metodo para hacer visible la ventana de agregar tratammiento
+
     private void btntratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntratamientoActionPerformed
+        // TODO add your handling code here:
         ServicoTratamiento servicioManic = new ServicoTratamiento();
         servicioManic.setVisible(true);
         servicioManic.setLocationRelativeTo(null);
     }//GEN-LAST:event_btntratamientoActionPerformed
-    // Metodo de cierre del JFRAME
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -443,15 +430,16 @@ public class CrearVentaServicio extends javax.swing.JFrame {
             }
         });
     }
-
-    // Genera un número de factura único
     public static String generarNumeroFactura() {
         String ultimoNumero = "00000000"; // Número por defecto si no se encuentra ningún registro en la base de datos
+
         try {
             // Consulta para obtener el último número de factura
             String consulta = "SELECT MAX(SUBSTRING(numeroFactura, 12, 8)) FROM ventas_servicios";
+
             ps = conexion.prepareStatement(consulta);
             ResultSet resultSet = ps.executeQuery();
+
             // Obtener el último número de factura de la base de datos
             if (resultSet.next()) {
                 String ultimoNumeroDB = resultSet.getString(1);
@@ -460,51 +448,47 @@ public class CrearVentaServicio extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Imprimir el error en caso de excepción
+            e.printStackTrace();
         }
+
         // Incrementar el número en 1
         int nuevoNumero = Integer.parseInt(ultimoNumero) + 1;
         String nuevoNumeroStr = String.format("%08d", nuevoNumero); // Formatear el número a 8 dígitos
+
         // Construir el número de factura con el formato requerido
         return "001-002-00-" + nuevoNumeroStr;
     }
+    
 
-    // Genera un código hexadecimal aleatorio de longitud 32 - Representacion del CAI
     public static String generarCodigoHexadecimal() {
-        Random random = new Random(); // Inicializa un objeto Random para generar números aleatorios
-        StringBuilder sb = new StringBuilder(); // Inicializa un StringBuilder para construir el código hexadecimal
-        // Genera 32 caracteres hexadecimales
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < 32; i++) {
-            // Inserta un guión después de cada grupo de 6 caracteres hexadecimales
             if (i > 0 && i % 6 == 0) {
                 sb.append('-');
             }
-            // Genera un número aleatorio entre 0 y F en hexadecimal
-            int valor = random.nextInt(16);
-            // Convierte el número a formato hexadecimal y lo agrega al StringBuilder
-            String parteHexadecimal = Integer.toHexString(valor);
-            sb.append(parteHexadecimal);
-        }
-        // Devuelve el código hexadecimal en mayúsculas
-        return sb.toString().toUpperCase();
-    }
 
+            int valor = random.nextInt(16); // Genera un número aleatorio entre 0 y F en hexadecimal
+            String parteHexadecimal = Integer.toHexString(valor); // Convierte el número a formato hexadecimal
+            sb.append(parteHexadecimal); // Agrega la parte hexadecimal al resultado
+        }
+
+        return sb.toString().toUpperCase(); // Devuelve el código hexadecimal en mayúsculas
+    }
+    
     public static void calculos() {
-        // Obtiene el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) tblServicio.getModel();
-        // Inicializa la variable total
+        DefaultTableModel model = (DefaultTableModel)tblServicio.getModel();
+
         double total = 0;
-        // Recorre todas las filas de la tabla
         for (int i = 0; i < model.getRowCount(); i++) {
-            // Obtiene el valor en la columna 2 de la fila actual
             Object object = model.getValueAt(i, 2);
-            // Suma el valor al total
             total += Double.parseDouble(object.toString());
         }
-        // Muestra el total en el label jlTotal
         jlTotal.setText(String.format("%.2f", total));
+        
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnCorte;

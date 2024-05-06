@@ -27,39 +27,38 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Nombre del archivo: Clientes.java
- * Autor: Alejandra Suárez
- * Fecha de creación: [20/09/2023]
- * Descripción: Esta es la clase objeto de cliente para uso en las diferentes funciones en el codigo.
- * Derechos de autor (c) [20/09/2023] Alejandra Suárez. Todos los derechos reservados.
+ *
+ * @author Alejandra Suárez
  */
-
-
 public class Clientes {
 
-    // Se establece la conexión a la base de datos.
     private static Conexion con = new Conexion();
     private static Connection conexion = con.getConexion();
     private static PreparedStatement ps = null;
     private static final int filasxPagina = 20;
     
-    // Lista para almacenar los IDs de los clientes.
+    
     public static List ids = new ArrayList();
 
-    // Método para calcular el número de páginas según la búsqueda realizada.
+
     public static int NumeroPages(String buscar) {
         String sql = "";
         if (buscar.isEmpty()) {
             buscar = "";
             sql = "SELECT count(*) from clientes";
+
         } else {
+
             sql = "SELECT count(*) from clientes WHERE "
                     + "(nombre like concat('%','" + buscar + "','%') and apellido like concat('%','" + buscar + "','%')) ";
+
         }
 
         try {
             Statement st = conexion.createStatement();
+
             ps = conexion.prepareStatement(sql);
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int totalPages = (int) Math.ceil((double) rs.getInt(1) / filasxPagina);
@@ -71,9 +70,9 @@ public class Clientes {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
+
     }
 
-    // Método para mostrar los clientes en una tabla, paginados.
     public static void MostrarClientes(String buscar, int paginaActual, int totalPages) {
         DefaultTableModel model = (DefaultTableModel) MostrarClientes.tblMostrarClientes.getModel();
         while (model.getRowCount() > 0) {
@@ -93,11 +92,13 @@ public class Clientes {
         } else {
             sql = "select * from clientes  WHERE nombre like '%" + buscar + "%' or "
                     + "apellido like '%" + buscar + "%' limit " + filasxPagina + " offset " + (paginaActual - 1) * filasxPagina;
+            //"SELECT * FROM empleados p WHERE UPPER(p.nombreEmpleados) LIKE UPPER('%" + buscar + "%')"
         }
 
         String datos[] = new String[7];
 
         try {
+
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -125,6 +126,7 @@ public class Clientes {
                 model.addRow(datos);
 
                 count++;
+
             }
             int totalRows = count - 1; // Restamos el encabezado de la tabla
             totalPages = (NumeroPages(buscar) == 0 && model.getRowCount() > 0) ? 1 : NumeroPages(buscar);
@@ -135,10 +137,11 @@ public class Clientes {
             MostrarClientes.tblMostrarClientes.setModel(model);
         } catch (SQLException ex) {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+
     }
 
-    // Método para guardar un nuevo cliente en la base de datos.
     public static boolean Guardar(QuerysClientes qp) {
         String sql = QuerysClientes.RegistrarClientes;
         try {
@@ -152,13 +155,13 @@ public class Clientes {
 
             ps.executeUpdate();
             return true;
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return false;
         }
     }
 
-    // Método para actualizar los datos de un cliente en la base de datos.
     public static boolean Actualizar(QuerysClientes qp) {
         String sql = QuerysClientes.ActualizarClientes;
         try {
@@ -173,14 +176,15 @@ public class Clientes {
 
             ps.executeUpdate();
             return true;
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return false;
         }
     }
 
-    // Método para traer un cliente de la base de datos según su ID.
     public static QuerysClientes TraerCliente(int id) {
+
         try {
             Statement st = conexion.createStatement();
 
@@ -196,11 +200,14 @@ public class Clientes {
                 clientes.setDireccion(rs.getString("direccion"));
                 clientes.setFechaNacimiento(rs.getString("fechaNacimiento"));
                 clientes.setFechaRegistro(rs.getString("fechaRegistro"));
+
             }
             return clientes;
         } catch (SQLException ex) {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             return new QuerysClientes();
         }
+
     }
+
 }
