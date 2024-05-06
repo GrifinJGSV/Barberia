@@ -33,6 +33,13 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * @author Andrea Ardon
+ * Fecha de creación: [02/11/2023] 
+ * Descripción: esta ventana tiene el objetivo de Ingresar un tratamiento con sus especificaciones.
+ * Derechos de autor (c) [02/11/2023] Andrea Ardón. Todos los derechos reservados.
+ */
+
 public class IngresarTratamiento extends javax.swing.JFrame {
     // Declara una variable para almacenar un flujo de entrada de archivo
     private FileInputStream fis;
