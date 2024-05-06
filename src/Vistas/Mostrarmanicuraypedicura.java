@@ -5,36 +5,33 @@
 package Vistas;
 
 import Controlador.Manicura;
-import Controlador.Manicura;
-import static Vistas.MostrarMobiliarioyEquipo.ListadoEstado;
-import static Vistas.MostrarMobiliarioyEquipo.totalPages;
-import static Vistas.Mostrarmanicuraypedicura.tblMostrarmanicuraypedicura;
 import static Vistas.Mostrarmanicuraypedicura.totalPages;
-import Vistas.Mostrarmanicuraypedicura;
 import static Vistas.Mostrarmanicuraypedicura.tblMostrarmanicuraypedicura;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: Mostrarmanicuraypedicura.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame con la lista de todos las manicuras y pedicura registradas en el sistema. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class Mostrarmanicuraypedicura extends javax.swing.JPanel {
 
+    // Variables para el control de páginas y total de páginas
     private int paginaActual = 1;
     public static int totalPages = Manicura.NumeroPages("");
 
-    /**
-     * Creates new form Mostrarmanicuraypedicura
-     */
+    // Constructor de la clase
     public Mostrarmanicuraypedicura() {
         initComponents();
+        // Muestra la información inicial de manicura y pedicura
         Manicura.Mostrarmanicuraypedicura("", paginaActual, totalPages);
-        PromptSupport.setPrompt("Buscar por estilo, ténica y esmaltado", txtBusqueda);
+        // Establece un mensaje de búsqueda en el campo de texto de búsqueda
+        PromptSupport.setPrompt("Buscar por estilo, técnica y esmaltado", txtBusqueda);
     }
 
     /**
@@ -247,68 +244,90 @@ public class Mostrarmanicuraypedicura extends javax.swing.JPanel {
                 .addContainerGap(82, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método para manejar el evento de hacer clic en el botón "Nuevo"
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // Crea una instancia de la ventana para ingresar manicura
         IngresarManicura ingresarManicura = new IngresarManicura();
+        // Hace visible la ventana
         ingresarManicura.setVisible(true);
+        // Centra la ventana en la pantalla
         ingresarManicura.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnNuevoActionPerformed
-
+    // Método para manejar el evento de hacer clic en el botón "Editar"
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-         int fila = tblMostrarmanicuraypedicura.getSelectedRow();
+        // Obtiene la fila seleccionada en la tabla
+        int fila = tblMostrarmanicuraypedicura.getSelectedRow();
 
-if (fila >= 0) {
-    try {
-        String idTratamiento = (String) tblMostrarmanicuraypedicura.getValueAt(fila, 0);
-        EditarManicura editar = new EditarManicura(idTratamiento);
-        editar.txtNombre.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 1).toString());
-        editar.txtPrecio.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 2).toString());
-        editar.cbxCategoria.setSelectedItem(tblMostrarmanicuraypedicura.getValueAt(fila, 3).toString());
+        // Verifica si se seleccionó alguna fila
+        if (fila >= 0) {
+            try {
+                // Obtiene el ID del tratamiento seleccionado
+                String idTratamiento = (String) tblMostrarmanicuraypedicura.getValueAt(fila, 0);
 
-        // Obtener las imágenes
-        ImageIcon foto1Icon = new ImageIcon(editar.getFoto1Image());
-        ImageIcon foto2Icon = new ImageIcon(editar.getFoto2Image());
+                // Crea una instancia de la ventana para editar manicura
+                EditarManicura editar = new EditarManicura(idTratamiento);
 
-        // Establecer las imágenes en los labels
-        Vistas.EditarManicura.Label_Foto1.setIcon(foto1Icon);
-        Vistas.EditarManicura.Label_Foto2.setIcon(foto2Icon);
+                // Establece los valores de los campos de texto y selectores según la fila seleccionada
+                editar.txtNombre.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 1).toString());
+                editar.txtPrecio.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 2).toString());
+                editar.cbxCategoria.setSelectedItem(tblMostrarmanicuraypedicura.getValueAt(fila, 3).toString());
 
-        editar.cbxEsmalte.setSelectedItem(tblMostrarmanicuraypedicura.getValueAt(fila, 6).toString());
-        editar.txtDireccion.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 7).toString());
-        editar.txtId.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 8).toString());
+                // Obtener las imágenes
+                ImageIcon foto1Icon = new ImageIcon(editar.getFoto1Image());
+                ImageIcon foto2Icon = new ImageIcon(editar.getFoto2Image());
 
-        editar.setVisible(true);
-    } catch (IOException ex) {
-      //  Logger.getLogger(MostrarManicurayPedicura.class.getName()).log(Level.SEVERE, null, ex);
-    }
-} else {
-    JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila para editar");
-}    
+                // Establecer las imágenes en los labels
+                editar.Label_Foto1.setIcon(foto1Icon);
+                editar.Label_Foto2.setIcon(foto2Icon);
+
+                editar.cbxEsmalte.setSelectedItem(tblMostrarmanicuraypedicura.getValueAt(fila, 6).toString());
+                editar.txtDireccion.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 7).toString());
+                editar.txtId.setText(tblMostrarmanicuraypedicura.getValueAt(fila, 8).toString());
+
+                // Hace visible la ventana de edición
+                editar.setVisible(true);
+            } catch (IOException ex) {
+                // Manejo de la excepción
+                //Logger.getLogger(MostrarManicurayPedicura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // Muestra un mensaje de error si no se seleccionó ninguna fila para editar
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila para editar");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
-
+    // Método para manejar el evento de hacer clic en el botón "Anterior"
     private void previoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previoActionPerformed
+        // Verifica si hay páginas anteriores disponibles
         if (paginaActual > 1) {
+            // Decrementa la página actual
             paginaActual--;
+            // Obtiene el texto de búsqueda
             String textoBusqueda = txtBusqueda.getText();
-
+            // Muestra los resultados correspondientes a la página anterior
             Manicura.Mostrarmanicuraypedicura(textoBusqueda, paginaActual, totalPages);
         }
     }//GEN-LAST:event_previoActionPerformed
-
+    // Método para manejar el evento de hacer clic en el botón "Siguiente"
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+        // Calcula el número total de páginas según el texto de búsqueda actual
         totalPages = Manicura.NumeroPages(txtBusqueda.getText());
+        // Verifica si hay páginas siguientes disponibles
         if (paginaActual < totalPages) {
+            // Incrementa la página actual
             paginaActual++;
+            // Obtiene el texto de búsqueda
             String textoBusqueda = txtBusqueda.getText();
-
+            // Muestra los resultados correspondientes a la página siguiente
             Manicura.Mostrarmanicuraypedicura(textoBusqueda, paginaActual, totalPages);
         }
     }//GEN-LAST:event_siguienteActionPerformed
-
+    // Método para manejar el evento de hacer clic en la tabla de mostrar manicura y pedicura
     private void tblMostrarmanicuraypedicuraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostrarmanicuraypedicuraMouseClicked
+        // Verifica si se ha hecho doble clic en una fila de la tabla
         if (evt.getClickCount() == 2) {
+            // Obtiene la fila seleccionada
             int seleccion = tblMostrarmanicuraypedicura.getSelectedRow();
-
+            // Muestra los detalles de la manicura seleccionada
             VerManicura manicura = new VerManicura(Manicura.TraerManicura((int) Manicura.ids.get(seleccion)));
             manicura.setVisible(true);
         }
@@ -317,11 +336,12 @@ if (fila >= 0) {
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBusquedaActionPerformed
-
+    // Método para manejar el evento de liberación de tecla en el campo de búsqueda
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
-       String textoBusqueda = txtBusqueda.getText();
-
-            Manicura.Mostrarmanicuraypedicura(textoBusqueda, paginaActual, totalPages);
+        // Obtiene el texto de búsqueda ingresado por el usuario
+        String textoBusqueda = txtBusqueda.getText();
+        // Actualiza la tabla de mostrar manicura y pedicura con los resultados de la búsqueda
+        Manicura.Mostrarmanicuraypedicura(textoBusqueda, paginaActual, totalPages);
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
 
