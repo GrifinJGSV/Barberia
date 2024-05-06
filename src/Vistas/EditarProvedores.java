@@ -18,8 +18,14 @@ import java.util.Set;
 
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: EditarProvedores.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel se encarga de editar los datos de un proveedor previamente
+ *              ingresado
+ * Derechos de autor (c) [20/09/2023] Josue Sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 public class EditarProvedores extends javax.swing.JFrame {
 

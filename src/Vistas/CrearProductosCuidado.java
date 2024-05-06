@@ -17,38 +17,39 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: CrearProductosCuidado.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame los campos los cuales sirven para crear un nuevo producto. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class CrearProductosCuidado extends javax.swing.JFrame {
+
     private int paginaActual = 1;
-    
-    //ublic static int totalPages = Controlador.ProductosCuidado.NumeroPages();
-    
+
     /**
      * Creates new form CrearProductosCuidado
      */
     public CrearProductosCuidado() {
         initComponents();
         getContentPane().setBackground(Color.white);
-        
+
         //código para bloquear el pegado en Nombre del producto.
         InputMap map1 = txtname.getInputMap(JTextField.WHEN_FOCUSED);
-        map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
-        
+        map1.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK), "null");
+
         //código para bloquear el pegado en la marca.
         InputMap map2 = txtMarca.getInputMap(JTextField.WHEN_FOCUSED);
-        map2.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
-        
+        map2.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK), "null");
+
         //código para bloquear el pegado en el tamaño
         InputMap map3 = txtamanos.getInputMap(JTextField.WHEN_FOCUSED);
-        map3.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
-        
+        map3.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK), "null");
+
         //código para bloquear el pegado en la descripcion
         InputMap map4 = jarDescripcion.getInputMap(JTextField.WHEN_FOCUSED);
-        map4.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK),"null");
-        
-        
+        map4.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK), "null");
+
     }
 
     /**
@@ -251,161 +252,171 @@ public class CrearProductosCuidado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Manejar el evento del botón jButton1
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
-         String nombre = txtname.getText().trim(); // Eliminar espacios en blanco al inicio y al final
+
+        String nombre = txtname.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (nombre.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "El nombre del producto no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El nombre del producto no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
-       
+
         String marca = txtMarca.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (marca.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
-        
+
         String tamano = txtamanos.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (tamano.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "El tamaño del producto no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El tamaño del producto no puede estar vacío", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
-        
-          String categoria = cbxCategoria.getSelectedItem().toString();//que no este vacio, que solo seleccione 1
-          if(categoria.equals("Seleccione una categoría")){
-        JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna categoría", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+
+        String categoria = cbxCategoria.getSelectedItem().toString();//que no este vacio, que solo seleccione 1
+        if (categoria.equals("Seleccione una categoría")) {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna categoría", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
-    }
-        
-          String descripcion = jarDescripcion.getText().trim(); // Eliminar espacios en blanco al inicio y al final
+        }
+
+        String descripcion = jarDescripcion.getText().trim(); // Eliminar espacios en blanco al inicio y al final
         if (descripcion.isEmpty()) {
-JOptionPane.showMessageDialog(this, "La descripción del producto no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La descripción del producto no puede estar vacía", "Error de validación", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si el campo está vacío
         }
         //Correcciones de pruebas  Nicol Borjas
-        if(txtname.getText().length() < 3){
-        JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre de producto valido con mas de 3 caracteres ");
-        txtname.requestFocus();
-        return;
-    }
-      if(txtMarca.getText().length()<3){
-          JOptionPane.showMessageDialog(null, "Ingrese una marca valida con  mas de 3 caracteres");
-        txtMarca.requestFocus();
-        return;
-      }
-      
-      if(txtamanos.getText().length()<2){
-          JOptionPane.showMessageDialog(null, "Ingrese mas de 2 caracteres para el tamaño");
-        txtamanos.requestFocus();
-        return;
-      }
-      
-      if(jarDescripcion.getText().length()<10){
-           JOptionPane.showMessageDialog(null, "Ingrese mas de 10 caracteres para la descripción");
-        jarDescripcion.requestFocus();
-        return;
-      }
-        
-        
-            // Crear una instancia de QuerysProductos
-            QuerysProductosCuidados querys = new QuerysProductosCuidados();
-            querys.setNombre(nombre);
-            querys.setMarca(marca);
-            querys.setTamano(tamano);
-            querys.setCategoria(cbxCategoria.getSelectedItem().toString().trim());
-            querys.setDescripcion(descripcion);
-            
+        if (txtname.getText().length() < 3) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre de producto valido con mas de 3 caracteres ");
+            txtname.requestFocus();
+            return;
+        }
+        if (txtMarca.getText().length() < 3) {
+            JOptionPane.showMessageDialog(null, "Ingrese una marca valida con  mas de 3 caracteres");
+            txtMarca.requestFocus();
+            return;
+        }
 
-            // Llamar al método Guardar de la clase Productos para guardar los datos
-            if (ProductosCuidado.Guardar(querys)) {
-                JOptionPane.showMessageDialog(this, "Nuevo producto de cuidado ingresado");
-                dispose();
-                Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
-        
-                //Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages);
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "Algo salio mal");
-            }
+        if (txtamanos.getText().length() < 2) {
+            JOptionPane.showMessageDialog(null, "Ingrese mas de 2 caracteres para el tamaño");
+            txtamanos.requestFocus();
+            return;
+        }
+
+        if (jarDescripcion.getText().length() < 10) {
+            JOptionPane.showMessageDialog(null, "Ingrese mas de 10 caracteres para la descripción");
+            jarDescripcion.requestFocus();
+            return;
+        }
+
+        // Crear una instancia de QuerysProductos
+        QuerysProductosCuidados querys = new QuerysProductosCuidados();
+        querys.setNombre(nombre);
+        querys.setMarca(marca);
+        querys.setTamano(tamano);
+        querys.setCategoria(cbxCategoria.getSelectedItem().toString().trim());
+        querys.setDescripcion(descripcion);
+
+        // Llamar al método Guardar de la clase Productos para guardar los datos
+        if (ProductosCuidado.Guardar(querys)) {
+            JOptionPane.showMessageDialog(this, "Nuevo producto de cuidado ingresado");
+            dispose();
+            Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
+        } else {
+            JOptionPane.showMessageDialog(this, "Algo salio mal");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    // Método para manejar el evento de teclado en el campo de texto txtname
     private void txtnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnameKeyTyped
+        // Eliminar espacios múltiples
         txtname.setText(txtname.getText().replaceAll("( )+", " "));
+        // Evitar que el primer carácter sea un espacio
         if (txtname.getText().length() == 0 && evt.getKeyChar() == ' ') {
-                    evt.consume();
-                }      
-        
-        
-         char c = evt.getKeyChar();
-         if(Character.isDigit(c)){
-            getToolkit().beep();
-            evt.consume();
-         }
-            int tam = txtname.getText().length();
-        if(tam>=20){
-            evt.consume();
-        }  else if((int)evt.getKeyChar()>32 && (int)evt.getKeyChar()<=47
-                ||(int)evt.getKeyChar()>=58 && (int)evt.getKeyChar()<=64
-                ||(int)evt.getKeyChar()>=91 && (int)evt.getKeyChar()<=96
-                ||(int)evt.getKeyChar()>=123 && (int)evt.getKeyChar()<=159
-                ||(int)evt.getKeyChar()>=166 && (int)evt.getKeyChar()<=255){
-             getToolkit().beep();
             evt.consume();
         }
-        
-    }//GEN-LAST:event_txtnameKeyTyped
-
-    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
-        txtMarca.setText(txtMarca.getText().replaceAll("( )+", " "));
-        if (txtMarca.getText().length() == 0 && evt.getKeyChar() == ' ') {
-                    evt.consume();
-                }      
-        
-        
-         char c = evt.getKeyChar();
-         if(Character.isDigit(c)){
+        // Evitar que se ingresen dígitos
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-         }
-            int tam = txtMarca.getText().length();
-        if(tam>=20){
+        }
+        // Limitar la longitud del texto a 20 caracteres
+        int tam = txtname.getText().length();
+        if (tam >= 20) {
             evt.consume();
-        }  else if((int)evt.getKeyChar()>32 && (int)evt.getKeyChar()<=47
-                ||(int)evt.getKeyChar()>=58 && (int)evt.getKeyChar()<=64
-                ||(int)evt.getKeyChar()>=91 && (int)evt.getKeyChar()<=96
-                ||(int)evt.getKeyChar()>=123 && (int)evt.getKeyChar()<=159
-                ||(int)evt.getKeyChar()>=166 && (int)evt.getKeyChar()<=255){
-             getToolkit().beep();
+        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47
+                || (int) evt.getKeyChar() >= 58 && (int) evt.getKeyChar() <= 64
+                || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 159
+                || (int) evt.getKeyChar() >= 166 && (int) evt.getKeyChar() <= 255) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtnameKeyTyped
+    // Método para manejar el evento de teclado en el campo de texto txtMarca
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // Eliminar espacios múltiples
+        txtMarca.setText(txtMarca.getText().replaceAll("( )+", " "));
+
+        // Evitar que el primer carácter sea un espacio
+        if (txtMarca.getText().length() == 0 && evt.getKeyChar() == ' ') {
+            evt.consume();
+        }
+
+        // Evitar que se ingresen dígitos
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+
+        // Limitar la longitud del texto a 20 caracteres
+        int tam = txtMarca.getText().length();
+        if (tam >= 20) {
+            evt.consume();
+        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47
+                || (int) evt.getKeyChar() >= 58 && (int) evt.getKeyChar() <= 64
+                || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 159
+                || (int) evt.getKeyChar() >= 166 && (int) evt.getKeyChar() <= 255) {
+            getToolkit().beep();
             evt.consume();
         }
     }//GEN-LAST:event_txtMarcaKeyTyped
-
+    // Método para manejar el evento de teclado en el campo de texto txtamanos
     private void txtamanosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamanosKeyTyped
+        // Eliminar espacios múltiples
         txtamanos.setText(txtamanos.getText().replaceAll("( )+", " "));
+
+        // Evitar que el primer carácter sea un espacio
         if (txtamanos.getText().length() == 0 && evt.getKeyChar() == ' ') {
-                    evt.consume();
-                }      
-            int tam = txtamanos.getText().length();
-        if(tam>=20){
+            evt.consume();
+        }
+
+        // Limitar la longitud del texto a 20 caracteres
+        int tam = txtamanos.getText().length();
+        if (tam >= 20) {
             evt.consume();
         }
     }//GEN-LAST:event_txtamanosKeyTyped
-
+    // Método para manejar el evento de teclado en el área de texto jarDescripcion
     private void jarDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jarDescripcionKeyTyped
+        // Eliminar espacios múltiples
         jarDescripcion.setText(jarDescripcion.getText().replaceAll("( )+", " "));
+
+        // Evitar que el primer carácter sea un espacio
         if (jarDescripcion.getText().length() == 0 && evt.getKeyChar() == ' ') {
-                    evt.consume();
-                }      
-            int tam = jarDescripcion.getText().length();
-        if(tam>=50){
             evt.consume();
         }
-        
-    }//GEN-LAST:event_jarDescripcionKeyTyped
 
+        // Limitar la longitud del texto a 50 caracteres
+        int tam = jarDescripcion.getText().length();
+        if (tam >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jarDescripcionKeyTyped
+    // Método para manejar el evento de clic en el botón btnCancelar
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dispose();
+        dispose();// Cerrar la ventana actual
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtamanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtamanosActionPerformed
@@ -415,28 +426,30 @@ JOptionPane.showMessageDialog(this, "La descripción del producto no puede estar
     private void cbxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxCategoriaActionPerformed
-
+    // Método para manejar el evento de liberación de tecla en el área de texto jarDescripcion
     private void jarDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jarDescripcionKeyReleased
+        // Verificar si se presionó la tecla Enter o Tab
         if (evt.getKeyChar() == '\n' || evt.getKeyChar() == '\t') {
+            // Eliminar espacios en blanco al principio y al final del texto
             String str = jarDescripcion.getText().trim();
             jarDescripcion.setText(str);
         }
     }//GEN-LAST:event_jarDescripcionKeyReleased
 
     private void txtnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnameFocusLost
-       
+
     }//GEN-LAST:event_txtnameFocusLost
 
     private void txtMarcaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMarcaFocusLost
-       
+
     }//GEN-LAST:event_txtMarcaFocusLost
 
     private void txtamanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtamanosFocusLost
-        
+
     }//GEN-LAST:event_txtamanosFocusLost
 
     private void jarDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jarDescripcionFocusLost
-       
+
     }//GEN-LAST:event_jarDescripcionFocusLost
 
     /**

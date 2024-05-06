@@ -33,8 +33,14 @@ import java.sql.PreparedStatement;
 import javax.imageio.ImageIO;
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: EditarManicura.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [20/10/2023] 
+ * Descripción: Este panel se encarga de editar los datos de una manicura previamente
+ *              ingresada
+ * Derechos de autor (c) [20/10/2023] Josue gabriel sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 
 

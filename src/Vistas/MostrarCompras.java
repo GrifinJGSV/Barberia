@@ -4,27 +4,33 @@
  */
 package Vistas;
 
-import javax.swing.table.DefaultTableModel;
-import Conexion.Conexion;
-
-import java.awt.Color;
-import javax.swing.JOptionPane;
-
 import javax.swing.JTextField;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
+/**
+ * Nombre del archivo: MostrarCompras.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene el JFrame con la lista de todos las compras registradas en el sistema. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
+ */
 
 public class MostrarCompras extends javax.swing.JPanel {
-        private int paginaActual = 1;
-    public static int totalPages = Controlador.ComprasProducto.NumeroPages();
+    // Inicialización de la clase MostrarCompras
+    private int paginaActual = 1; // Número de página actual
+    public static int totalPages = Controlador.ComprasProducto.NumeroPages(); // Número total de páginas
+
+    // Constructor de la clase
     public MostrarCompras() {
+        // Inicialización de los componentes de la interfaz gráfica
         initComponents();
+        // Desactiva la reordenación de las columnas de la tabla
         tblMostrarCompras.getTableHeader().setReorderingAllowed(false);
+        // Muestra las compras en la tabla
         Controlador.ComprasProducto.MostrarCompras("", paginaActual, totalPages);
-        PromptSupport.setPrompt("Buscar por el fecha, empresa y número de factura", txtBusqueda);
-      
-    }
-    
+        // Establece un texto de sugerencia en el campo de búsqueda
+        PromptSupport.setPrompt("Buscar por fecha, empresa y número de factura", txtBusqueda);
+    } 
  
 
     /**
@@ -208,9 +214,11 @@ public class MostrarCompras extends javax.swing.JPanel {
                         .addGap(155, 155, 155))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    // Método que se ejecuta cuando se suelta una tecla en el campo de búsqueda
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        // Obtiene el texto ingresado en el campo de búsqueda
         String textoBusqueda = txtBusqueda.getText();
+        // Muestra las compras filtradas según el texto de búsqueda y la página actual
         Controlador.ComprasProducto.MostrarCompras(textoBusqueda, paginaActual, totalPages);
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
@@ -239,50 +247,52 @@ public class MostrarCompras extends javax.swing.JPanel {
           }
           */
     }//GEN-LAST:event_txtBusquedaFocusLost
-
+    // Método que se ejecuta cuando se presiona el botón de retroceso
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // Verifica si hay páginas anteriores disponibles
         if (paginaActual > 1) {
+            // Decrementa el número de página actual
             paginaActual--;
+            // Muestra las compras de la página anterior
             Controlador.ComprasProducto.MostrarCompras(txtBusqueda.getText(), paginaActual, totalPages);
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
-
+    // Método que se ejecuta cuando se presiona el botón de avance
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+        // Verifica si hay páginas posteriores disponibles
         if (paginaActual < totalPages) {
+            // Incrementa el número de página actual
             paginaActual++;
+            // Muestra las compras de la página siguiente
             Controlador.ComprasProducto.MostrarCompras(txtBusqueda.getText(), paginaActual, totalPages);
         }
     }//GEN-LAST:event_btnAdelanteActionPerformed
     
-    
+    // Método que se ejecuta cuando se presiona el botón "Nuevo"
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-//        int filaCount = tblMostrarCompras.getRowCount();
-//        int numeroDeFilas = 1;
-//        if (filaCount > 0) {
-//            String ultimoNumero = tblMostrarCompras.getValueAt(filaCount - 1, 0).toString();
-//            numeroDeFilas = Integer.parseInt(ultimoNumero) + 1;
-//        }
-
-//        IngresarCompra compras = new IngresarCompra(numeroDeFilas);
+        // Crea una nueva ventana para ingresar una compra
         IngresarCompra compras = new IngresarCompra();
+        // Hace visible la ventana
         compras.setVisible(true);
+        // Centra la ventana en la pantalla
         compras.setLocationRelativeTo(null);
-
     }//GEN-LAST:event_btnNuevoActionPerformed
-
+    // Método que se ejecuta cuando se hace doble clic en una fila de la tabla de compras   
     private void tblMostrarComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostrarComprasMouseClicked
-        
+        // Verifica si se ha hecho doble clic en la tabla
         if(evt.getClickCount() == 2){
+            // Obtiene el índice de la fila seleccionada
             int fila = tblMostrarCompras.getSelectedRow(); 
+            // Crea una nueva ventana para mostrar los detalles de la compra
             VerCompras verCompras = new VerCompras(tblMostrarCompras.getValueAt(fila, 0).toString());
-            //JOptionPane.showMessageDialog(null, tblMostrarCompras.getValueAt(fila, 7));
+            // Actualiza los datos en la ventana de detalles de compra
             verCompras.lblFactura.setText(tblMostrarCompras.getValueAt(fila, 1).toString());
             verCompras.lblCai.setText(tblMostrarCompras.getValueAt(fila, 2).toString());
             verCompras.lblProveedor.setText(tblMostrarCompras.getValueAt(fila, 3).toString());
             verCompras.lblContado.setText(tblMostrarCompras.getValueAt(fila, 4).toString());
             verCompras.lblFecha.setText(tblMostrarCompras.getValueAt(fila, 5).toString());
+            // Hace visible la ventana de detalles de compra
             verCompras.setVisible(true);
-        
         }
     }//GEN-LAST:event_tblMostrarComprasMouseClicked
 
