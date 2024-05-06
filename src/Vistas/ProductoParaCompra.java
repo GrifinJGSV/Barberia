@@ -26,9 +26,15 @@ import java.awt.datatransfer.Transferable;
 import java.awt.event.KeyEvent;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+
 /**
- *
- * @author PC
+ * Nombre del archivo: ProductoParaCompra.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [10/09/2023] 
+ * Descripción: Este panel se encarga de buscar y agregar productos para una factura de compra
+ * Derechos de autor (c) [20/09/2023] Josue Sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 public class ProductoParaCompra extends javax.swing.JFrame {
     
@@ -37,9 +43,7 @@ public class ProductoParaCompra extends javax.swing.JFrame {
     //Variables para calcular el total de la factura
     static double totalFactura, suma;
     
-    /**
-     * Creates new form ProductoParaCompra
-     */
+    //Construcctor de la clase productos para compra
     public ProductoParaCompra() {
         initComponents();
         this.setLocationRelativeTo(null);

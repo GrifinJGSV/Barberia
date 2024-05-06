@@ -15,8 +15,13 @@ import java.awt.event.KeyEvent;
 
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: MostrarVentaServicios.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [08/09/2023] 
+ * Descripción: Este panel se encarga de ingresar un nuevo empleado
+ * Derechos de autor (c) [08/09/2023] Josue Gabriel Sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 public class EmpleadosStore extends javax.swing.JFrame {
 

@@ -27,8 +27,13 @@ import Vistas.Mostrarmanicuraypedicura;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: IngresarManicura.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [20/10/2023] 
+ * Descripción: Este panel se encarga de editar los datos de una manicura previamente ingresada.
+ * Derechos de autor (c) [20/10/2023] Josue gabriel sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 
 

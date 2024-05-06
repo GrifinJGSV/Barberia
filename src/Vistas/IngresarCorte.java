@@ -27,8 +27,13 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
- * @author Alejandra Suárez
+ * Nombre del archivo: IngresarCorte.java
+ * Autor: Josue Gabriel Sevilla 
+ * Fecha de creación: [20/11/2023] 
+ * Descripción: Este panel se encarga de ingresar un corte de cabello.
+ * Derechos de autor (c) [20/11/2023] Josue gabriel sevilla. Todos los derechos reservados.
+ * 
+ * 
  */
 
 
