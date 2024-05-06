@@ -13,14 +13,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Admin
+ * Nombre del archivo: QuerysVentas.java 
+ * Autor: Nicol Borjas 
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Contiene funciones y consultas necesarias para mostrar los campos de la venta. 
+ * Derechos de autor (c) [20/09/2023] Nicol Borjas. Todos los derechos reservados.
  */
 public class QuerysVentas {
+
+    // Consulta SQL para listar las ventas
     public static String LISTARVENTAS = "SELECT * FROM ventas INNER JOIN clientes ON clientes.id = ventas.fk_cliente";
-    
+
+    // Consulta SQL para listar las ventas de servicios
     public static String LISTARVENTASERVICIOS = "SELECT * FROM ventas_servicios INNER JOIN clientes ON clientes.id = ventas_servicios.fk_cliente";
-    
+
+    // Variables de instancia para los datos de la venta
     private int id;
     private String cai;
     private String numeroFactura;
@@ -29,6 +36,7 @@ public class QuerysVentas {
     private Double total;
     private Double impuestos;
 
+    // Métodos getter y setter para acceder a los datos de la venta
     public int getId() {
         return id;
     }
@@ -84,20 +92,26 @@ public class QuerysVentas {
     public void setImpuestos(Double impuestos) {
         this.impuestos = impuestos;
     }
-    
+
+    // Método para obtener los datos del cliente asociado a la venta
     public QuerysClientes getDatosClientes() {
+        // Crear una instancia de QuerysClientes para almacenar los datos del cliente
         QuerysClientes clientes = new QuerysClientes();
         try {
-           
+            // Establecer la conexión a la base de datos
             Conexion con = new Conexion();
             Connection conexion = con.getConexion();
+
+            // Preparar la consulta SQL para obtener los datos del cliente mediante su ID
             PreparedStatement ps = conexion.prepareStatement(QuerysVentas.TraerCliente);
             ps.setInt(1, getFk_cliente());
-            
-            
+
+            // Ejecutar la consulta y obtener el resultado
             ResultSet resultset = ps.executeQuery();
-            
+
+            // Verificar si se encontraron resultados
             if (resultset.next()) {
+                // Si se encontraron resultados, asignar los valores correspondientes a los atributos del cliente
                 clientes.setId(resultset.getInt("id"));
                 clientes.setNombre(resultset.getString("nombre"));
                 clientes.setApellido(resultset.getString("apellido"));
@@ -106,48 +120,21 @@ public class QuerysVentas {
                 clientes.setTelefono(resultset.getString("telefono"));
                 clientes.setFechaRegistro(resultset.getString("fechaRegistro"));
             }
-            
         } catch (SQLException ex) {
+            // En caso de error, registrar el error en el registro de errores
             Logger.getLogger(QuerysVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // Devolver los datos del cliente
         return clientes;
     }
-    
-/*public QuerysInventarioProductos getDatosProductos() {
-        QuerysClientes clientes = new QuerysClientes();
-        try {
-           
-            Conexion con = new Conexion();
-            Connection conexion = con.getConexion();
-            PreparedStatement ps = conexion.prepareStatement(QuerysDetallesVentas.TraerCliente);
-            ps.setInt(1, getFk_cliente());
-            
-            
-            ResultSet resultset = ps.executeQuery();
-            
-            if (resultset.next()) {
-                clientes.setId(resultset.getInt("id"));
-                clientes.setNombre(resultset.getString("nombre"));
-                clientes.setApellido(resultset.getString("apellido"));
-                clientes.setFechaNacimiento(resultset.getString("fechaNacimiento"));
-                clientes.setDireccion(resultset.getString("direccion"));
-                clientes.setTelefono(resultset.getString("telefono"));
-                clientes.setFechaRegistro(resultset.getString("fechaRegistro"));
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(QuerysDetallesVentas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return clientes;
-    }*/
 
-    //Consulta para registrar
+    // Consulta SQL para obtener los datos de un cliente específico
     public static String TraerCliente = "SELECT * from clientes where clientes.id=?";
-    
-    public static String InsertarVEnta = "INSERT INTO `ventas` (`cai`, `numeroFactura`, `fk_cliente`, `fecha`, `total`, `impuestos`) VALUES (?, ?, ?, ?, ?, ?);";
-    
-    public static String InsertarVEntaServicio = "INSERT INTO `ventas_servicios` (`cai`, `numeroFactura`, `fk_cliente`, `fecha`, `total`, `impuestos`) VALUES (?, ?, ?, ?, ?, ?);";
-    
 
+    // Consulta SQL para insertar una venta
+    public static String InsertarVEnta = "INSERT INTO `ventas` (`cai`, `numeroFactura`, `fk_cliente`, `fecha`, `total`, `impuestos`) VALUES (?, ?, ?, ?, ?, ?)";
+
+    // Consulta SQL para insertar una venta de servicio
+    public static String InsertarVEntaServicio = "INSERT INTO `ventas_servicios` (`cai`, `numeroFactura`, `fk_cliente`, `fecha`, `total`, `impuestos`) VALUES (?, ?, ?, ?, ?, ?)";
 
 }
