@@ -2,6 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
+/**
+ * Nombre del archivo: MostrarProductosCuidados.java
+ * Autor: Andrea Ardon
+ * Fecha de creación: [17/09/2023] 
+ * Descripción: Este panel representa la ventana de lsitado de los productos de cuidado personal.
+ *              Permite a los usuarios listar, ver, crear, editar y buscar productos de cuidado personal.
+ * Derechos de autor (c) [17/09/2023] Andrea Ardon. Todos los derechos reservados.
+ * 
+ * 
+ */
+
 package Vistas;
 
 import java.awt.event.MouseAdapter;
@@ -14,15 +26,21 @@ import org.jdesktop.swingx.prompt.PromptSupport;
  * @author Andrea
  */
 public class MostrarProductosCuidado extends javax.swing.JPanel {
+    //Variable que inicializa la paginacion.
     private int paginaActual = 1;
+    //variable publica que almacena la cantidad de paginacion total.
     public static int totalPages ;
     /**
      * Creates new form MostrarProductosCuidado
      */
+    
+    //metodo para controlar la tabl.
     public MostrarProductosCuidado() {
         initComponents();
+        //estas lineas de codigo muestran los atributos de los registros en la tabla.
         tblMostrarProductos.getTableHeader().setReorderingAllowed(false);
         Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
+        //esta linea de codigo muestra un mensaje de como buscar en el cuadro de texto de busqueda.
         PromptSupport.setPrompt("Buscar por el nombre, marca y tamaño ", txtbusqueda);
     
         //evento para abrir la venana ver detalles del Producto 
@@ -146,6 +164,11 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblMostrarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMostrarProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMostrarProductos);
         if (tblMostrarProductos.getColumnModel().getColumnCount() > 0) {
             tblMostrarProductos.getColumnModel().getColumn(0).setMinWidth(50);
@@ -250,8 +273,9 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+//Metodo para abrir la ventana para un nuevo producto de cuidado personal al presionar el boton Nuevo.
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        //estas lineas de codigo abren la ventana para crear un nuevo producto de cuidado personal.
         CrearProductosCuidado productos = new CrearProductosCuidado();
         productos.setVisible(true);
         productos.setLocationRelativeTo(null);
@@ -259,11 +283,13 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        //variable que almacena la vista de editar el producto de cuidado.
          EditarProductoCuidado mostradatos = new EditarProductoCuidado();
+         //variable que almacena la fila seleccionada de la tabla.
           int fila = tblMostrarProductos.getSelectedRow();  
-        
+        //condicion para cuando haya una fila seleccionada.
         if (fila>=0){
-            
+        //Estas lineas de codigo establecen los atributos guardadoe en la DB en los campos de edicion.   
         mostradatos.Id.setText(tblMostrarProductos.getValueAt(fila, 0).toString());   // aqui se agrego esto
         mostradatos.txtNombreP.setText(tblMostrarProductos.getValueAt(fila, 1).toString());
          mostradatos.txtmarca.setText(tblMostrarProductos.getValueAt(fila, 2).toString());
@@ -282,11 +308,13 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtbusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbusquedaKeyReleased
+        //variable que almacena el parametro de entrada ingresado en el cuadro de busqueda.
         String textoBusqueda = txtbusqueda.getText();
         Controlador.ProductosCuidado.MostrarProductosCuidado(textoBusqueda,paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
     }//GEN-LAST:event_txtbusquedaKeyReleased
 
     private void PrevioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrevioActionPerformed
+        //condicion para cuando se cambie a una siguiente pagina.
         if (paginaActual > 1) {
             paginaActual--;
             Controlador.ProductosCuidado.MostrarProductosCuidado(txtbusqueda.getText(), paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
@@ -294,7 +322,7 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
     }//GEN-LAST:event_PrevioActionPerformed
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-        
+        //condicion para cuando se cambie a una anterior pagina.
         if (paginaActual < totalPages) {
             paginaActual++;
             Controlador.ProductosCuidado.MostrarProductosCuidado(txtbusqueda.getText(), paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
@@ -306,11 +334,16 @@ public class MostrarProductosCuidado extends javax.swing.JPanel {
     }//GEN-LAST:event_txtbusquedaActionPerformed
 
     private void ListadoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListadoProductosActionPerformed
+        //esta variable que almacena y convierte el item seleccionado a string.
         String  valor= ListadoProductos.getModel().getSelectedItem().toString();
     
         Controlador.ProductosCuidado.MostrarProductosCuidado(txtbusqueda.getText(), paginaActual, totalPages,valor);
 
     }//GEN-LAST:event_ListadoProductosActionPerformed
+
+    private void tblMostrarProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostrarProductosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblMostrarProductosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

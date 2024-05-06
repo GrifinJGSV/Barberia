@@ -77,6 +77,10 @@ public class QuerysProductosCuidados {
             + "nombre," + "marca," + "tamano," + "categoria," + "descripcion)"
             + "VALUES(?,?,?,?,?)";
     
+    /**
+    * @author Andrea
+    */
+    //Esta bariable publica permite hacer la consulta de los atributos de los productos de cuidado en la DB.
     public static String ListarProductos = "SELECT * FROM catalogo_productos";
     
     public static String ACTUALIZAR = "UPDATE catalogo_productos SET nombre = ?, marca = ?,  categoria=?,tamano = ?, descripcion=? WHERE id = ?";
