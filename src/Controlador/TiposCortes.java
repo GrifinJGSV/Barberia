@@ -21,8 +21,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: Corte.java
+ * Autor: Josue Gabriel Sevilla
+ * Fecha de creación: [20/09/2023]
+ * Descripción: Esta es la clase objeto de corte para uso en las diferentes funciones en el codigo.
+ * Derechos de autor (c) [20/09/2023] Josue Sevilla. Todos los derechos reservados.
  */
 public class TiposCortes {
     private static Conexion con = new Conexion();

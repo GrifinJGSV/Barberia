@@ -29,8 +29,11 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- *
- * @author Josue
+ * Nombre del archivo: Manicura.java
+ * Autor: Josue Gabriel Sevilla
+ * Fecha de creación: [20/09/2023]
+ * Descripción: Esta es la clase objeto de manicura y pedicura para uso en las diferentes funciones en el codigo.
+ * Derechos de autor (c) [20/09/2023] Josue Sevilla. Todos los derechos reservados.
  */
 public class Manicura {
     private static Conexion con = new Conexion();
