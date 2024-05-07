@@ -23,6 +23,14 @@ import java.sql.SQLException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * Nombre del archivo: ProductoFacturas.java
+ * Autor: Josue Gabriel Sevilla
+ * Fecha de creación: [20/09/2023]
+ * Descripción: Esta es la clase objeto de productos para facturas para uso en las diferentes funciones en el codigo.
+ * Derechos de autor (c) [20/09/2023] Josue Sevilla. Todos los derechos reservados.
+ */
+
 public class ProductosFacturas {
     //Establecer la conexion a la base de datos en este controlador
     private static Conexion con = new Conexion();
