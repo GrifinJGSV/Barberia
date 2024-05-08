@@ -24,6 +24,14 @@ import javax.swing.KeyStroke;
  *
  * @author Bucardo
  */
+/**
+ * Nombre del archivo: EditarMobiliarioYEquipo.java
+ * Autor: Oscar Bucardo
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa el formulario editar MobiliarioYEquipo
+ *              Permite a los usuarios poder  editar un  MobiliarioYEquipo
+ * Derechos de autor (c) [20/09/2023] Oscar Bucardo. Todos los derechos reservados.
+ */
 public class EditarMobiliarioyEquipo extends javax.swing.JFrame {
 private int paginaActual = 1;
     /**
