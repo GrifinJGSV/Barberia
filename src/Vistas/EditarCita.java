@@ -27,6 +27,16 @@ import javax.swing.event.DocumentListener;
  *
  * @author Bucardo
  */
+
+/**
+ * Nombre del archivo: EditarCita.java
+ * Autor: Oscar Bucardo
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa el formulario editar EditarCita
+ *              Permite a los usuarios poder  editar una Cita
+ * Derechos de autor (c) [20/09/2023] Oscar Bucardo. Todos los derechos reservados.
+ */
+
 public class EditarCita extends javax.swing.JFrame {
     private int paginaActual = 1;
     public static int totalPages;
