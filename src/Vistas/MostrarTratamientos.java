@@ -7,8 +7,6 @@ package Vistas;
 import Conexion.Conexion;
 import ConsultasSQL.QuerysTratamiento;
 import Controlador.Tratamiento;
-//import static Vistas.EditarTratamiento.Label_Foto2;
-//import static Vistas.IngresarTratamiento.JtListadoProductos;
 import static Vistas.MostrarTratamientos.tblMostrarTratamiento;
 import static Vistas.VerTratamiento.Label_Foto1;
 import static Vistas.VerTratamiento.Label_Foto2;
@@ -38,9 +36,16 @@ import javax.swing.table.DefaultTableModel;
 import static Vistas.EditarTratamiento.tblProductosDeTratamiento;
 
 /**
- *
- * @author Arturo
+ * Nombre del archivo: MostrarTratamiento.java
+ * Autor: Oscar Bucardo
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa la lista de los  Tratamientos.
+ *              Permite a los usuarios ver, buscar, crear, editar de los  Tratamientos.
+ * Derechos de autor (c) [20/09/2023] Oscar Bucardo. Todos los derechos reservados.
+ * 
+ * 
  */
+
 public class MostrarTratamientos extends javax.swing.JPanel {
     
     private static Conexion con = new Conexion();
