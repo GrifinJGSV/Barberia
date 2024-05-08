@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import ConsultasSQL.QuerysProductosCuidados;
 import javax.swing.JOptionPane;
 import Controlador.ProductosCuidado;
+import static Vistas.MostrarProductosCuidado.ListadoProductos;
+import static Vistas.MostrarProductosCuidado.totalPages;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
@@ -20,8 +22,20 @@ import javax.swing.KeyStroke;
  *
  * @author Bucardo
  */
-public class EditarProductoCuidado extends javax.swing.JFrame {
 
+/**
+ * Nombre del archivo: EditarProductoCuidado.java
+ * Autor: Oscar Bucardo
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa el formulario editar Producto de Cuidado
+ *              Permite a los usuarios poder  editar un  Producto de Cuidado.
+ * Derechos de autor (c) [20/09/2023] Oscar Bucardo. Todos los derechos reservados.
+ */
+
+
+
+public class EditarProductoCuidado extends javax.swing.JFrame {
+     private int paginaActual = 1;
     /**
      * Creates new form EditarProductoCuidado
      */
@@ -367,7 +381,7 @@ public class EditarProductoCuidado extends javax.swing.JFrame {
                 dispose();
               // MostrarProductosCuidado("");
                 
-               Controlador.ProductosCuidado.MostrarProductosCuidado("", NORMAL, ALLBITS, categoria); //modo ojo
+              Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
                 
             } else {
                 
