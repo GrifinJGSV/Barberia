@@ -24,6 +24,17 @@ import javax.swing.KeyStroke;
  *
  * @author Bucardo
  */
+
+/**
+ * Nombre del archivo: CrearMobiliarioYEquipo.java
+ * Autor: Oscar Bucardo
+ * Fecha de creación: [20/09/2023] 
+ * Descripción: Este panel representa el formulario Crear Mobiliario y Equipo
+ *              Permite a los usuarios Crear un nuevo Mobiliario y Equipo
+ * Derechos de autor (c) [20/09/2023] Oscar Bucardo. Todos los derechos reservados.
+ * 
+ * 
+ */
 public class CrearMobiliarioyEquipo extends javax.swing.JFrame {
 private int paginaActual = 1;
     /**
@@ -355,7 +366,7 @@ if (txtcantidad.getText().length() >= 3 ||
         return;
       }
         
-          //crear una instancia de querysDepartamento
+         
          QuerysMobiliarioyEquipo querys = new QuerysMobiliarioyEquipo();
          querys.setNombre(nombre);
          querys.setEstado(estado);
@@ -366,10 +377,9 @@ if (txtcantidad.getText().length() >= 3 ||
          if (MobiliarioYEquipo.Guardar(querys)){
              JOptionPane.showMessageDialog(null, "Nuevo mobiliario se ha ingresado exitosamente","Guardado con éxito",
                      JOptionPane.INFORMATION_MESSAGE);
-           //  MobiliarioYEquipo.MostrarMobiliarioyEquipo("", 1, totalPages, estado);
+          
          Controlador.MobiliarioYEquipo.MostrarMobiliarioyEquipo("", paginaActual, totalPages, ListadoEstado.getModel().getSelectedItem().toString());
-           //   Controlador.ProductosCuidado.MostrarProductosCuidado("", paginaActual, totalPages, ListadoProductos.getModel().getSelectedItem().toString());
-      //   MobiliarioYEquipo.MostrarMobiliarioyEquipo("", paginaActual, totalPages, ListadoEstado.getModel().getSelectedItem().toString());
+       
         dispose();
          }else {
                 JOptionPane.showMessageDialog(null, "Algo falló, consulte con el administrador de sistema", "Error al guardar", 
